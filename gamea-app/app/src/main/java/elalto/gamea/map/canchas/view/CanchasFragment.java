@@ -37,7 +37,11 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import elalto.gamea.R;
 import elalto.gamea.map.canchas.entities.Cancha;
+import elalto.gamea.map.canchas.entities.CanchaCobro;
+import elalto.gamea.map.canchas.model.CanchaCobroInteractor;
 import elalto.gamea.map.canchas.model.CanchasInteractorImpl;
+import elalto.gamea.map.canchas.presenter.CanchaCobroPresenter;
+import elalto.gamea.map.canchas.presenter.CanchaCobroPresenterImpl;
 import elalto.gamea.map.canchas.presenter.CanchasPresenter;
 import elalto.gamea.map.canchas.presenter.CanchasPresenterImpl;
 import elalto.network.entities.TokenManager;
@@ -46,7 +50,7 @@ import es.dmoral.toasty.Toasty;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class CanchasFragment extends Fragment implements OnMapReadyCallback, PermissionsListener, CanchasView {
+public class CanchasFragment extends Fragment implements OnMapReadyCallback, PermissionsListener, CanchasView, CanchaCobroView {
     @BindView(R.id.toolbar)
     Toolbar toolbar;
     private MapView mapView;
@@ -54,7 +58,9 @@ public class CanchasFragment extends Fragment implements OnMapReadyCallback, Per
     public ProgressDialog progressDialog;
     TokenManager tokenManager;
     List<MarkerOptions> markerOptionsList;
+    List<MarkerOptions> markerOptionsListCobros;
     private CanchasPresenter presenter;
+    private CanchaCobroPresenter presenterCobro;
     private PermissionsManager permissionsManager;
 
     public CanchasFragment() {
@@ -69,6 +75,8 @@ public class CanchasFragment extends Fragment implements OnMapReadyCallback, Per
         View view = inflater.inflate(R.layout.fragment_canchas, container, false);
         ButterKnife.bind(this, view);
         presenter = new CanchasPresenterImpl(this, new CanchasInteractorImpl());
+        presenterCobro = new CanchaCobroPresenterImpl(this, new CanchasInteractorImpl());
+
         progressDialog = new ProgressDialog(getActivity());
         toolbar.setTitle("Canchas deportivas");
         ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
@@ -78,7 +86,7 @@ public class CanchasFragment extends Fragment implements OnMapReadyCallback, Per
         mapView.getMapAsync(this);
         progressDialog.setMessage("Obteniendo informacion...");
         progressDialog.setCancelable(false);
-        progressDialog.show();
+        //progressDialog.show();
         return view;
     }
 
@@ -184,6 +192,7 @@ public class CanchasFragment extends Fragment implements OnMapReadyCallback, Per
         mapboxMap.setOnMarkerClickListener(new MapboxMap.OnMarkerClickListener() {
             @Override
             public boolean onMarkerClick(@NonNull Marker marker) {
+                marker.getInfoWindow();
                 Intent i = new Intent(getContext(), CanchaInformacionActivity.class);
                 i.putExtra("nombre", marker.getTitle());
                 i.putExtra("id_cancha", marker.getSnippet());
@@ -191,12 +200,42 @@ public class CanchasFragment extends Fragment implements OnMapReadyCallback, Per
                 return false;
             }
         });
-
+        presenterCobro.getCobros(tokenManager);
     }
 
 
     @Override
     public void showErrorMessage(String message) {
+        Toasty.error(getContext(), message, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void showProgressCC() {
+        progressDialog.show();
+    }
+
+    @Override
+    public void hideProgressCC() {
+        progressDialog.hide();
+    }
+
+    @Override
+    public void populateMapCC(List<CanchaCobro> canchaCobroList) {
+        IconFactory iconFactory = IconFactory.getInstance(getActivity());
+        Icon icon = iconFactory.fromResource(R.drawable.hospital);
+        markerOptionsListCobros = new ArrayList<>();
+        for (int i = 0; i < canchaCobroList.size(); i++) {
+            MarkerOptions markerOptions = new MarkerOptions();
+            markerOptions.position(new LatLng(canchaCobroList.get(i).getLatitud(), canchaCobroList.get(i).getLongitud()));
+            markerOptions.icon(icon);
+            markerOptions.title(canchaCobroList.get(i).getNombre_cobro().toString());
+            markerOptionsListCobros.add(markerOptions);
+        }
+        mapboxMap.addMarkers(markerOptionsListCobros);
+    }
+
+    @Override
+    public void showErrorMessageCC(String message) {
         Toasty.error(getContext(), message, Toast.LENGTH_SHORT).show();
     }
 }

@@ -7,6 +7,7 @@ import elalto.gamea.map.canchas.presenter.CanchasInfoPresenter;
 import elalto.gamea.map.canchas.presenter.CanchasInfoPresenterImpl;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.viewpager.widget.ViewPager;
 
 import android.app.ProgressDialog;
 import android.os.Bundle;
@@ -21,7 +22,8 @@ public class CanchaInformacionActivity extends AppCompatActivity implements Canc
     Bundle bundle;
     String nombre_cancha;
     String id_cancha;
-    Double latitud, longitud;
+    CustomPagerAdapter mCustomPagerAdapter;
+    ViewPager mViewPager;
     String tag= "[INFORMACION_CANCHA]";
     TextView lbl_nombre_cancha;
     ProgressDialog progressDialog;
@@ -38,6 +40,9 @@ public class CanchaInformacionActivity extends AppCompatActivity implements Canc
         lbl_nombre_cancha.setText(nombre_cancha);
         canchasInfoPresenter = new CanchasInfoPresenterImpl(this, new CanchasInteractorImpl());
         canchasInfoPresenter.getCanchasInfo(id_cancha);
+        mCustomPagerAdapter = new CustomPagerAdapter(this);
+        mViewPager = (ViewPager) findViewById(R.id.pager);
+        mViewPager.setAdapter(mCustomPagerAdapter);
         /*progressDialog.setMessage("Obteniendo informacion...");
         progressDialog.setCancelable(false);*/
     }
