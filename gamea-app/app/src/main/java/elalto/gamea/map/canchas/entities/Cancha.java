@@ -13,12 +13,19 @@ public class Cancha {
     private String nombre_cancha;
     private double lng;
     private double lat;
+    private String distrito;
+    private String direccion;
+    private String telefono;
 
-    public Cancha(int id_cancha, String nombre_cancha, double lng, double lat) {
+
+    public Cancha(int id_cancha, String nombre_cancha, double lng, double lat,  String distrito,  String direccion,  String telefono) {
         this.id_cancha= id_cancha;
         this.nombre_cancha= nombre_cancha;
         this.lng = lng;
         this.lat= lat;
+        this.distrito= distrito;
+        this.direccion= direccion;
+        this.telefono=  telefono;
     }
 
 
@@ -37,4 +44,13 @@ public class Cancha {
     public double getLat() { return lat;}
 
     public void setLat(double lat) { this.lat = lat;}
+
+    public String getDistrito() { return distrito;}
+    public String getDireccion() { return direccion;}
+    public String getTelefono() { return telefono;}
+
+
+    public void setDistrito(String distrito) { this.distrito= distrito;}
+    public void setDireccion(String direccion) { this.direccion= direccion;}
+    public void setTelefono(String telefono) { this.telefono= telefono;}
 }
