@@ -1,0 +1,379 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".institucional.InstitucionalActivity">
+
+    <TextView
+        android:id="@+id/textView27"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="Soledad Chapetón Tancara "
+        android:textColor="@color/colorTextBlack"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textView32"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:text="Alcaldesa del Gobierno Autónomo Municipal de El Alto"
+        android:textColor="@color/colorTextBlack"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView27" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline37"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.3" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline39"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.7" />
+
+    <ImageView
+        android:id="@+id/imageView11"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:adjustViewBounds="true"
+        app:layout_constraintBottom_toTopOf="@+id/guideline40"
+        app:layout_constraintEnd_toStartOf="@+id/guideline39"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/guideline37"
+        app:layout_constraintTop_toBottomOf="@+id/textView32"
+        app:layout_constraintVertical_bias="1.0"
+        app:srcCompat="@drawable/sole" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline40"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.55" />
+
+    <ScrollView
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView11">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+            <androidx.cardview.widget.CardView
+                app:cardBackgroundColor="@color/orangeTrans"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="15dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:paddingLeft="5dp">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="HISTORIA DE EL ALTO"
+                        android:textColor="@color/colorTextBlack"
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="El 6 de marzo de 1985, el Congreso Nacional aprobó la Ley Nº 728 que crea la Cuarta Sección Municipal de la provincia Murillo, con su capital El Alto. El 26 de septiembre de 1988 se promulga la Ley Nº 1014 elevando a El Alto a rango de ciudad.
+
+La urbe más joven y combatiente de Bolivia está ubicada a más de 4.000 metros sobre el nivel del mar en la meseta altiplánica, al oeste de La Paz.
+
+En los últimos años, El Alto ha experimentado un crecimiento demográfico desmesurado, por la migración tanto del área rural como de otras ciudades del país y del exterior."
+                        android:textColor="@color/colorTextBlack"
+                        android:typeface="monospace" />
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                app:cardBackgroundColor="@color/orangeTrans"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" >
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:paddingLeft="5dp">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Biografía"
+                        android:textColor="@color/colorTextBlack"
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+
+                        android:text="Soledad Chapetón nació en El Alto en el departamento de La Paz el 25 de octubre de 1980. Sus padres, aimaras, fueron inmigrantes de las provincias paceñas provincia Camacho y Pacajes, su padre, Luis Chapetón, es policía retirado y su madre Dalila Tancara, es comerciante minorista.
+Soledad es una de los cuatro hijos de la familia y vive en la zona de Nuevos Horizontes II en la ciudad de El Alto. Estudio en las Unidades Educativas: Puerto del Rosario, Adventista Franz Tamayo y Bolivia, de este último se graduó como bachiller el año 1997, dando la primera alegría de su formación a sus padres.
+
+Fue siempre una mujer exigente consigo misma y no quizo quedarse simplemente como bachiller y decidió estudiar la carrera de “Ciencias de la Educación”, en la Universidad Mayor de San Andres (UMSA), al no contar con los recursos económicos suficientes para sus gastos de pasajes y libros, se puso a trabajar hasta lograr su licenciatura.
+
+Para la Sole, como le dicen con cariño los niños y jóvenes, la educación es el pilar fundamental para erradicar la discriminación y dar oportunidades de equidad en la sociedad, mas aún cuando se trata de una educación inclusiva y sin discriminación."
+                        android:textColor="@color/colorTextBlack"
+                        android:typeface="monospace" />
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:layout_marginTop="20dp"
+                app:cardBackgroundColor="@color/orangeTrans"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" >
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:paddingLeft="5dp">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Función pública - Vida política"
+                        android:textColor="@color/colorTextBlack"
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Desempeñó el cargo de bibliotecaria en la alcaldía Municipal de El Alto, posteriormente participó en la elaboración del plan de Desarrollo Municipal, PDM, lo que marcó el inició de su actividad política. Tras desarrollar su perfil como líder fue invitada a formar parte de Frente de Unidad Nacional, partido del Empresario Samuel Doria Medina"
+                        android:textColor="@color/colorTextBlack"
+                        android:typeface="monospace" />
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:layout_marginTop="20dp"
+                app:cardBackgroundColor="@color/orangeTrans"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" >
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:paddingLeft="5dp">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Asamblea Constituyente"
+                        android:textColor="@color/colorTextBlack"
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Durante 2006 fue elegida como miembro de la Asamblea Constituyente por la circunscripción 15 de la ciudad de El Alto en este puesto promovió que se cumplieran con los dos tercios de mayoría para la aprobación de la Nueva Constitución Política del Estado propuesta por el Movimiento Al Socialismo.5"
+                        android:textColor="@color/colorTextBlack"
+                        android:typeface="monospace" />
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:layout_marginTop="20dp"
+                app:cardBackgroundColor="@color/orangeTrans"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" >
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:paddingLeft="5dp">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Elecciones subnacionales de 2010"
+                        android:textColor="@color/colorTextBlack"
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Durante las elecciones subnacionales de 2010 se presentó como candidata para ser alcaldesa de la ciudad de El Alto por el partido Unidad Nacional.
+En éstas elecciones obtuvo el segundo lugar con 30.4% de votos siendo vencedor Edgar Patana, del MAS, durante este periodo realizó diversos reclamos de atención para la ciudad de El Alto, por parte del Gobierno Central, así como críticas a la gestión de Patana."
+                        android:textColor="@color/colorTextBlack"
+                        android:typeface="monospace" />
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:layout_marginTop="20dp"
+                app:cardBackgroundColor="@color/orangeTrans"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" >
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:paddingLeft="5dp">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Vicepresidencia de Unidad Nacional"
+                        android:textColor="@color/colorTextBlack"
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="En 2010 tras el quinto congreso de Unidad Nacional y su sorprendente segundo lugar en las elecciones subnacionales, fue elegida por consenso vicepresidenta del partido, quedando como la segunda al mando tras Doria Medina quien se mantuvo como presidente de la agrupación."
+                        android:textColor="@color/colorTextBlack"
+                        android:typeface="monospace" />
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:layout_marginTop="20dp"
+                app:cardBackgroundColor="@color/orangeTrans"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" >
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:paddingLeft="5dp">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Elecciones nacionales de 2014"
+                        android:textColor="@color/colorTextBlack"
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="En 2014 durante las Elecciones generales de Bolivia de 2014 se presentó como candidata a senadora por el Departamento de La Paz (Bolivia), junto a Unidad Nacional, siendo que éste partido no obtuvo el porcentaje necesario para obtener el curul, Chapetón no logró ocupar el cargo."
+                        android:textColor="@color/colorTextBlack"
+                        android:typeface="monospace" />
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:layout_marginTop="20dp"
+                app:cardBackgroundColor="@color/orangeTrans"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" >
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:paddingLeft="5dp">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Elecciones subnacionales de 2015"
+                        android:textColor="@color/colorTextBlack"
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Durante las elecciones subnacionales se presentó nuevamente como candidata para alcaldesa de la ciudad de El Alto junto a Unidad Demócrata quién la postuló tras encuestas y análisis realizados dentro del partido.
+Tras la realización de las elecciones el 29 de marzo de 2015 los resultados preliminares muestran a Chapetón como la ganadora de los comicios en la ciudad de El Ato, obteniendo además un porcentaje tal , 55%, que se traduce en 6 concejales de su partido, de los once, que componen el Concejo Municipal, con lo que aseguraría la mayoría facilitando la gobernabilidad y aprobación de sus decisiones ejecutivas."
+                        android:textColor="@color/colorTextBlack"
+                        android:typeface="monospace" />
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:layout_marginTop="20dp"
+                app:cardBackgroundColor="@color/orangeTrans"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" >
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:paddingLeft="5dp">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Alcaldesa de El Alto"
+                        android:textColor="@color/colorTextBlack"
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Con la confirmación de los resultados de las elecciones por el Tribunal Supremo Electoral de Bolivia, Chapetón se convertiría a partir de mayo de 2015, en la primera mujer al mando de la Alcaldía de la Ciudad de El Alto, una de las ciudades que con sus 30 años de existencia es una de las más jóvenes y con mayor crecimiento de Bolivia.
+
+\nNombre completo:
+\nSOLEDAD CHAPETON TANCARA
+\nLugar y fecha de nacimiento
+\n25 DE OCTUBRE 1980 En la ciudad de El Alto
+\nEstudios Primarios
+\nBachiller en humanidades del colegio Bolivia año 1997
+también estudio en el colegio Puerto del Rosario
+y en el colegio Adventista Franz Tamayo
+\nProfesión
+\nLIC. CIENCIAS DE LA EDUCACIÓN (UMSA)
+\nCargos desempeñados en lo público
+\n- Rehabilitación de niños, adolescentes y jóvenes en desventaja social y situación de calle
+\n - Capacitadora en la elaboración del PAM (Plan de Desarrollo Municipal) del municipio de Machaca
+\n - Electa en la Asamblea Constituyente año 2006
+\n Estado civil
+\nSoltera
+\n* Está en Unidad Nacional desde el año 2004"
+                        android:textColor="@color/colorTextBlack"
+                        android:typeface="monospace" />
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+        </LinearLayout>
+    </ScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

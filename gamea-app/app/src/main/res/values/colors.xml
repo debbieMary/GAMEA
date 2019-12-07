@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#008577</color>
+    <color name="colorPrimaryDark">#00574B</color>
+    <color name="colorAccent">#D81B60</color>
+    <color name="colorTransparent">#90e3eaed</color>
+    <color name="colorTextBlack">#000000</color>
+    <color name="colorOrange">#f9a836</color>
+    <color name="hintTextInputLayoutColor">#FFB700</color>
+    <color name="errorToast">#98EE5151</color>
+    <color name="colorBlackTrasnparent">#99000000</color>
+    <color name="colorWhite">#FFFFFF</color>
+    <color name="colorPlateadoTransparent">#ABA8A8A8</color>
+    <color name="colorOrangeTransparent">#FDCE46</color>
+
+    <color name="rojo">#ff0000</color>
+    <color name="amarillo">#f7ff00</color>
+    <color name="verde">#4ff543</color>
+    <color name="orangeTrans">#99FFA803</color>
+    <color name="amarilloTrans">#83F7FF00</color>
+    <color name="verdeTrans">#8B4FF543</color>
+</resources>

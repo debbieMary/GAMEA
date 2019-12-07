@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="elalto.gamea">
+
+    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.CALL_PHONE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+
+    <application
+        android:name="elalto.MyApp"
+        android:allowBackup="true"
+        android:hardwareAccelerated="false"
+        android:icon="@mipmap/ic_launcher_square"
+        android:label="@string/app_name"
+        android:largeHeap="true"
+        android:networkSecurityConfig="@xml/network_security_config"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme"
+        android:usesCleartextTraffic="true">
+        <activity android:name=".map.canchas.view.CanchaInformacionActivity"></activity>
+        <activity android:name=".testviolencia.dondeacudir.view.MapUbicacionesActivity" />
+        <activity android:name=".testviolencia.contacto.view.ContactoActivity" />
+        <activity android:name=".recaudaciones.patentepublicidad.view.PatentePublicidadActivity" />
+        <activity android:name=".recaudaciones.patente.view.PatenteActivity" />
+        <activity android:name=".recaudaciones.inmueble.view.InmuebleActivity" />
+        <activity android:name=".recaudaciones.vehiculo.view.VehiculoActivity" />
+        <activity android:name=".recaudaciones.view.RecaudacionesActivity" />
+        <activity android:name=".encuesta.view.EncuestaActivity" />
+        <activity android:name=".vocero.VoceroActivity" />
+        <activity android:name=".ami.AmiActivity" />
+        <activity android:name=".institucional.InstitucionalActivity" />
+        <activity android:name=".map.dependencias.view.MapDependenciaActivity" />
+        <activity android:name=".catastro.consulta_tramite.ShowTramiteActivity" />
+        <activity android:name=".catastro.consulta_tramite.ConsultaTramiteActivity" />
+        <activity android:name=".prevencion.PrevencionActivity" />
+        <activity
+            android:name=".map.UbicacionesActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".siget.view.SigetActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".denuncia.MapReportesActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".denuncia.DenunciaActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".yayo.map_yayo.MapYayoActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".yayo.YayoActivity"
+            android:label="@string/title_activity_yayo"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".testviolencia.ConocePrevieneActivity"
+            android:parentActivityName=".testviolencia.TestViolenciaActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".testviolencia.dondeacudir.view.DondeAcudirActivity"
+            android:parentActivityName=".testviolencia.TestViolenciaActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".testviolencia.CasoViolenciaActivity"
+            android:parentActivityName=".testviolencia.TestViolenciaActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".testviolencia.InfoViolenciaActivity"
+            android:parentActivityName=".testviolencia.TestViolenciaActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".testviolencia.AcosoSexualActivity"
+            android:parentActivityName=".testviolencia.TestViolenciaActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".testviolencia.RelacionViolentaActivity"
+            android:parentActivityName=".testviolencia.TestViolenciaActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".testviolencia.RespuestaActivity"
+            android:parentActivityName=".testviolencia.TestViolenciaActivity"
+            android:screenOrientation="portrait" />
+        <activity android:name=".splash.SplashActivity" />
+        <activity
+            android:name=".testviolencia.BullyingActivity"
+            android:parentActivityName=".testviolencia.TestViolenciaActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".testviolencia.TestViolenciaActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".artesano.productos.view.ArtProductosActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".artesano.categoria.view.ArtCategoriaActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".home.view.HomeActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".auth.registerme.view.RegisterMeActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".auth.login.view.LoginActivity"
+            android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="${applicationId}.provider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/provider_paths" />
+        </provider>
+
+        <uses-library
+            android:name="org.apache.http.legacy"
+            android:required="false" />
+    </application>
+
+</manifest>

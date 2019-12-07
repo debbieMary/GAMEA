@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/listPerson"
+        android:icon="@drawable/ic_people_black_24dp"
+        android:title="VER" />
+
+    <item
+        android:id="@+id/addPerson"
+        android:icon="@drawable/ic_person_add_black_24dp"
+        android:title="REGISTRAR" />
+</menu>

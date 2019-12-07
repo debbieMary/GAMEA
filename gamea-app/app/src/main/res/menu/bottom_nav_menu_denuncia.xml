@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/reportar"
+        android:icon="@drawable/ic_content_paste_black_24dp"
+        android:title="REPORTAR" />
+
+    <item
+        android:id="@+id/misreportes"
+        android:icon="@drawable/ic_turned_in_black_24dp"
+        android:title="MIS REPORTES" />
+</menu>

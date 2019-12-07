@@ -1,0 +1,31 @@
+<resources>
+    <string name="app_name">GAMEA</string>
+    <string name="title_activity_yayo">YayoActivity</string>
+    <string name="map_token">pk.eyJ1IjoidmNpYW5heWEiLCJhIjoiY2p2bzR3NnBpMXVuaDRhcXI0NWNhN2I5YSJ9.3YPnnQqMAQMvoSTJrV3aqQ</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string-array name="distritos">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+        <item>6</item>
+        <item>7</item>
+        <item>8</item>
+        <item>9</item>
+        <item>10</item>
+        <item>11</item>
+        <item>12</item>
+        <item>13</item>
+        <item>14</item>
+    </string-array>
+
+    <string-array name="categorias">
+        <item>Luminarias</item>
+        <item>Basura</item>
+    </string-array>
+    <string name="title_activity_vocero">VoceroActivity</string>
+</resources>

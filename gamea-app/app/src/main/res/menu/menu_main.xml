@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/sugerencia"
+        android:icon="@drawable/ic_sugerencia"
+        android:title="Sugerencias"
+        app:showAsAction="always|withText" />
+
+    <item
+        android:id="@+id/close_sesion"
+        android:title="Cerrar Sesion" />
+    <item
+        android:id="@+id/call_emergencia"
+        android:icon="@drawable/ic_llamadas"
+        android:title="Emergencias"
+        app:showAsAction="always|withText"  />
+    <item
+        android:id="@+id/call_suma"
+        android:icon="@drawable/ic_suma"
+        android:title="SUMA"
+        app:showAsAction="always|withText"  />
+</menu>

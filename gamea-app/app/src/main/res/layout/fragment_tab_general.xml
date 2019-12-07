@@ -1,0 +1,255 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:paddingHorizontal="10dp"
+    android:paddingTop="15dp">
+
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="5dp">
+
+            <TextView
+                android:id="@+id/textView49"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@color/orangeTrans"
+                android:padding="3dp"
+                android:text="Hoja de ruta"
+                android:textColor="@color/colorTextBlack" />
+
+            <TextView
+                android:id="@+id/tv_hoja_ruta"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="10"
+                android:padding="3dp"
+                android:textColor="@color/colorTextBlack" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="5dp">
+
+            <TextView
+                android:id="@+id/textView50"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@color/orangeTrans"
+                android:padding="3dp"
+                android:text="Tipo"
+                android:textColor="@color/colorTextBlack" />
+
+            <TextView
+                android:id="@+id/tv_tipo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="10"
+                android:padding="3dp"
+                android:textColor="@color/colorTextBlack" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="5dp">
+
+            <TextView
+                android:id="@+id/textView55"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Fecha de ingreso"
+                android:background="@color/orangeTrans"
+                android:padding="3dp"
+                android:textColor="@color/colorTextBlack"/>
+
+            <TextView
+                android:id="@+id/tv_fec_ingreso"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="10"
+                android:padding="3dp"
+                android:textColor="@color/colorTextBlack" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="5dp">
+
+            <TextView
+                android:id="@+id/textView58"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Cite"
+                android:background="@color/orangeTrans"
+                android:padding="3dp"
+                android:textColor="@color/colorTextBlack"/>
+
+            <TextView
+                android:id="@+id/tv_cite"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="10"
+                android:padding="3dp"
+                android:textColor="@color/colorTextBlack" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="5dp">
+
+            <TextView
+                android:id="@+id/textView61"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Tipo Doc."
+                android:background="@color/orangeTrans"
+                android:padding="3dp"
+                android:textColor="@color/colorTextBlack"/>
+
+            <TextView
+                android:id="@+id/tv_tipo_doc"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="10"
+                android:padding="3dp"
+                android:textColor="@color/colorTextBlack" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="5dp">
+
+            <TextView
+                android:id="@+id/textView64"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Remitente"
+                android:background="@color/orangeTrans"
+                android:padding="3dp"
+                android:textColor="@color/colorTextBlack"/>
+
+            <TextView
+                android:id="@+id/tv_remitente"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="10"
+                android:padding="3dp"
+                android:textColor="@color/colorTextBlack" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="5dp">
+
+            <TextView
+                android:id="@+id/textView68"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Cargo remitente"
+                android:background="@color/orangeTrans"
+                android:padding="3dp"
+                android:textColor="@color/colorTextBlack"/>
+
+            <TextView
+                android:id="@+id/tv_cargo_remitente"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="10"
+                android:padding="3dp"
+                android:textColor="@color/colorTextBlack" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="5dp">
+
+            <TextView
+                android:id="@+id/textView70"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Referencia"
+                android:background="@color/orangeTrans"
+                android:padding="3dp"
+                android:textColor="@color/colorTextBlack"/>
+
+            <TextView
+                android:id="@+id/tv_referencia"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="10"
+                android:padding="3dp"
+                android:textColor="@color/colorTextBlack" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="5dp">
+
+            <TextView
+                android:id="@+id/textView72"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Cantidad de hojas"
+                android:background="@color/orangeTrans"
+                android:padding="3dp"
+                android:textColor="@color/colorTextBlack"/>
+
+            <TextView
+                android:id="@+id/tv_hojas"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="10"
+                android:padding="3dp"
+                android:textColor="@color/colorTextBlack" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="5dp">
+
+            <TextView
+                android:id="@+id/textView74"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Cantidad de anexos"
+                android:background="@color/orangeTrans"
+                android:padding="3dp"
+                android:textColor="@color/colorTextBlack"/>
+
+            <TextView
+                android:id="@+id/tv_anexos"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="10"
+                android:padding="3dp"
+                android:textColor="@color/colorTextBlack" />
+        </TableRow>
+    </TableLayout>
+
+</LinearLayout>

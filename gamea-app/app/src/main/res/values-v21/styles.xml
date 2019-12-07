@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="CustonTextInputLayoutStyle" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense">
+        <item name="android:textColorHint">@color/colorTextBlack</item>
+        <item name="colorAccent">@color/colorTextBlack</item>
+        <item name="colorControlActivated">@color/colorTextBlack</item>
+    </style>
+
+    <style name="RequiredTextInputLayoutStyle" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense">
+        <item name="android:textColorHint">#FCA560</item>
+        <item name="colorAccent">#FCA560</item>
+        <item name="colorControlActivated">#FCA560</item>
+    </style>
+</resources>
