@@ -6,16 +6,18 @@ import elalto.gamea.map.canchas.model.CanchasInteractorImpl;
 import elalto.gamea.map.canchas.presenter.CanchaCobroPresenter;
 import elalto.gamea.map.canchas.presenter.CanchasInfoPresenter;
 import elalto.gamea.map.canchas.presenter.CanchasInfoPresenterImpl;
+import elalto.network.entities.TokenManager;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.viewpager.widget.ViewPager;
 
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.TextView;
 
 import java.util.List;
@@ -23,15 +25,15 @@ import java.util.List;
 public class CanchaInformacionActivity extends AppCompatActivity implements CanchasInfoView {
 
     CanchasInfoPresenter canchasInfoPresenter;
+    Toolbar toolbar ;
     Bundle bundle;
     String nombre_cancha;
-    String id_cancha;
+    String id_cancha, distrito;
     CustomPagerAdapter mCustomPagerAdapter;
     ViewPager mViewPager;
     String tag= "[INFORMACION_CANCHA]";
     TextView lbl_nombre_cancha;
     ProgressDialog progressDialog;
-    Button horarios_disponibles;
     TextView lbl_tipo_escenario;
     TextView lbl_muro_perimetral;
     TextView lbl_techo;
@@ -47,7 +49,6 @@ public class CanchaInformacionActivity extends AppCompatActivity implements Canc
     TextView lbl_direccion;
     TextView lbl_telefono;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -55,14 +56,9 @@ public class CanchaInformacionActivity extends AppCompatActivity implements Canc
         bundle= getIntent().getExtras();
         nombre_cancha= bundle.getString("nombre");
         id_cancha= bundle.getString("id_cancha");
+        toolbar = (androidx.appcompat.widget.Toolbar) findViewById(R.id.toolbar);
+        toolbar.setTitle("INFORMACIÓN DE CANCHAS");
         Log.e(tag,nombre_cancha+" "+id_cancha);
-        horarios_disponibles= (Button) this.findViewById(R.id.btn_ver_horarios_disponibles);
-        horarios_disponibles.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                verHorariosDisponibles();
-            }
-        });
         lbl_nombre_cancha= (TextView) this.findViewById(R.id.lbl_nombre_cancha);
         lbl_nombre_cancha.setText(nombre_cancha);
         canchasInfoPresenter = new CanchasInfoPresenterImpl(this, new CanchasInteractorImpl());
@@ -74,9 +70,20 @@ public class CanchaInformacionActivity extends AppCompatActivity implements Canc
 
     }
 
-    public void verHorariosDisponibles(){
-        Intent i= new  Intent(this, ReservarCanchaActivity.class);
+    public void verHorariosDisponibles(View v){
+        Intent i= new  Intent(this, HorariosDisponiblesActivity.class);
         i.putExtra("id_cancha",  id_cancha);
+        i.putExtra("distrito",  distrito);
+        i.putExtra("nombre_cancha",  nombre_cancha);
+        startActivity(i);
+    }
+
+
+    public void verMisReservas(View v){
+        Intent i= new  Intent(this, HorariosDisponiblesActivity.class);
+        i.putExtra("id_cancha",  id_cancha);
+        i.putExtra("distrito",  distrito);
+        i.putExtra("nombre_cancha",  nombre_cancha);
         startActivity(i);
     }
 
@@ -104,9 +111,11 @@ public class CanchaInformacionActivity extends AppCompatActivity implements Canc
         lbl_horarios_acceso_libre.setText(canchaInfoObject.get(0).getAcceso_libre());
         lbl_realizado_por.setText(canchaInfoObject.get(0).getQuien_realizo());
         lbl_estado.setText(canchaInfoObject.get(0).getEstado());
-        lbl_distrito.setText(canchaInfoObject.get(0).getDistrito());
+        distrito = canchaInfoObject.get(0).getDistrito();
+        lbl_distrito.setText(distrito);
         lbl_direccion.setText(canchaInfoObject.get(0).getDireccion());
         lbl_telefono.setText(canchaInfoObject.get(0).getTelefono());
+
     }
 
     public void initLabelInformation(){

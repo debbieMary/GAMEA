@@ -22,7 +22,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".map.canchas.view.ReservarCanchaActivity"></activity>
+        <activity android:name=".map.canchas.view.HorariosDisponiblesActivity"></activity>
+        <activity android:name=".map.canchas.view.ReservarCanchaActivity" />
         <activity android:name=".map.canchas.view.CanchaInformacionActivity" />
         <activity android:name=".testviolencia.dondeacudir.view.MapUbicacionesActivity" />
         <activity android:name=".testviolencia.contacto.view.ContactoActivity" />
