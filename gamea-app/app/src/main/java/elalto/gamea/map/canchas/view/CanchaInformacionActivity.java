@@ -71,20 +71,7 @@ public class CanchaInformacionActivity extends AppCompatActivity implements Canc
         mViewPager = (ViewPager) findViewById(R.id.pager);
         mViewPager.setAdapter(mCustomPagerAdapter);
 
-        lbl_tipo_escenario= (TextView) this.findViewById(R.id.lbl_tipo_escenario);
-        lbl_muro_perimetral= (TextView) this.findViewById(R.id.lbl_muro_perimetral);
-        lbl_techo= (TextView) this.findViewById(R.id.lbl_techo);
-        lbl_se_encuentra= (TextView) this.findViewById(R.id.lbl_se_encuentra);
-        lbl_administrado_por= (TextView) this.findViewById(R.id.lbl_administrado_por);
-        lbl_graderias= (TextView) this.findViewById(R.id.lbl_graderias);
-        lbl_banhio= (TextView) this.findViewById(R.id.lbl_banhio);
-        lbl_camerinos= (TextView) this.findViewById(R.id.lbl_camerinos);
-        lbl_horarios_acceso_libre= (TextView) this.findViewById(R.id.lbl_horarios_acceso_libre);
-        lbl_realizado_por= (TextView) this.findViewById(R.id.lbl_realizado_por);
-        lbl_estado= (TextView) this.findViewById(R.id.lbl_estado);
-        lbl_distrito= (TextView) this.findViewById(R.id.lbl_distrito);
-        lbl_direccion= (TextView) this.findViewById(R.id.lbl_direccion);
-        lbl_telefono= (TextView) this.findViewById(R.id.lbl_telefono);
+
     }
 
     public void verHorariosDisponibles(){
@@ -105,6 +92,7 @@ public class CanchaInformacionActivity extends AppCompatActivity implements Canc
 
     @Override
     public void populateInfo(List<CanchaInfo> canchaInfoObject) {
+        initLabelInformation();
         lbl_tipo_escenario.setText(canchaInfoObject.get(0).getTipo_escenario_deportivo());
         lbl_muro_perimetral.setText(canchaInfoObject.get(0).getTiene_perimetral());
         lbl_techo.setText(canchaInfoObject.get(0).getTiene_tinglado_techo());
@@ -119,6 +107,24 @@ public class CanchaInformacionActivity extends AppCompatActivity implements Canc
         lbl_distrito.setText(canchaInfoObject.get(0).getDistrito());
         lbl_direccion.setText(canchaInfoObject.get(0).getDireccion());
         lbl_telefono.setText(canchaInfoObject.get(0).getTelefono());
+    }
+
+    public void initLabelInformation(){
+
+        lbl_tipo_escenario= (TextView) this.findViewById(R.id.lbl_tipo_escenario);
+        lbl_muro_perimetral= (TextView) this.findViewById(R.id.lbl_muro_perimetral);
+        lbl_techo= (TextView) this.findViewById(R.id.lbl_techo);
+        lbl_se_encuentra= (TextView) this.findViewById(R.id.lbl_se_encuentra);
+        lbl_administrado_por= (TextView) this.findViewById(R.id.lbl_administrado_por);
+        lbl_graderias= (TextView) this.findViewById(R.id.lbl_graderias);
+        lbl_banhio= (TextView) this.findViewById(R.id.lbl_banhio);
+        lbl_camerinos= (TextView) this.findViewById(R.id.lbl_camerinos);
+        lbl_horarios_acceso_libre= (TextView) this.findViewById(R.id.lbl_horarios_acceso_libre);
+        lbl_realizado_por= (TextView) this.findViewById(R.id.lbl_realizado_por);
+        lbl_estado= (TextView) this.findViewById(R.id.lbl_estado);
+        lbl_distrito= (TextView) this.findViewById(R.id.lbl_distrito);
+        lbl_direccion= (TextView) this.findViewById(R.id.lbl_direccion);
+        lbl_telefono= (TextView) this.findViewById(R.id.lbl_telefono);
     }
 
     @Override

@@ -142,6 +142,7 @@ public class CanchasInteractorImpl implements CanchasInteractor, CanchaCobroInte
             Log.e("CanchaInfo", result.toString());
             JSONObject resultCanchainfo = new JSONObject(result.toString());
             getCanchaInfo(resultCanchainfo);
+            Log.e("########", canchaInfo.toString());
             listener.onSuccess(canchaInfo);
         } catch (NullPointerException e) {
             listener.onFailed("Error");
