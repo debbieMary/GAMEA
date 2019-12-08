@@ -3,6 +3,7 @@
     xmlns:mapbox="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/colorTransparent"
     android:orientation="vertical">
 
     <androidx.appcompat.widget.Toolbar
@@ -15,12 +16,110 @@
         app:layout_constraintTop_toTopOf="parent"
         app:theme="@style/Theme.AppCompat.Light"></androidx.appcompat.widget.Toolbar>
 
+
+    <TextView
+        android:id="@+id/lbl_nombre_cancha"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="@dimen/space_between_buttons"
+        android:layout_marginTop="@dimen/space_between_buttons"
+        android:text="Complejo deportivo"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textStyle="bold" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:weightSum="1"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="0.9"
+        android:layout_margin="@dimen/activity_vertical_margin"
+        app:cardBackgroundColor="@color/colorWhite"
+        app:cardCornerRadius="15dp"
+        app:cardElevation="20dp">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="@dimen/space_between_buttons"
+            android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/lbl_hora_inicio"
+            android:layout_width="wrap_content"
+            android:textAppearance="?android:textAppearanceMedium"
+            android:layout_marginBottom="@dimen/small_label_margin"
+            android:layout_marginTop="@dimen/small_label_margin"
+            android:textStyle="bold"
+            android:color="@color/colorTextBlack"
+            android:layout_height="wrap_content"
+            android:text="Hora de inicio" />
+
+            <Spinner
+                android:id="@+id/sp_horario_inicio"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/lbl_hora_fin"
+            android:textAppearance="?android:textAppearanceMedium"
+            android:color="@color/colorTextBlack"
+            android:layout_marginBottom="@dimen/small_label_margin"
+            android:layout_marginTop="@dimen/small_label_margin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:text="Hora de fin" />
+
+
+            <Spinner
+                android:id="@+id/sp_horario_fin"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/lbl_observaciones"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:textAppearanceMedium"
+            android:layout_marginBottom="@dimen/small_label_margin"
+            android:layout_marginTop="@dimen/small_label_margin"
+            android:color="@color/colorTextBlack"
+            android:textStyle="bold"
+            android:text="Observaciones" />
+
+            <EditText
+                android:id="@+id/txt_observaciones"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="Indique si tiene observaciones"
+                android:gravity="start|top"
+                android:inputType="textMultiLine" />
+
+
+        </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
+
+
     <Button
         android:id="@+id/button"
+        android:layout_weight="0.1"
         android:layout_width="match_parent"
         android:background="@drawable/rounded_button"
         android:layout_margin="@dimen/activity_vertical_margin"
         android:layout_height="wrap_content"
         android:text="Reservar Cancha"
         android:onClick="reservarCancha" />
+
+    </LinearLayout>
 </LinearLayout>
