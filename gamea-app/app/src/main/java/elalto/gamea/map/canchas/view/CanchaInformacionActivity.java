@@ -80,10 +80,7 @@ public class CanchaInformacionActivity extends AppCompatActivity implements Canc
 
 
     public void verMisReservas(View v){
-        Intent i= new  Intent(this, HorariosDisponiblesActivity.class);
-        i.putExtra("id_cancha",  id_cancha);
-        i.putExtra("distrito",  distrito);
-        i.putExtra("nombre_cancha",  nombre_cancha);
+        Intent i= new  Intent(this, MisReservasActivity.class);
         startActivity(i);
     }
 
