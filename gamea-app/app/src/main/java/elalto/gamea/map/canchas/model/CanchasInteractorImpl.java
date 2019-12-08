@@ -101,8 +101,6 @@ public class CanchasInteractorImpl implements CanchasInteractor, CanchaCobroInte
         }catch (JSONException e){
             e.printStackTrace();
         }
-
-
     }
 
 
@@ -110,7 +108,7 @@ public class CanchasInteractorImpl implements CanchasInteractor, CanchaCobroInte
     public void getCanchasInfo(String id_cancha, onCanchasInfoFinishedListener listener) {
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
-        canchas.clear();
+        canchaInfo.clear();
         try {
             URL url = new URL(URL_BASE+ info_canchas);
             HttpURLConnection client = (HttpURLConnection) url.openConnection();
@@ -141,9 +139,9 @@ public class CanchasInteractorImpl implements CanchasInteractor, CanchaCobroInte
             while ((line = reader.readLine()) != null) {
                 result.append(line);
             }
-            Log.d("CanchaInfo", result.toString());
-            JSONObject resultadoCobros = new JSONObject(result.toString());
-            getCobrosObject(resultadoCobros);
+            Log.e("CanchaInfo", result.toString());
+            JSONObject resultCanchainfo = new JSONObject(result.toString());
+            getCanchaInfo(resultCanchainfo);
             listener.onSuccess(canchaInfo);
         } catch (NullPointerException e) {
             listener.onFailed("Error");
@@ -167,6 +165,53 @@ public class CanchasInteractorImpl implements CanchasInteractor, CanchaCobroInte
         }
         return jsonObject.toString();
     }
+
+
+    private void getCanchaInfo(JSONObject canchaInfoParameter){
+        try{
+            JSONArray data =  canchaInfoParameter.getJSONArray("data");
+            for(int i=0 ; i < data.length(); i++ )
+            {
+                JSONObject canchaInfoObject= data.getJSONObject(i);
+                Log.e("data", canchaInfoObject.toString());
+                canchaInfo.add( new CanchaInfo(
+                        canchaInfoObject.getInt("id_cancha"),
+                        canchaInfoObject.getString("nombre"),
+                        canchaInfoObject.getString("categoria"),
+                        canchaInfoObject.getDouble("longitud"),
+                        canchaInfoObject.getDouble("latitud"),
+                        canchaInfoObject.getString("tipo_escenario_deportivo"),
+                        canchaInfoObject.getString("tiene_perimetral"),
+                        canchaInfoObject.getString("tiene_tinglado_techo"),
+                        canchaInfoObject.getString("tipo_pavimento"),
+                        canchaInfoObject.getString("se_encuentra"),
+                        canchaInfoObject.getString("administrado_por"),
+                        canchaInfoObject.getString("graderias"),
+                        canchaInfoObject.getString("banos"),
+                        canchaInfoObject.getString("camerinos"),
+                        canchaInfoObject.getString("acceso_libre"),
+                        canchaInfoObject.getString("quien_realizo"),
+                        canchaInfoObject.getString("estado"),
+                        canchaInfoObject.getString("distrito"),
+                        canchaInfoObject.getString("direccion"),
+                        canchaInfoObject.getString("telefono"),
+                        canchaInfoObject.getString("foto1"),
+                        canchaInfoObject.getString("foto2"),
+                        canchaInfoObject.getString("foto3"),
+                        canchaInfoObject.getString("fecha_Alta"),
+                        canchaInfoObject.getString("usuario_alta"),
+                        canchaInfoObject.getString("hora_inicio"),
+                        canchaInfoObject.getString("hora_fin")
+                        )
+                );
+            }
+
+        }catch (JSONException e){
+            e.printStackTrace();
+        }
+    }
+
+
 
     @Override
     public void getCobros(TokenManager tokenManager, onCobroFinishedListener listener) {

@@ -100,7 +100,7 @@
                             android:id="@+id/lbl_tipo_escenario"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="null" />
+                            android:text="" />
                     </LinearLayout>
                 </LinearLayout>
                 <!-- -Fin Tipo de escenario -->
@@ -137,7 +137,7 @@
                             android:id="@+id/lbl_muro_perimetral"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="null" />
+                            android:text="" />
                     </LinearLayout>
                 </LinearLayout>
                 <!-- -Fin Tipo de muro perimetral -->
@@ -174,7 +174,7 @@
                             android:id="@+id/lbl_techo"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="null" />
+                            android:text="" />
                     </LinearLayout>
                 </LinearLayout>
                 <!-- -Fin Techo o Tinglado -->
@@ -211,7 +211,7 @@
                             android:id="@+id/lbl_tipo_pavimento"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="null" />
+                            android:text="" />
                     </LinearLayout>
                 </LinearLayout>
                 <!-- -Fin de tipo de pavimento -->
@@ -250,7 +250,7 @@
                             android:id="@+id/lbl_se_encuentra"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="null" />
+                            android:text="" />
                     </LinearLayout>
                 </LinearLayout>
                 <!-- -Fin de se encuentra -->
@@ -283,10 +283,10 @@
                         android:orientation="vertical">
 
                         <TextView
-                            android:id="@+id/lbl_adminitrado_por"
+                            android:id="@+id/lbl_administrado_por"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="null" />
+                            android:text="" />
                     </LinearLayout>
                 </LinearLayout>
                 <!-- -Fin de adminitrado por  -->
@@ -323,7 +323,7 @@
                             android:id="@+id/lbl_graderias"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="null" />
+                            android:text="" />
                     </LinearLayout>
                 </LinearLayout>
                 <!-- -Fin de graderias -->
@@ -360,7 +360,7 @@
                             android:id="@+id/lbl_banhio"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="null" />
+                            android:text="" />
                     </LinearLayout>
                 </LinearLayout>
                 <!-- -Fin de baños -->
@@ -396,7 +396,7 @@
                             android:id="@+id/lbl_camerinos"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="null" />
+                            android:text="" />
                     </LinearLayout>
                 </LinearLayout>
                 <!-- -Fin de camerinos-->
@@ -434,7 +434,7 @@
                             android:id="@+id/lbl_horarios_acceso_libre"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="null" />
+                            android:text="" />
                     </LinearLayout>
                 </LinearLayout>
                 <!-- -Fin de horarios acceso libre -->
@@ -471,7 +471,7 @@
                             android:id="@+id/lbl_realizado_por"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="null" />
+                            android:text="" />
                     </LinearLayout>
                 </LinearLayout>
                 <!-- -Fin de realizado por -->
@@ -507,7 +507,7 @@
                             android:id="@+id/lbl_estado"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="null" />
+                            android:text="" />
                     </LinearLayout>
                 </LinearLayout>
                 <!-- -Fin estado -->
@@ -544,10 +544,84 @@
                             android:id="@+id/lbl_distrito"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="null" />
+                            android:text="" />
                     </LinearLayout>
                 </LinearLayout>
                 <!-- -Fin de distrito-->
+
+
+                <!-- Direccion-->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginBottom="@dimen/small_label_margin"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/lbl_direccion_title"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Direccion:"
+                            android:textStyle="bold" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/lbl_direccion"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="" />
+                    </LinearLayout>
+                </LinearLayout>
+
+                <!--Fin de direccion -->
+
+                <!-- Telefono-->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginBottom="@dimen/small_label_margin"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/lbl_telefono_title"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Teléfono:"
+                            android:textStyle="bold" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/lbl_telefono"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="" />
+                    </LinearLayout>
+                </LinearLayout>
+                <!-- Fin de telefono-->
 
                 <Button
                     android:id="@+id/btn_ver_horarios_disponibles"
