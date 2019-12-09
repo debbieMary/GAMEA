@@ -17,13 +17,15 @@ import java.util.List;
 import elalto.gamea.map.canchas.entities.Cancha;
 import elalto.gamea.map.canchas.entities.CanchaCobro;
 import elalto.gamea.map.canchas.entities.CanchaInfo;
+import elalto.gamea.map.canchas.entities.MisReservas;
 import elalto.network.entities.TokenManager;
 
-public class CanchasInteractorImpl implements CanchasInteractor, CanchaCobroInteractor, CanchasInfoInteractor, CanchaReservaInteractor {
+public class CanchasInteractorImpl implements CanchasInteractor, CanchaCobroInteractor, CanchasInfoInteractor, CanchaReservaInteractor , MisReservasInteractor{
 
     List<Cancha> canchas = new ArrayList<Cancha>();
     List<CanchaInfo> canchaInfo = new ArrayList<CanchaInfo>();
     List<CanchaCobro> canchaCobro = new ArrayList<CanchaCobro>();
+    List<MisReservas> misReservas = new ArrayList<MisReservas>();
     public static final String URL_BASE = "https://api-game-bo.herokuapp.com/canchas/";
     public static final String URL_SECOND = "https://api-game-bo.herokuapp.com/cobros/";
     public static final String URL_THIRD= "https://api-game-bo.herokuapp.com/reservas/";
@@ -31,6 +33,7 @@ public class CanchasInteractorImpl implements CanchasInteractor, CanchaCobroInte
     public static final String info_canchas = "listarPorId";
     public static final String listar_cobros = "listarCobros";
     public static final String reservar_cancha= "reservar";
+    public static final String get_mis_reservas= "misReservas";
 
     @Override
     public void getCanchas(TokenManager tokenManager, onCanchasFinishedListener listener) {
@@ -323,4 +326,96 @@ public class CanchasInteractorImpl implements CanchasInteractor, CanchaCobroInte
             e.printStackTrace();
         }
     }
+
+    @Override
+    public void getMisReservas(String id_usuario, onMisReservasFinishedListener listener) {
+        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+        StrictMode.setThreadPolicy(policy);
+        misReservas.clear();
+        try {
+            URL url = new URL(URL_THIRD+ get_mis_reservas);
+            HttpURLConnection client = (HttpURLConnection) url.openConnection();
+            client.setDoOutput(true);
+            client.setDoInput(true);
+            client.setRequestProperty("Content-Type", "application/json; charset=UTF-8");
+            client.setRequestMethod("POST");
+            client.connect();
+            String json = setIdUsuario(id_usuario);
+            OutputStreamWriter writer = new OutputStreamWriter(client.getOutputStream());
+            String output = json;
+            writer.write(output);
+            writer.flush();
+            writer.close();
+
+            InputStream input;
+            int status = client.getResponseCode();
+
+            if (status != HttpURLConnection.HTTP_OK)  {
+                input = client.getErrorStream();
+            }
+            else  {
+                input = client.getInputStream();
+            }
+            BufferedReader reader = new BufferedReader(new InputStreamReader(input));
+            StringBuilder result = new StringBuilder();
+            String line;
+            while ((line = reader.readLine()) != null) {
+                result.append(line);
+            }
+            Log.e("MisReservas", result.toString());
+            JSONObject resultMisReservas = new JSONObject(result.toString());
+            getMisReservas(resultMisReservas);
+            listener.onSuccess(misReservas);
+        } catch (NullPointerException e) {
+            listener.onFailed("Error");
+            e.printStackTrace();
+        }catch (JSONException e) {
+            listener.onFailed("Error");
+            e.printStackTrace();
+        } catch (Exception e) {
+            listener.onFailed("Error");
+            e.printStackTrace();
+        }
+    }
+
+    public String setIdUsuario(String id_usuario){
+        JSONObject jsonObject =  new JSONObject();
+        try {
+            jsonObject.put("id_usuario", id_usuario);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return jsonObject.toString();
+    }
+
+
+    public void getMisReservas(JSONObject resultMisReservasObject){
+        try {
+            JSONArray data = resultMisReservasObject.getJSONArray("data");
+            for (int i = 0; i < data.length(); i++) {
+                JSONObject misReservasObject = data.getJSONObject(i);
+                misReservas.add(new MisReservas(
+                   misReservasObject.getString("nombre"),
+                   misReservasObject.getString("distrito"),
+                   misReservasObject.getInt("id_reserva"),
+                   misReservasObject.getInt("id_cancha"),
+                   misReservasObject.getInt("id_usuario"),
+                   misReservasObject.getString("fecha"),
+                   misReservasObject.getString("hora_inicio"),
+                   misReservasObject.getString("hora_fin"),
+                   misReservasObject.getString("ci_quien_reserva"),
+                   misReservasObject.getString("nombre_reserva"),
+                   misReservasObject.getString("observaciones"),
+                   misReservasObject.getInt("modo_registro"),
+                   misReservasObject.getInt("estado"),
+                   misReservasObject.getString("fecha_alta"),
+                   misReservasObject.getString("fecha_update")
+                ));
+            }
+        }catch (JSONException e){
+            e.printStackTrace();
+        }
+
+    }
+
 }

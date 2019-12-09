@@ -2,55 +2,71 @@ package elalto.gamea.map.canchas.entities;
 
 public class MisReservas {
 
-    /**
-     * id_cancha : 1
-     * nombre_cancha : Cancha Deportiva Rosas Pampa
-     * lng : -68.17279158
-     * lat : -16.54226215
-     */
+    public String nombre;
+    public String distrito;
+    public int id_reserva;
+    public int id_cancha;
+    public int id_usuario;
+    public String fecha;
+    public String hora_inicio;
+    public String hora_fin;
+    public String ci_quien_reserva;
+    public String nombre_reserva;
+    public String observaciones;
+    public int modo_registro;
+    public int estado;
+    public String fecha_alta;
+    public String fecha_update;
 
-    private int id_cancha;
-    private String nombre_cancha;
-    private double lng;
-    private double lat;
-    private String distrito;
-    private String direccion;
-    private String telefono;
 
-
-    public MisReservas(int id_cancha, String nombre_cancha, double lng, double lat, String distrito, String direccion, String telefono) {
-        this.id_cancha= id_cancha;
-        this.nombre_cancha= nombre_cancha;
-        this.lng = lng;
-        this.lat= lat;
-        this.distrito= distrito;
-        this.direccion= direccion;
-        this.telefono=  telefono;
+    public MisReservas(
+        String nombre,
+        String distrito,
+        int id_reserva,
+        int id_cancha,
+        int id_usuario,
+        String fecha,
+        String hora_inicio,
+        String hora_fin,
+        String ci_quien_reserva,
+        String nombre_reserva,
+        String observaciones,
+        int modo_registro,
+        int estado,
+        String fecha_alta,
+        String fecha_update
+    ) {
+        this.nombre = nombre;
+        this.distrito = distrito;
+        this.id_reserva = id_reserva;
+        this.id_cancha = id_cancha;
+        this.id_usuario = id_usuario;
+        this.fecha = fecha;
+        this.hora_inicio = hora_inicio;
+        this.hora_fin = hora_fin;
+        this.ci_quien_reserva = ci_quien_reserva;
+        this.nombre_reserva = nombre_reserva;
+        this.observaciones = observaciones;
+        this.modo_registro = modo_registro;
+        this.estado = estado;
+        this.fecha_alta = fecha_alta;
+        this.fecha_update = fecha_update;
     }
 
+    public String getNombre() {return  nombre;}
+    public String getDistrito() {return  distrito;}
+    public int getId_reserva() {return  id_reserva;}
+    public int getId_cancha() {return  id_cancha;}
+    public int getId_usuario() {return  id_usuario;}
+    public String getFecha() {return  fecha;}
+    public String getHora_inicio() {return  hora_inicio;}
+    public String getHora_fin() {return  hora_fin;}
+    public String getCi_quien_reserva() {return ci_quien_reserva ;}
+    public String getNombre_reserva() {return nombre_reserva;}
+    public String getObservaciones() {return observaciones ;}
+    public int getModo_registro() {return  modo_registro;}
+    public int getEstado() {return  estado;}
+    public String getFecha_alta() {return  fecha_alta;}
+    public String getFecha_update() {return fecha_update ;}
 
-    public int getId_cancha() { return id_cancha;}
-
-    public void setId_cancha(int id_cancha) { this.id_cancha = id_cancha;}
-
-    public String getNombre_cancha() { return nombre_cancha;}
-
-    public void setNombre_cancha(String nombre_cancha) { this.nombre_cancha = nombre_cancha;}
-
-    public double getLng() { return lng;}
-
-    public void setLng(double lng) { this.lng = lng;}
-
-    public double getLat() { return lat;}
-
-    public void setLat(double lat) { this.lat = lat;}
-
-    public String getDistrito() { return distrito;}
-    public String getDireccion() { return direccion;}
-    public String getTelefono() { return telefono;}
-
-
-    public void setDistrito(String distrito) { this.distrito= distrito;}
-    public void setDireccion(String direccion) { this.direccion= direccion;}
-    public void setTelefono(String telefono) { this.telefono= telefono;}
 }
