@@ -6,9 +6,7 @@ import android.view.View;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by Marina.
- */
+
 
 public abstract class BaseRecyclerViewAdapter<T, VHG extends RecyclerView.ViewHolder>
         extends RecyclerView.Adapter<VHG> {
