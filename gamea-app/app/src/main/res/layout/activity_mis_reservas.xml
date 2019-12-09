@@ -1,6 +1,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:mapbox="http://schemas.android.com/tools"
+    android:background="@color/colorPlateadoTransparent"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
@@ -16,6 +17,14 @@
         app:theme="@style/Theme.AppCompat.Light">
 
     </androidx.appcompat.widget.Toolbar>
+
+    <!--<androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/swipe_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>-->
+
 
     <androidx.recyclerview.widget.RecyclerView
         android:layout_width="match_parent"

@@ -2,7 +2,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:mapbox="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:background="@color/colorTransparent"
+    android:background="@color/colorPlateadoTransparent"
     android:layout_height="match_parent"
     android:orientation="vertical">
 
@@ -29,6 +29,7 @@
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent">
+
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -76,7 +77,7 @@
                     android:id="@+id/layoutCard"
                     android:layout_marginTop="@dimen/activity_vertical_margin"
                     android:layout_marginBottom="@dimen/activity_vertical_margin"
-                    android:background="@color/colorWhite"
+                    android:background="@drawable/rounded_layout"
                     android:layout_height="match_parent"
                     android:orientation="vertical"
                     >
@@ -86,7 +87,9 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_marginTop="@dimen/small_label_margin"
+                    android:layout_marginTop="@dimen/activity_vertical_margin"
+                    android:layout_marginLeft="@dimen/activity_vertical_margin"
+                    android:layout_marginRight="@dimen/activity_vertical_margin"
                     android:layout_marginBottom="@dimen/small_label_margin"
                     android:orientation="horizontal">
 
@@ -125,6 +128,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginBottom="@dimen/small_label_margin"
+                    android:layout_marginLeft="@dimen/activity_vertical_margin"
+                    android:layout_marginRight="@dimen/activity_vertical_margin"
                     android:orientation="horizontal">
 
                     <LinearLayout
@@ -161,6 +166,8 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:layout_marginLeft="@dimen/activity_vertical_margin"
+                    android:layout_marginRight="@dimen/activity_vertical_margin"
                     android:layout_marginBottom="@dimen/small_label_margin"
                     android:orientation="horizontal">
 
@@ -198,6 +205,8 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:layout_marginLeft="@dimen/activity_vertical_margin"
+                    android:layout_marginRight="@dimen/activity_vertical_margin"
                     android:layout_marginBottom="@dimen/small_label_margin"
                     android:orientation="horizontal">
 
@@ -236,6 +245,8 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:layout_marginLeft="@dimen/activity_vertical_margin"
+                    android:layout_marginRight="@dimen/activity_vertical_margin"
                     android:layout_marginBottom="@dimen/small_label_margin"
                     android:orientation="horizontal">
 
@@ -273,6 +284,8 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:layout_marginLeft="@dimen/activity_vertical_margin"
+                    android:layout_marginRight="@dimen/activity_vertical_margin"
                     android:layout_marginBottom="@dimen/small_label_margin"
                     android:orientation="horizontal">
 
@@ -310,6 +323,8 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:layout_marginLeft="@dimen/activity_vertical_margin"
+                    android:layout_marginRight="@dimen/activity_vertical_margin"
                     android:layout_marginBottom="@dimen/small_label_margin"
                     android:orientation="horizontal">
 
@@ -348,6 +363,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginBottom="@dimen/small_label_margin"
+                    android:layout_marginLeft="@dimen/activity_vertical_margin"
+                    android:layout_marginRight="@dimen/activity_vertical_margin"
                     android:orientation="horizontal">
 
                     <LinearLayout
@@ -384,6 +401,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginBottom="@dimen/small_label_margin"
+                    android:layout_marginLeft="@dimen/activity_vertical_margin"
+                    android:layout_marginRight="@dimen/activity_vertical_margin"
                     android:orientation="horizontal">
 
                     <LinearLayout
@@ -422,6 +441,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginBottom="@dimen/small_label_margin"
+                    android:layout_marginLeft="@dimen/activity_vertical_margin"
+                    android:layout_marginRight="@dimen/activity_vertical_margin"
                     android:orientation="horizontal">
 
                     <LinearLayout
@@ -458,6 +479,8 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:layout_marginLeft="@dimen/activity_vertical_margin"
+                    android:layout_marginRight="@dimen/activity_vertical_margin"
                     android:layout_marginBottom="@dimen/small_label_margin"
                     android:orientation="horizontal">
 
@@ -495,6 +518,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginBottom="@dimen/small_label_margin"
+                    android:layout_marginLeft="@dimen/activity_vertical_margin"
+                    android:layout_marginRight="@dimen/activity_vertical_margin"
                     android:orientation="horizontal">
 
                     <LinearLayout
@@ -532,6 +557,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginBottom="@dimen/small_label_margin"
+                    android:layout_marginLeft="@dimen/activity_vertical_margin"
+                    android:layout_marginRight="@dimen/activity_vertical_margin"
                     android:orientation="horizontal">
 
                     <LinearLayout
@@ -569,6 +596,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginBottom="@dimen/small_label_margin"
+                    android:layout_marginLeft="@dimen/activity_vertical_margin"
+                    android:layout_marginRight="@dimen/activity_vertical_margin"
                     android:orientation="horizontal">
 
                     <LinearLayout
@@ -605,7 +634,9 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_marginBottom="@dimen/small_label_margin"
+                    android:layout_marginBottom="@dimen/activity_vertical_margin"
+                    android:layout_marginLeft="@dimen/activity_vertical_margin"
+                    android:layout_marginRight="@dimen/activity_vertical_margin"
                     android:orientation="horizontal">
 
                     <LinearLayout

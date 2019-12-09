@@ -193,10 +193,12 @@ public class CanchasFragment extends Fragment implements OnMapReadyCallback, Per
             @Override
             public boolean onMarkerClick(@NonNull Marker marker) {
                 marker.getInfoWindow();
-                Intent i = new Intent(getContext(), CanchaInformacionActivity.class);
-                i.putExtra("nombre", marker.getTitle());
-                i.putExtra("id_cancha", marker.getSnippet());
-                startActivity(i);
+                if(!marker.getTitle().contains("Punto: ")){
+                    Intent i = new Intent(getContext(), CanchaInformacionActivity.class);
+                    i.putExtra("nombre", marker.getTitle());
+                    i.putExtra("id_cancha", marker.getSnippet());
+                    startActivity(i);
+                }
                 return false;
             }
         });
@@ -228,7 +230,8 @@ public class CanchasFragment extends Fragment implements OnMapReadyCallback, Per
             MarkerOptions markerOptions = new MarkerOptions();
             markerOptions.position(new LatLng(canchaCobroList.get(i).getLatitud(), canchaCobroList.get(i).getLongitud()));
             markerOptions.icon(icon);
-            markerOptions.title(canchaCobroList.get(i).getNombre_cobro().toString());
+            markerOptions.setSnippet(canchaCobroList.get(i).getTelefono().toString());
+            markerOptions.title("Punto: "+canchaCobroList.get(i).getNombre_cobro().toString());
             markerOptionsListCobros.add(markerOptions);
         }
         mapboxMap.addMarkers(markerOptionsListCobros);

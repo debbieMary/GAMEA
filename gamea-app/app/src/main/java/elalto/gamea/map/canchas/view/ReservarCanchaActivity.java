@@ -159,10 +159,12 @@ public class ReservarCanchaActivity extends AppCompatActivity implements CanchaR
     @Override
     public void populateMessage(String message) {
       Toast.makeText(this,message , Toast.LENGTH_LONG).show();
+      finish();
     }
 
     @Override
     public void showErrorMessage(String message) {
         Toast.makeText(this,message , Toast.LENGTH_LONG).show();
+        finish();
     }
 }

@@ -314,14 +314,19 @@ public class CanchasInteractorImpl implements CanchasInteractor, CanchaCobroInte
                 result.append(line);
             }
             Log.e("CanchaReserva", result.toString());
-            listener.onSuccess("Exito");
+            JSONObject jsonObject =  new JSONObject(result.toString());
+            if(jsonObject.getBoolean("resultaldo")){
+                listener.onSuccess("Reserva de cancha exitoso");
+            }else{
+                listener.onSuccess("Algo salió mal al reservar la cancha");
+            }
         } catch (NullPointerException e) {
             listener.onFailed("Error");
             e.printStackTrace();
-        } /*catch (JSONException e) {
+        }catch (JSONException e) {
             listener.onFailed("Error");
             e.printStackTrace();
-        }*/ catch (Exception e) {
+        } catch (Exception e) {
             listener.onFailed("Error");
             e.printStackTrace();
         }
