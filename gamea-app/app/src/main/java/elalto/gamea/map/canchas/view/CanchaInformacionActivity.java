@@ -3,23 +3,17 @@ package elalto.gamea.map.canchas.view;
 import elalto.gamea.R;
 import elalto.gamea.map.canchas.entities.CanchaInfo;
 import elalto.gamea.map.canchas.model.CanchasInteractorImpl;
-import elalto.gamea.map.canchas.presenter.CanchaCobroPresenter;
 import elalto.gamea.map.canchas.presenter.CanchasInfoPresenter;
 import elalto.gamea.map.canchas.presenter.CanchasInfoPresenterImpl;
-import elalto.network.entities.TokenManager;
-
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.viewpager.widget.ViewPager;
-
 import android.app.ProgressDialog;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
-
 import java.util.List;
 
 public class CanchaInformacionActivity extends AppCompatActivity implements CanchasInfoView {
@@ -71,7 +65,7 @@ public class CanchaInformacionActivity extends AppCompatActivity implements Canc
     }
 
     public void verHorariosDisponibles(View v){
-        Intent i= new  Intent(this, HorariosDisponiblesActivity.class);
+        Intent i= new  Intent(this, HorariosDisponiblesSingleMainActivity.class);
         i.putExtra("id_cancha",  id_cancha);
         i.putExtra("distrito",  distrito);
         i.putExtra("nombre_cancha",  nombre_cancha);
