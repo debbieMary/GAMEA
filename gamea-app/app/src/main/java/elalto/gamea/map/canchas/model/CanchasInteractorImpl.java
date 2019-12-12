@@ -39,7 +39,7 @@ public class CanchasInteractorImpl implements CanchasInteractor, CanchaCobroInte
     public static final String listar_cobros = "listarCobros";
     public static final String reservar_cancha= "reservar";
     public static final String get_mis_reservas= "misReservas";
-    public static final String get_horarios_disponibles= "listarReservasPorRangoFecha";
+    public static final String get_horarios_por_fecha= "listarReservasPorfecha";
 
     @Override
     public void getCanchas(TokenManager tokenManager, onCanchasFinishedListener listener) {
@@ -435,11 +435,10 @@ public class CanchasInteractorImpl implements CanchasInteractor, CanchaCobroInte
         StrictMode.setThreadPolicy(policy);
         horarios.clear();
         try {
-            URL url = new URL(URL_THIRD+ get_horarios_disponibles);
+            URL url = new URL(URL_THIRD+ get_horarios_por_fecha);
             HttpURLConnection client = (HttpURLConnection) url.openConnection();
             client.setDoOutput(true);
             client.setDoInput(true);
-            client.setRequestProperty("Content-Type", "application/json; charset=UTF-8");
             client.setRequestMethod("POST");
             client.connect();
             String json = setBodyHorarios(id_cancha, fecha_inicio,fecha_fin);
@@ -487,11 +486,11 @@ public class CanchasInteractorImpl implements CanchasInteractor, CanchaCobroInte
         JSONObject jsonObject =  new JSONObject();
         try {
             jsonObject.put("id_cancha", id_cancha);
-            jsonObject.put("fecha_inicio", fecha_inicio);
-            jsonObject.put("fecha_fin", fecha_fin);
+            jsonObject.put("fecha", fecha_inicio);
         } catch (JSONException e) {
             e.printStackTrace();
         }
+        Log.e("JSON", jsonObject.toString());
         return jsonObject.toString();
     }
 }
