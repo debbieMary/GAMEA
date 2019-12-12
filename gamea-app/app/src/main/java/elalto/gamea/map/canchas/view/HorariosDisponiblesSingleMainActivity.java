@@ -12,18 +12,22 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import elalto.gamea.R;
 import elalto.gamea.map.canchas.entities.Horarios;
+import elalto.gamea.map.canchas.model.CanchasInteractorImpl;
+import elalto.gamea.map.canchas.presenter.HorariosDisponiblesPresenter;
+import elalto.gamea.map.canchas.presenter.HorariosDisponiblesPresenterImpl;
 import elalto.gamea.map.canchas.view.Adapters.HorariosAdapter;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.List;
 
 
-public class HorariosDisponiblesSingleMainActivity extends AppCompatActivity {
+public class HorariosDisponiblesSingleMainActivity extends AppCompatActivity implements HorariosDisponiblesView{
     Toolbar toolbar;
     Bundle bundle;
     String id_cancha;
     String distrito;
     String nombre_cancha;
-
+    HorariosDisponiblesPresenter horariosDisponiblesPresenter;
     TextView lbl_nombre_cancha;
 
     private Calendar fechaYhora = Calendar.getInstance();ArrayList<Horarios> horarios= new ArrayList<Horarios>();
@@ -49,6 +53,7 @@ public class HorariosDisponiblesSingleMainActivity extends AppCompatActivity {
         fecha_actual= fecha.format(fechaYhora.getTime());
         addHorarios();
 
+
         lbl_nombre_cancha= (TextView) findViewById(R.id.lbl_nombre_cancha);
         lbl_nombre_cancha.setText(nombre_cancha);
         recyclerView = (RecyclerView) findViewById(R.id.rv_horarios);
@@ -56,6 +61,9 @@ public class HorariosDisponiblesSingleMainActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(layoutManager);
         adapter = new HorariosAdapter(horarios,getApplicationContext());
         recyclerView.setAdapter(adapter);
+
+        horariosDisponiblesPresenter = new HorariosDisponiblesPresenterImpl(this, new CanchasInteractorImpl());
+        horariosDisponiblesPresenter.getHorariosDisponibles(id_cancha, fecha_actual, fecha_actual);
 
     }
 
@@ -81,5 +89,25 @@ public class HorariosDisponiblesSingleMainActivity extends AppCompatActivity {
         i.putExtra("nombre_cancha", nombre_cancha);
         i.putExtra("distrito", distrito);
         startActivity(i);
+    }
+
+    @Override
+    public void showProgress() {
+
+    }
+
+    @Override
+    public void hideProgress() {
+
+    }
+
+    @Override
+    public void populate(List<Horarios> horariosList) {
+
+    }
+
+    @Override
+    public void showErrorMessage(String message) {
+
     }
 }

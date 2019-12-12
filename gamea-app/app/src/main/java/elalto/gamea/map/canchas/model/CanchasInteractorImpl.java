@@ -17,15 +17,20 @@ import java.util.List;
 import elalto.gamea.map.canchas.entities.Cancha;
 import elalto.gamea.map.canchas.entities.CanchaCobro;
 import elalto.gamea.map.canchas.entities.CanchaInfo;
+import elalto.gamea.map.canchas.entities.Horarios;
 import elalto.gamea.map.canchas.entities.MisReservas;
 import elalto.network.entities.TokenManager;
 
-public class CanchasInteractorImpl implements CanchasInteractor, CanchaCobroInteractor, CanchasInfoInteractor, CanchaReservaInteractor , MisReservasInteractor{
+public class CanchasInteractorImpl implements CanchasInteractor, CanchaCobroInteractor,
+        CanchasInfoInteractor, CanchaReservaInteractor , MisReservasInteractor,
+        HorariosDisponiblesInteractor
+{
 
     List<Cancha> canchas = new ArrayList<Cancha>();
     List<CanchaInfo> canchaInfo = new ArrayList<CanchaInfo>();
     List<CanchaCobro> canchaCobro = new ArrayList<CanchaCobro>();
     List<MisReservas> misReservas = new ArrayList<MisReservas>();
+    List<Horarios> horarios = new ArrayList<Horarios>();
     public static final String URL_BASE = "https://api-game-bo.herokuapp.com/canchas/";
     public static final String URL_SECOND = "https://api-game-bo.herokuapp.com/cobros/";
     public static final String URL_THIRD= "https://api-game-bo.herokuapp.com/reservas/";
@@ -34,6 +39,7 @@ public class CanchasInteractorImpl implements CanchasInteractor, CanchaCobroInte
     public static final String listar_cobros = "listarCobros";
     public static final String reservar_cancha= "reservar";
     public static final String get_mis_reservas= "misReservas";
+    public static final String get_horarios_disponibles= "listarReservasPorRangoFecha";
 
     @Override
     public void getCanchas(TokenManager tokenManager, onCanchasFinishedListener listener) {
@@ -423,4 +429,69 @@ public class CanchasInteractorImpl implements CanchasInteractor, CanchaCobroInte
 
     }
 
+    @Override
+    public void getHorariosDisponibles(String id_cancha, String fecha_inicio, String fecha_fin, onHorariosDisponiblesFinishedListener listener) {
+        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+        StrictMode.setThreadPolicy(policy);
+        horarios.clear();
+        try {
+            URL url = new URL(URL_THIRD+ get_horarios_disponibles);
+            HttpURLConnection client = (HttpURLConnection) url.openConnection();
+            client.setDoOutput(true);
+            client.setDoInput(true);
+            client.setRequestProperty("Content-Type", "application/json; charset=UTF-8");
+            client.setRequestMethod("POST");
+            client.connect();
+            String json = setBodyHorarios(id_cancha, fecha_inicio,fecha_fin);
+            OutputStreamWriter writer = new OutputStreamWriter(client.getOutputStream());
+            String output = json;
+            writer.write(output);
+            writer.flush();
+            writer.close();
+
+            InputStream input;
+            int status = client.getResponseCode();
+
+            if (status != HttpURLConnection.HTTP_OK)  {
+                input = client.getErrorStream();
+            }
+            else  {
+                input = client.getInputStream();
+            }
+            BufferedReader reader = new BufferedReader(new InputStreamReader(input));
+            StringBuilder result = new StringBuilder();
+            String line;
+            while ((line = reader.readLine()) != null) {
+                result.append(line);
+            }
+            Log.e("HORARIOS DISPONIBLES", result.toString());
+            JSONObject horariosJson = new JSONObject(result.toString());
+            /*getCanchaInfo(resultCanchainfo);
+            Log.e("########", canchaInfo.toString());*/
+            listener.onSuccess(horarios);
+        } catch (NullPointerException e) {
+            listener.onFailed("Error");
+            e.printStackTrace();
+        } catch (JSONException e) {
+            listener.onFailed("Error");
+            e.printStackTrace();
+        } catch (Exception e) {
+            listener.onFailed("Error");
+            e.printStackTrace();
+        }
+    }
+
+
+
+    public String setBodyHorarios(String id_cancha, String fecha_inicio, String fecha_fin){
+        JSONObject jsonObject =  new JSONObject();
+        try {
+            jsonObject.put("id_cancha", id_cancha);
+            jsonObject.put("fecha_inicio", fecha_inicio);
+            jsonObject.put("fecha_fin", fecha_fin);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return jsonObject.toString();
+    }
 }
