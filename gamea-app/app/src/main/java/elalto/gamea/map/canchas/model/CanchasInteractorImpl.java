@@ -3,9 +3,11 @@ package elalto.gamea.map.canchas.model;
 
 import android.os.StrictMode;
 import android.util.Log;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -14,6 +16,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
+
 import elalto.gamea.map.canchas.entities.Cancha;
 import elalto.gamea.map.canchas.entities.CanchaCobro;
 import elalto.gamea.map.canchas.entities.CanchaInfo;
@@ -22,9 +25,8 @@ import elalto.gamea.map.canchas.entities.MisReservas;
 import elalto.network.entities.TokenManager;
 
 public class CanchasInteractorImpl implements CanchasInteractor, CanchaCobroInteractor,
-        CanchasInfoInteractor, CanchaReservaInteractor , MisReservasInteractor,
-        HorariosDisponiblesInteractor
-{
+        CanchasInfoInteractor, CanchaReservaInteractor, MisReservasInteractor,
+        HorariosDisponiblesInteractor {
 
     List<Cancha> canchas = new ArrayList<Cancha>();
     List<CanchaInfo> canchaInfo = new ArrayList<CanchaInfo>();
@@ -33,13 +35,13 @@ public class CanchasInteractorImpl implements CanchasInteractor, CanchaCobroInte
     List<Horarios> horarios = new ArrayList<Horarios>();
     public static final String URL_BASE = "https://api-game-bo.herokuapp.com/canchas/";
     public static final String URL_SECOND = "https://api-game-bo.herokuapp.com/cobros/";
-    public static final String URL_THIRD= "https://api-game-bo.herokuapp.com/reservas/";
+    public static final String URL_THIRD = "https://api-game-bo.herokuapp.com/reservas/";
     public static final String listar_canchas = "listartodos";
     public static final String info_canchas = "listarPorId";
     public static final String listar_cobros = "listarCobros";
-    public static final String reservar_cancha= "reservar";
-    public static final String get_mis_reservas= "misReservas";
-    public static final String get_horarios_por_fecha= "listarReservasPorfecha";
+    public static final String reservar_cancha = "reservar";
+    public static final String get_mis_reservas = "misReservas";
+    public static final String get_horarios_por_fecha = "listarReservasPorfecha";
 
     @Override
     public void getCanchas(TokenManager tokenManager, onCanchasFinishedListener listener) {
@@ -83,28 +85,27 @@ public class CanchasInteractorImpl implements CanchasInteractor, CanchaCobroInte
         }
     }
 
-    private void getCanchas(JSONObject jsonCanchas){
-        try{
-            JSONArray data =  jsonCanchas.getJSONArray("data");
-            for(int i=0 ; i < data.length(); i++ )
-            {
-                JSONObject canchaObject= data.getJSONObject(i);
+    private void getCanchas(JSONObject jsonCanchas) {
+        try {
+            JSONArray data = jsonCanchas.getJSONArray("data");
+            for (int i = 0; i < data.length(); i++) {
+                JSONObject canchaObject = data.getJSONObject(i);
                 Log.e("data", canchaObject.toString());
-                canchas.add( new Cancha(
-                         canchaObject.getInt("id_cancha"),
-                         canchaObject.getString("nombre"),
-                        canchaObject.getDouble("longitud"),
-                        canchaObject.getDouble("latitud"),
-                        canchaObject.getString("distrito"),
-                        canchaObject.getString("direccion"),
-                        canchaObject.getString("telefono")
+                canchas.add(new Cancha(
+                                canchaObject.getInt("id_cancha"),
+                                canchaObject.getString("nombre"),
+                                canchaObject.getDouble("longitud"),
+                                canchaObject.getDouble("latitud"),
+                                canchaObject.getString("distrito"),
+                                canchaObject.getString("direccion"),
+                                canchaObject.getString("telefono")
 
                         )
 
                 );
             }
 
-        }catch (JSONException e){
+        } catch (JSONException e) {
             e.printStackTrace();
         }
     }
@@ -116,7 +117,7 @@ public class CanchasInteractorImpl implements CanchasInteractor, CanchaCobroInte
         StrictMode.setThreadPolicy(policy);
         canchaInfo.clear();
         try {
-            URL url = new URL(URL_BASE+ info_canchas);
+            URL url = new URL(URL_BASE + info_canchas);
             HttpURLConnection client = (HttpURLConnection) url.openConnection();
             client.setDoOutput(true);
             client.setDoInput(true);
@@ -133,10 +134,9 @@ public class CanchasInteractorImpl implements CanchasInteractor, CanchaCobroInte
             InputStream input;
             int status = client.getResponseCode();
 
-            if (status != HttpURLConnection.HTTP_OK)  {
+            if (status != HttpURLConnection.HTTP_OK) {
                 input = client.getErrorStream();
-            }
-            else  {
+            } else {
                 input = client.getInputStream();
             }
             BufferedReader reader = new BufferedReader(new InputStreamReader(input));
@@ -163,8 +163,8 @@ public class CanchasInteractorImpl implements CanchasInteractor, CanchaCobroInte
     }
 
 
-    public String setIdCancha(String id_cancha){
-        JSONObject jsonObject =  new JSONObject();
+    public String setIdCancha(String id_cancha) {
+        JSONObject jsonObject = new JSONObject();
         try {
             jsonObject.put("id_cancha", id_cancha);
         } catch (JSONException e) {
@@ -174,50 +174,48 @@ public class CanchasInteractorImpl implements CanchasInteractor, CanchaCobroInte
     }
 
 
-    private void getCanchaInfo(JSONObject canchaInfoParameter){
-        try{
-            JSONArray data =  canchaInfoParameter.getJSONArray("data");
-            for(int i=0 ; i < data.length(); i++ )
-            {
-                JSONObject canchaInfoObject= data.getJSONObject(i);
+    private void getCanchaInfo(JSONObject canchaInfoParameter) {
+        try {
+            JSONArray data = canchaInfoParameter.getJSONArray("data");
+            for (int i = 0; i < data.length(); i++) {
+                JSONObject canchaInfoObject = data.getJSONObject(i);
                 Log.e("data", canchaInfoObject.toString());
-                canchaInfo.add( new CanchaInfo(
-                        canchaInfoObject.getInt("id_cancha"),
-                        canchaInfoObject.getString("nombre"),
-                        canchaInfoObject.getString("categoria"),
-                        canchaInfoObject.getDouble("longitud"),
-                        canchaInfoObject.getDouble("latitud"),
-                        canchaInfoObject.getString("tipo_escenario_deportivo"),
-                        canchaInfoObject.getString("tiene_perimetral"),
-                        canchaInfoObject.getString("tiene_tinglado_techo"),
-                        canchaInfoObject.getString("tipo_pavimento"),
-                        canchaInfoObject.getString("se_encuentra"),
-                        canchaInfoObject.getString("administrado_por"),
-                        canchaInfoObject.getString("graderias"),
-                        canchaInfoObject.getString("banos"),
-                        canchaInfoObject.getString("camerinos"),
-                        canchaInfoObject.getString("acceso_libre"),
-                        canchaInfoObject.getString("quien_realizo"),
-                        canchaInfoObject.getString("estado"),
-                        canchaInfoObject.getString("distrito"),
-                        canchaInfoObject.getString("direccion"),
-                        canchaInfoObject.getString("telefono"),
-                        canchaInfoObject.getString("foto1"),
-                        canchaInfoObject.getString("foto2"),
-                        canchaInfoObject.getString("foto3"),
-                        canchaInfoObject.getString("fecha_Alta"),
-                        canchaInfoObject.getString("usuario_alta"),
-                        canchaInfoObject.getString("hora_inicio"),
-                        canchaInfoObject.getString("hora_fin")
+                canchaInfo.add(new CanchaInfo(
+                                canchaInfoObject.getInt("id_cancha"),
+                                canchaInfoObject.getString("nombre"),
+                                canchaInfoObject.getString("categoria"),
+                                canchaInfoObject.getDouble("longitud"),
+                                canchaInfoObject.getDouble("latitud"),
+                                canchaInfoObject.getString("tipo_escenario_deportivo"),
+                                canchaInfoObject.getString("tiene_perimetral"),
+                                canchaInfoObject.getString("tiene_tinglado_techo"),
+                                canchaInfoObject.getString("tipo_pavimento"),
+                                canchaInfoObject.getString("se_encuentra"),
+                                canchaInfoObject.getString("administrado_por"),
+                                canchaInfoObject.getString("graderias"),
+                                canchaInfoObject.getString("banos"),
+                                canchaInfoObject.getString("camerinos"),
+                                canchaInfoObject.getString("acceso_libre"),
+                                canchaInfoObject.getString("quien_realizo"),
+                                canchaInfoObject.getString("estado"),
+                                canchaInfoObject.getString("distrito"),
+                                canchaInfoObject.getString("direccion"),
+                                canchaInfoObject.getString("telefono"),
+                                canchaInfoObject.getString("foto1"),
+                                canchaInfoObject.getString("foto2"),
+                                canchaInfoObject.getString("foto3"),
+                                canchaInfoObject.getString("fecha_Alta"),
+                                canchaInfoObject.getString("usuario_alta"),
+                                canchaInfoObject.getString("hora_inicio"),
+                                canchaInfoObject.getString("hora_fin")
                         )
                 );
             }
 
-        }catch (JSONException e){
+        } catch (JSONException e) {
             e.printStackTrace();
         }
     }
-
 
 
     @Override
@@ -226,7 +224,7 @@ public class CanchasInteractorImpl implements CanchasInteractor, CanchaCobroInte
         StrictMode.setThreadPolicy(policy);
         canchas.clear();
         try {
-            URL url = new URL(URL_SECOND+ listar_cobros);
+            URL url = new URL(URL_SECOND + listar_cobros);
             HttpURLConnection client = (HttpURLConnection) url.openConnection();
             client.setDoInput(true);
             client.setRequestProperty("Content-Type", "application/json; charset=UTF-8");
@@ -234,10 +232,9 @@ public class CanchasInteractorImpl implements CanchasInteractor, CanchaCobroInte
             client.connect();
             InputStream input;
             int status = client.getResponseCode();
-            if (status != HttpURLConnection.HTTP_OK)  {
+            if (status != HttpURLConnection.HTTP_OK) {
                 input = client.getErrorStream();
-            }
-            else  {
+            } else {
                 input = client.getInputStream();
             }
             BufferedReader reader = new BufferedReader(new InputStreamReader(input));
@@ -262,14 +259,13 @@ public class CanchasInteractorImpl implements CanchasInteractor, CanchaCobroInte
         }
     }
 
-    public void getCobrosObject(JSONObject cobrosJsonObject){
-        try{
-            JSONArray data =  cobrosJsonObject.getJSONArray("data");
-            for(int i=0 ; i < data.length(); i++ )
-            {
-                JSONObject canchaObject= data.getJSONObject(i);
+    public void getCobrosObject(JSONObject cobrosJsonObject) {
+        try {
+            JSONArray data = cobrosJsonObject.getJSONArray("data");
+            for (int i = 0; i < data.length(); i++) {
+                JSONObject canchaObject = data.getJSONObject(i);
                 Log.e("data", canchaObject.toString());
-                canchaCobro.add( new CanchaCobro(
+                canchaCobro.add(new CanchaCobro(
                                 canchaObject.getInt("id_cobro"),
                                 canchaObject.getString("nombre_cobro"),
                                 canchaObject.getDouble("latitud"),
@@ -280,7 +276,7 @@ public class CanchasInteractorImpl implements CanchasInteractor, CanchaCobroInte
 
                 );
             }
-        }catch (JSONException e){
+        } catch (JSONException e) {
             e.printStackTrace();
         }
     }
@@ -307,10 +303,9 @@ public class CanchasInteractorImpl implements CanchasInteractor, CanchaCobroInte
             InputStream input;
             int status = client.getResponseCode();
 
-            if (status != HttpURLConnection.HTTP_OK)  {
+            if (status != HttpURLConnection.HTTP_OK) {
                 input = client.getErrorStream();
-            }
-            else  {
+            } else {
                 input = client.getInputStream();
             }
             BufferedReader reader = new BufferedReader(new InputStreamReader(input));
@@ -320,16 +315,16 @@ public class CanchasInteractorImpl implements CanchasInteractor, CanchaCobroInte
                 result.append(line);
             }
             Log.e("CanchaReserva", result.toString());
-            JSONObject jsonObject =  new JSONObject(result.toString());
-            if(jsonObject.getBoolean("resultaldo")){
+            JSONObject jsonObject = new JSONObject(result.toString());
+            if (jsonObject.getBoolean("resultado")) {
                 listener.onSuccess("Reserva de cancha exitoso");
-            }else{
+            } else {
                 listener.onSuccess("Algo salió mal al reservar la cancha");
             }
         } catch (NullPointerException e) {
             listener.onFailed("Error");
             e.printStackTrace();
-        }catch (JSONException e) {
+        } catch (JSONException e) {
             listener.onFailed("Error");
             e.printStackTrace();
         } catch (Exception e) {
@@ -344,7 +339,7 @@ public class CanchasInteractorImpl implements CanchasInteractor, CanchaCobroInte
         StrictMode.setThreadPolicy(policy);
         misReservas.clear();
         try {
-            URL url = new URL(URL_THIRD+ get_mis_reservas);
+            URL url = new URL(URL_THIRD + get_mis_reservas);
             HttpURLConnection client = (HttpURLConnection) url.openConnection();
             client.setDoOutput(true);
             client.setDoInput(true);
@@ -361,10 +356,9 @@ public class CanchasInteractorImpl implements CanchasInteractor, CanchaCobroInte
             InputStream input;
             int status = client.getResponseCode();
 
-            if (status != HttpURLConnection.HTTP_OK)  {
+            if (status != HttpURLConnection.HTTP_OK) {
                 input = client.getErrorStream();
-            }
-            else  {
+            } else {
                 input = client.getInputStream();
             }
             BufferedReader reader = new BufferedReader(new InputStreamReader(input));
@@ -380,7 +374,7 @@ public class CanchasInteractorImpl implements CanchasInteractor, CanchaCobroInte
         } catch (NullPointerException e) {
             listener.onFailed("Error");
             e.printStackTrace();
-        }catch (JSONException e) {
+        } catch (JSONException e) {
             listener.onFailed("Error");
             e.printStackTrace();
         } catch (Exception e) {
@@ -389,8 +383,8 @@ public class CanchasInteractorImpl implements CanchasInteractor, CanchaCobroInte
         }
     }
 
-    public String setIdUsuario(String id_usuario){
-        JSONObject jsonObject =  new JSONObject();
+    public String setIdUsuario(String id_usuario) {
+        JSONObject jsonObject = new JSONObject();
         try {
             jsonObject.put("id_usuario", id_usuario);
         } catch (JSONException e) {
@@ -400,33 +394,32 @@ public class CanchasInteractorImpl implements CanchasInteractor, CanchaCobroInte
     }
 
 
-    public void getMisReservas(JSONObject resultMisReservasObject){
+    public void getMisReservas(JSONObject resultMisReservasObject) {
         try {
             JSONArray data = resultMisReservasObject.getJSONArray("data");
             for (int i = 0; i < data.length(); i++) {
                 JSONObject misReservasObject = data.getJSONObject(i);
                 misReservas.add(new MisReservas(
-                   misReservasObject.getString("nombre"),
-                   misReservasObject.getString("distrito"),
-                   misReservasObject.getInt("id_reserva"),
-                   misReservasObject.getInt("id_cancha"),
-                   misReservasObject.getInt("id_usuario"),
-                   misReservasObject.getString("fecha"),
-                   misReservasObject.getString("hora_inicio"),
-                   misReservasObject.getString("hora_fin"),
-                   misReservasObject.getString("ci_quien_reserva"),
-                   misReservasObject.getString("nombre_reserva"),
-                   misReservasObject.getString("observaciones"),
-                   misReservasObject.getInt("modo_registro"),
-                   misReservasObject.getInt("estado"),
-                   misReservasObject.getString("fecha_alta"),
-                   misReservasObject.getString("fecha_update")
+                        misReservasObject.getString("nombre"),
+                        misReservasObject.getString("distrito"),
+                        misReservasObject.getInt("id_reserva"),
+                        misReservasObject.getInt("id_cancha"),
+                        misReservasObject.getInt("id_usuario"),
+                        misReservasObject.getString("fecha"),
+                        misReservasObject.getString("hora_inicio"),
+                        misReservasObject.getString("hora_fin"),
+                        misReservasObject.getString("ci_quien_reserva"),
+                        misReservasObject.getString("nombre_reserva"),
+                        misReservasObject.getString("observaciones"),
+                        misReservasObject.getInt("modo_registro"),
+                        misReservasObject.getInt("estado"),
+                        misReservasObject.getString("fecha_alta"),
+                        misReservasObject.getString("fecha_update")
                 ));
             }
-        }catch (JSONException e){
+        } catch (JSONException e) {
             e.printStackTrace();
         }
-
     }
 
     @Override
@@ -435,13 +428,14 @@ public class CanchasInteractorImpl implements CanchasInteractor, CanchaCobroInte
         StrictMode.setThreadPolicy(policy);
         horarios.clear();
         try {
-            URL url = new URL(URL_THIRD+ get_horarios_por_fecha);
+            URL url = new URL(URL_THIRD + get_horarios_por_fecha);
             HttpURLConnection client = (HttpURLConnection) url.openConnection();
             client.setDoOutput(true);
             client.setDoInput(true);
+            client.setRequestProperty("Content-Type", "application/json; charset=UTF-8");
             client.setRequestMethod("POST");
             client.connect();
-            String json = setBodyHorarios(id_cancha, fecha_inicio,fecha_fin);
+            String json = setBodyHorarios(id_cancha, fecha_inicio, fecha_fin);
             OutputStreamWriter writer = new OutputStreamWriter(client.getOutputStream());
             String output = json;
             writer.write(output);
@@ -451,10 +445,9 @@ public class CanchasInteractorImpl implements CanchasInteractor, CanchaCobroInte
             InputStream input;
             int status = client.getResponseCode();
 
-            if (status != HttpURLConnection.HTTP_OK)  {
+            if (status != HttpURLConnection.HTTP_OK) {
                 input = client.getErrorStream();
-            }
-            else  {
+            } else {
                 input = client.getInputStream();
             }
             BufferedReader reader = new BufferedReader(new InputStreamReader(input));
@@ -465,8 +458,8 @@ public class CanchasInteractorImpl implements CanchasInteractor, CanchaCobroInte
             }
             Log.e("HORARIOS DISPONIBLES", result.toString());
             JSONObject horariosJson = new JSONObject(result.toString());
-            /*getCanchaInfo(resultCanchainfo);
-            Log.e("########", canchaInfo.toString());*/
+            getHorariosList(horariosJson);
+            //Log.e("########", canchaInfo.toString());*/
             listener.onSuccess(horarios);
         } catch (NullPointerException e) {
             listener.onFailed("Error");
@@ -481,9 +474,8 @@ public class CanchasInteractorImpl implements CanchasInteractor, CanchaCobroInte
     }
 
 
-
-    public String setBodyHorarios(String id_cancha, String fecha_inicio, String fecha_fin){
-        JSONObject jsonObject =  new JSONObject();
+    public String setBodyHorarios(String id_cancha, String fecha_inicio, String fecha_fin) {
+        JSONObject jsonObject = new JSONObject();
         try {
             jsonObject.put("id_cancha", id_cancha);
             jsonObject.put("fecha", fecha_inicio);
@@ -492,5 +484,60 @@ public class CanchasInteractorImpl implements CanchasInteractor, CanchaCobroInte
         }
         Log.e("JSON", jsonObject.toString());
         return jsonObject.toString();
+    }
+
+
+    private void getHorariosList(JSONObject horariosJson) {
+        try {
+            JSONArray data = horariosJson.getJSONArray("data");
+            setHorariosArrayList("07:00", "11:00", data);
+            /**/
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+    public void setHorariosArrayList(String hora_inicio, String hora_fin, JSONArray data) {
+        int hri = Integer.parseInt(hora_inicio.split(":")[0]);
+        int hrf = Integer.parseInt(hora_fin.split(":")[0]);
+        Log.e("HI HF", hri + " " + hrf);
+
+        try {
+            for (int i = hri; i < hrf; i++) {
+                Log.e("", "------------------------");
+                Log.e("", "HORA " + i);
+
+                for (int j = 0; i < data.length(); j++) {
+                    JSONObject horariosDisponiblesObject = null;
+                    horariosDisponiblesObject = data.getJSONObject(j);
+                    String fecha= horariosDisponiblesObject.getString("fecha").split("T")[0];
+                    int horaInicio = Integer.parseInt(horariosDisponiblesObject.getString("hora_inicio").split(":")[0]);
+                    int horaFin = Integer.parseInt(horariosDisponiblesObject.getString("hora_inicio").split(":")[0]);
+
+                    if ((j < horaInicio || j >= horaFin) && !(j + 1 > horaInicio && j + 1 < horaFin)) {
+                        /*console.log(element);
+                        console.log(true);*/
+                        horarios.add(new Horarios(fecha,i+"" ,"0"));
+                    } else {
+                        horarios.add(new Horarios(fecha,i+"" ,"1"));
+                    }
+
+
+                    /*horarios.add(new Horarios(
+                            horariosDisponiblesObject.getString("nombre"),
+                            horariosDisponiblesObject.getString("distrito"),
+                            horariosDisponiblesObject.getString("id_reserva")
+                    ));*/
+                }
+
+            /*ev.forEach(element = > {
+
+
+                });*/
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
     }
 }
