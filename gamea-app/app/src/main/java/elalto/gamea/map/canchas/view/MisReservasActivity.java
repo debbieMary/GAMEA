@@ -62,6 +62,6 @@ public class MisReservasActivity extends AppCompatActivity  implements MisReserv
 
     @Override
     public void showErrorMessage(String message) {
-        Toast.makeText(this, "Error" , Toast.LENGTH_LONG).show();
+        Toast.makeText(this, message , Toast.LENGTH_LONG).show();
     }
 }

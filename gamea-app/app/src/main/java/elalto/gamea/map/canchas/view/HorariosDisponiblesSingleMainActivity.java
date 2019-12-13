@@ -4,24 +4,29 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
+
 import elalto.gamea.R;
 import elalto.gamea.map.canchas.entities.Horarios;
 import elalto.gamea.map.canchas.model.CanchasInteractorImpl;
 import elalto.gamea.map.canchas.presenter.HorariosDisponiblesPresenter;
 import elalto.gamea.map.canchas.presenter.HorariosDisponiblesPresenterImpl;
 import elalto.gamea.map.canchas.view.Adapters.HorariosAdapter;
+
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.List;
 
 
-public class HorariosDisponiblesSingleMainActivity extends AppCompatActivity implements HorariosDisponiblesView{
+public class HorariosDisponiblesSingleMainActivity extends AppCompatActivity implements HorariosDisponiblesView {
     Toolbar toolbar;
     Bundle bundle;
     String id_cancha;
@@ -30,7 +35,9 @@ public class HorariosDisponiblesSingleMainActivity extends AppCompatActivity imp
     HorariosDisponiblesPresenter horariosDisponiblesPresenter;
     TextView lbl_nombre_cancha;
 
-    private Calendar fechaYhora = Calendar.getInstance();ArrayList<Horarios> horarios= new ArrayList<Horarios>();
+    private Calendar fechaYhora = Calendar.getInstance();
+    ArrayList<Horarios> horarios = new ArrayList<Horarios>();
+    ArrayList<String> array_horario_inicio = new ArrayList<String>();
     SimpleDateFormat fecha = new SimpleDateFormat("yyyy/MM/dd");
     String fecha_actual;
 
@@ -50,16 +57,14 @@ public class HorariosDisponiblesSingleMainActivity extends AppCompatActivity imp
         id_cancha = bundle.getString("id_cancha");
         nombre_cancha = bundle.getString("nombre_cancha");
         distrito = bundle.getString("distrito");
-        fecha_actual= fecha.format(fechaYhora.getTime());
-        addHorarios();
+        fecha_actual = fecha.format(fechaYhora.getTime());
 
-
-        lbl_nombre_cancha= (TextView) findViewById(R.id.lbl_nombre_cancha);
+        lbl_nombre_cancha = (TextView) findViewById(R.id.lbl_nombre_cancha);
         lbl_nombre_cancha.setText(nombre_cancha);
         recyclerView = (RecyclerView) findViewById(R.id.rv_horarios);
         layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
-        adapter = new HorariosAdapter(horarios,getApplicationContext());
+        adapter = new HorariosAdapter(horarios, getApplicationContext());
         recyclerView.setAdapter(adapter);
 
         horariosDisponiblesPresenter = new HorariosDisponiblesPresenterImpl(this, new CanchasInteractorImpl());
@@ -68,20 +73,6 @@ public class HorariosDisponiblesSingleMainActivity extends AppCompatActivity imp
     }
 
 
-    public void addHorarios() {
-       horarios.add(new Horarios(fecha_actual, "08:00", "1"));
-       horarios.add(new Horarios(fecha_actual, "09:00", "1"));
-       horarios.add(new Horarios(fecha_actual, "10:00", "0"));
-       horarios.add(new Horarios(fecha_actual, "11:00", "1"));
-       horarios.add(new Horarios(fecha_actual, "12:00", "0"));
-       horarios.add(new Horarios(fecha_actual, "13:00", "0"));
-       horarios.add(new Horarios(fecha_actual, "14:00", "1"));
-       horarios.add(new Horarios(fecha_actual, "15:00", "1"));
-       horarios.add(new Horarios(fecha_actual, "16:00", "0"));
-       horarios.add(new Horarios(fecha_actual, "17:00", "1"));
-       horarios.add(new Horarios(fecha_actual, "19:00", "1"));
-       horarios.add(new Horarios(fecha_actual, "20:00", "1"));
-    }
 
     public void reservarCancha(View v) {
         Intent i = new Intent(this, ReservarCanchaActivity.class);
@@ -89,6 +80,7 @@ public class HorariosDisponiblesSingleMainActivity extends AppCompatActivity imp
         i.putExtra("nombre_cancha", nombre_cancha);
         i.putExtra("distrito", distrito);
         startActivity(i);
+        finish();
     }
 
     @Override
@@ -103,11 +95,57 @@ public class HorariosDisponiblesSingleMainActivity extends AppCompatActivity imp
 
     @Override
     public void populate(List<Horarios> horariosList) {
+        array_horario_inicio.clear();
+        //addHorarioArrayInicio();
+        horarios.addAll(horariosList);
+        //addMissingHours();
 
     }
 
     @Override
     public void showErrorMessage(String message) {
-
+        Toast.makeText(this,message , Toast.LENGTH_LONG).show();
     }
+
+
+    /*public void addHorarioArrayInicio() {
+        array_horario_inicio.clear();
+        array_horario_inicio.add("07:00");
+        array_horario_inicio.add("08:00");
+        array_horario_inicio.add("09:00");
+        array_horario_inicio.add("10:00");
+        array_horario_inicio.add("11:00");
+        array_horario_inicio.add("12:00");
+        array_horario_inicio.add("13:00");
+        array_horario_inicio.add("14:00");
+        array_horario_inicio.add("15:00");
+        array_horario_inicio.add("16:00");
+        array_horario_inicio.add("17:00");
+        array_horario_inicio.add("18:00");
+        array_horario_inicio.add("19:00");
+        array_horario_inicio.add("20:00");
+        array_horario_inicio.add("21:00");
+        array_horario_inicio.add("22:00");
+        array_horario_inicio.add("23:00");
+
+    }*/
+
+
+    /*public void addMissingHours() {
+        for (int k = 0; k < array_horario_inicio.size(); k++) {
+            String hora_string = array_horario_inicio.get(k);
+            String fecha_reservada = null;
+            String hora_reservada = null;
+            for (int i = 0; i <= horarios.size(); i++) {
+                hora_reservada = horarios.get(i).getHora();
+                fecha_reservada = horarios.get(i).getFecha();
+            }
+            if (!hora_reservada.equals(hora_string)) {
+             horarios.add(new Horarios(fecha_reservada, hora_string, "0"));
+             Log.e("EEE",hora_string);
+            }
+        }
+        adapter.notifyDataSetChanged();
+    }*/
 }
+

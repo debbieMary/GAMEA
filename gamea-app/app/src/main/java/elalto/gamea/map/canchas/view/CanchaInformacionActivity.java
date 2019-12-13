@@ -14,6 +14,8 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import java.util.List;
 
 public class CanchaInformacionActivity extends AppCompatActivity implements CanchasInfoView {
@@ -129,6 +131,6 @@ public class CanchaInformacionActivity extends AppCompatActivity implements Canc
 
     @Override
     public void showErrorMessage(String message) {
-
+        Toast.makeText(this,message , Toast.LENGTH_LONG).show();
     }
 }

@@ -8,6 +8,7 @@ import elalto.gamea.map.canchas.model.CanchasInteractorImpl;
 import elalto.gamea.map.canchas.presenter.CanchaReservaPresenter;
 import elalto.gamea.map.canchas.presenter.CanchaReservaPresenterImpl;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -25,6 +26,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 
 
+
 public class ReservarCanchaActivity extends AppCompatActivity implements CanchaReservaView {
 
     Toolbar toolbar;
@@ -32,8 +34,6 @@ public class ReservarCanchaActivity extends AppCompatActivity implements CanchaR
     String id_cancha;
     String nombre_cancha;
     String distrito;
-    ArrayList<String> array_horario_inicio = new ArrayList<String>();
-    ArrayList<String> array_horario_fin = new ArrayList<String>();
     Spinner sp_horario_inicio;
     Spinner sp_horario_fin;
     ArrayAdapter<String> horario_inicio_adapter;
@@ -45,6 +45,8 @@ public class ReservarCanchaActivity extends AppCompatActivity implements CanchaR
     private Calendar fechaYhora = Calendar.getInstance();
     SimpleDateFormat fecha = new SimpleDateFormat("yyyy/MM/dd");
     CanchaReservaPresenter canchaReservaPresenter;
+    ArrayList<String> array_horario_inicio = new ArrayList<String>();
+    ArrayList<String> array_horario_fin = new ArrayList<String>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -102,6 +104,7 @@ public class ReservarCanchaActivity extends AppCompatActivity implements CanchaR
 
 
     public void setHorarios() {
+        array_horario_inicio.add("07:00");
         array_horario_inicio.add("08:00");
         array_horario_inicio.add("09:00");
         array_horario_inicio.add("10:00");
@@ -115,6 +118,9 @@ public class ReservarCanchaActivity extends AppCompatActivity implements CanchaR
         array_horario_inicio.add("18:00");
         array_horario_inicio.add("19:00");
         array_horario_inicio.add("20:00");
+        array_horario_inicio.add("21:00");
+        array_horario_inicio.add("22:00");
+        array_horario_inicio.add("23:00");
         array_horario_fin.addAll(array_horario_inicio);
         array_horario_fin.remove(0);
         selected_hora_inicio = array_horario_inicio.get(0);
@@ -158,8 +164,14 @@ public class ReservarCanchaActivity extends AppCompatActivity implements CanchaR
 
     @Override
     public void populateMessage(String message) {
-      Toast.makeText(this,message , Toast.LENGTH_LONG).show();
-      finish();
+
+        Toast.makeText(this,message , Toast.LENGTH_LONG).show();
+        Intent i = new Intent(this, HorariosDisponiblesSingleMainActivity.class);
+        i.putExtra("id_cancha", id_cancha);
+        i.putExtra("nombre_cancha", nombre_cancha);
+        i.putExtra("distrito", distrito);
+        startActivity(i);
+        finish();
     }
 
     @Override

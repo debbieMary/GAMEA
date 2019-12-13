@@ -15,6 +15,7 @@ import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 import elalto.gamea.map.canchas.entities.Cancha;
@@ -459,8 +460,9 @@ public class CanchasInteractorImpl implements CanchasInteractor, CanchaCobroInte
             Log.e("HORARIOS DISPONIBLES", result.toString());
             JSONObject horariosJson = new JSONObject(result.toString());
             getHorariosList(horariosJson);
-            //Log.e("########", canchaInfo.toString());*/
+            Log.e("########", "****************************");
             listener.onSuccess(horarios);
+
         } catch (NullPointerException e) {
             listener.onFailed("Error");
             e.printStackTrace();
@@ -490,7 +492,7 @@ public class CanchasInteractorImpl implements CanchasInteractor, CanchaCobroInte
     private void getHorariosList(JSONObject horariosJson) {
         try {
             JSONArray data = horariosJson.getJSONArray("data");
-            setHorariosArrayList("07:00", "11:00", data);
+            setHorariosArrayList(data);
             /**/
         } catch (JSONException e) {
             e.printStackTrace();
@@ -498,46 +500,25 @@ public class CanchasInteractorImpl implements CanchasInteractor, CanchaCobroInte
     }
 
 
-    public void setHorariosArrayList(String hora_inicio, String hora_fin, JSONArray data) {
-        int hri = Integer.parseInt(hora_inicio.split(":")[0]);
-        int hrf = Integer.parseInt(hora_fin.split(":")[0]);
-        Log.e("HI HF", hri + " " + hrf);
+    public void setHorariosArrayList(JSONArray data) {
 
         try {
-            for (int i = hri; i < hrf; i++) {
-                Log.e("", "------------------------");
-                Log.e("", "HORA " + i);
 
-                for (int j = 0; i < data.length(); j++) {
-                    JSONObject horariosDisponiblesObject = null;
-                    horariosDisponiblesObject = data.getJSONObject(j);
-                    String fecha= horariosDisponiblesObject.getString("fecha").split("T")[0];
+                for (int j = 0; j < data.length(); j++) {
+                    JSONObject horariosDisponiblesObject = data.getJSONObject(j);
+                    String fecha = horariosDisponiblesObject.getString("fecha").split("T")[0];
                     int horaInicio = Integer.parseInt(horariosDisponiblesObject.getString("hora_inicio").split(":")[0]);
-                    int horaFin = Integer.parseInt(horariosDisponiblesObject.getString("hora_inicio").split(":")[0]);
+                    int horaFin = Integer.parseInt(horariosDisponiblesObject.getString("hora_fin").split(":")[0]);
 
-                    if ((j < horaInicio || j >= horaFin) && !(j + 1 > horaInicio && j + 1 < horaFin)) {
-                        /*console.log(element);
-                        console.log(true);*/
-                        horarios.add(new Horarios(fecha,i+"" ,"0"));
-                    } else {
-                        horarios.add(new Horarios(fecha,i+"" ,"1"));
+                    for (int i = horaInicio; i < horaFin; i++) {
+                        String hora = Integer.toString(i).length() == 1 ? "0" + Integer.toString(i) : Integer.toString(i);
+                        horarios.add(new Horarios(fecha, hora + ":00", "1"));
                     }
-
-
-                    /*horarios.add(new Horarios(
-                            horariosDisponiblesObject.getString("nombre"),
-                            horariosDisponiblesObject.getString("distrito"),
-                            horariosDisponiblesObject.getString("id_reserva")
-                    ));*/
-                }
-
-            /*ev.forEach(element = > {
-
-
-                });*/
             }
+
         } catch (JSONException e) {
             e.printStackTrace();
         }
     }
+
 }
