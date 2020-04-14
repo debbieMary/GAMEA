@@ -2,24 +2,20 @@ package elalto.gamea.map.canchas.view;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
+import androidx.core.content.ContextCompat;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import java.util.ArrayList;
-
 import elalto.gamea.R;
 import elalto.gamea.map.canchas.entities.Horarios;
-import elalto.gamea.map.canchas.model.CanchasInteractorImpl;
 import elalto.gamea.map.canchas.presenter.HorariosDisponiblesPresenter;
-import elalto.gamea.map.canchas.presenter.HorariosDisponiblesPresenterImpl;
-import elalto.gamea.map.canchas.view.Adapters.HorariosAdapter;
+import elalto.gamea.map.canchas.view.Calendar.*;
+import elalto.gamea.map.canchas.view.Calendar.data.IEvent;
+import elalto.gamea.map.canchas.view.Calendar.decoration.CdvDecorationDefault;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -41,10 +37,8 @@ public class HorariosDisponiblesSingleMainActivity extends AppCompatActivity imp
     SimpleDateFormat fecha = new SimpleDateFormat("yyyy/MM/dd");
     String fecha_actual;
 
-    HorariosAdapter adapter;
-    RecyclerView recyclerView;
-    private RecyclerView.LayoutManager layoutManager;
-
+    CalendarDayView dayView;
+    ArrayList<IEvent> events;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,18 +55,76 @@ public class HorariosDisponiblesSingleMainActivity extends AppCompatActivity imp
 
         lbl_nombre_cancha = (TextView) findViewById(R.id.lbl_nombre_cancha);
         lbl_nombre_cancha.setText(nombre_cancha);
-        recyclerView = (RecyclerView) findViewById(R.id.rv_horarios);
-        layoutManager = new LinearLayoutManager(this);
-        recyclerView.setLayoutManager(layoutManager);
-        adapter = new HorariosAdapter(horarios, getApplicationContext());
-        recyclerView.setAdapter(adapter);
 
-        horariosDisponiblesPresenter = new HorariosDisponiblesPresenterImpl(this, new CanchasInteractorImpl());
-        horariosDisponiblesPresenter.getHorariosDisponibles(id_cancha, fecha_actual, fecha_actual);
+
+        dayView = (CalendarDayView) findViewById(R.id.calendar);
+        dayView.setLimitTime(8, 20);
+
+        ((CdvDecorationDefault) (dayView.getDecoration())).setOnEventClickListener(
+                new EventView.OnEventClickListener() {
+                    @Override
+                    public void onEventClick(EventView view, IEvent data) {
+                        Log.e("TAG", "onEventClick:" + data.getName());
+                    }
+
+                    @Override
+                    public void onEventViewClick(View view, EventView eventView, IEvent data) {
+                        Log.e("TAG", "onEventViewClick:" + data.getName());
+                        if (data instanceof Event) {
+                            // change event (ex: set event color)
+                            dayView.setEvents(events);
+                        }
+                    }
+                });
+
+        addEvents();
 
     }
 
 
+    public void addEvents(){
+        events = new ArrayList<>();
+
+        {
+            int eventColor = ContextCompat.getColor(this, R.color.eventColor);
+            Calendar timeStart = Calendar.getInstance();
+            timeStart.set(Calendar.HOUR_OF_DAY, 8);
+            timeStart.set(Calendar.MINUTE, 0);
+            Calendar timeEnd = (Calendar) timeStart.clone();
+            timeEnd.set(Calendar.HOUR_OF_DAY, 10);
+            timeEnd.set(Calendar.MINUTE, 0);
+            Event event = new Event(0, timeStart, timeEnd, "Event", "Hockaido", eventColor);
+
+            events.add(event);
+        }
+
+        {
+            int eventColor = ContextCompat.getColor(this, R.color.eventColor);
+            Calendar timeStart = Calendar.getInstance();
+            timeStart.set(Calendar.HOUR_OF_DAY, 18);
+            timeStart.set(Calendar.MINUTE, 0);
+            Calendar timeEnd = (Calendar) timeStart.clone();
+            timeEnd.set(Calendar.HOUR_OF_DAY, 20);
+            timeEnd.set(Calendar.MINUTE, 0);
+            Event event = new Event(0, timeStart, timeEnd, "Another event", "Hockaido", eventColor);
+
+            events.add(event);
+        }
+        {
+            int eventColor = getResources().getColor(R.color.eventColor);
+            Calendar timeStart = Calendar.getInstance();
+            timeStart.set(Calendar.HOUR_OF_DAY, 16);
+            timeStart.set(Calendar.MINUTE, 15);
+            Calendar timeEnd = (Calendar) timeStart.clone();
+            timeEnd.add(Calendar.HOUR_OF_DAY, 1);
+            timeEnd.add(Calendar.MINUTE, 30);
+            Event event = new Event(3, timeStart, timeEnd, "event 6", "house", eventColor);
+            events.add(event);
+        }
+
+        dayView.setEvents(events);
+
+    }
 
     public void reservarCancha(View v) {
         Intent i = new Intent(this, ReservarCanchaActivity.class);
@@ -108,44 +160,5 @@ public class HorariosDisponiblesSingleMainActivity extends AppCompatActivity imp
     }
 
 
-    /*public void addHorarioArrayInicio() {
-        array_horario_inicio.clear();
-        array_horario_inicio.add("07:00");
-        array_horario_inicio.add("08:00");
-        array_horario_inicio.add("09:00");
-        array_horario_inicio.add("10:00");
-        array_horario_inicio.add("11:00");
-        array_horario_inicio.add("12:00");
-        array_horario_inicio.add("13:00");
-        array_horario_inicio.add("14:00");
-        array_horario_inicio.add("15:00");
-        array_horario_inicio.add("16:00");
-        array_horario_inicio.add("17:00");
-        array_horario_inicio.add("18:00");
-        array_horario_inicio.add("19:00");
-        array_horario_inicio.add("20:00");
-        array_horario_inicio.add("21:00");
-        array_horario_inicio.add("22:00");
-        array_horario_inicio.add("23:00");
-
-    }*/
-
-
-    /*public void addMissingHours() {
-        for (int k = 0; k < array_horario_inicio.size(); k++) {
-            String hora_string = array_horario_inicio.get(k);
-            String fecha_reservada = null;
-            String hora_reservada = null;
-            for (int i = 0; i <= horarios.size(); i++) {
-                hora_reservada = horarios.get(i).getHora();
-                fecha_reservada = horarios.get(i).getFecha();
-            }
-            if (!hora_reservada.equals(hora_string)) {
-             horarios.add(new Horarios(fecha_reservada, hora_string, "0"));
-             Log.e("EEE",hora_string);
-            }
-        }
-        adapter.notifyDataSetChanged();
-    }*/
 }
 

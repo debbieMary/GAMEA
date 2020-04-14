@@ -34,13 +34,22 @@
         android:orientation="vertical">
 
 
-        <androidx.recyclerview.widget.RecyclerView
+        <ScrollView
             android:layout_width="match_parent"
-            android:id="@+id/rv_horarios"
-            android:layout_marginLeft="@dimen/activity_horizontal_margin"
-            android:layout_marginRight="@dimen/activity_horizontal_margin"
             android:layout_height="match_parent"
-            android:layout_weight="0.9" />
+            android:clipToPadding="false"
+            android:layout_weight="0.9"
+            android:background="#FFF"
+            android:paddingTop="2dp"
+            >
+
+            <elalto.gamea.map.canchas.view.Calendar.CalendarDayView
+                android:id="@+id/calendar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:eventMarginLeft="0dp"
+                app:dayHeight="@dimen/dayHeight"/>
+        </ScrollView>
 
         <Button
             android:id="@+id/button"
