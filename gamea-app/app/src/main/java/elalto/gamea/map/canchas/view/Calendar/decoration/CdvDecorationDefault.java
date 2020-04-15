@@ -7,9 +7,7 @@ import android.graphics.Rect;
 
 import elalto.gamea.map.canchas.view.Calendar.DayView;
 import elalto.gamea.map.canchas.view.Calendar.EventView;
-import elalto.gamea.map.canchas.view.Calendar.PopupView;
 import elalto.gamea.map.canchas.view.Calendar.data.IEvent;
-import elalto.gamea.map.canchas.view.Calendar.data.IPopup;
 
 /**
  * Created by FRAMGIA\pham.van.khac on 22/07/2016.
@@ -20,7 +18,6 @@ public class CdvDecorationDefault implements CdvDecoration {
 
     protected EventView.OnEventClickListener mEventClickListener;
 
-    protected PopupView.OnEventPopupClickListener mPopupClickListener;
 
     public CdvDecorationDefault(Context context) {
         this.mContext = context;
@@ -36,14 +33,7 @@ public class CdvDecorationDefault implements CdvDecoration {
         return eventView;
     }
 
-    @Override
-    public PopupView getPopupView(IPopup popup, Rect eventBound, int hourHeight, int seperateH) {
-        PopupView view = new PopupView(mContext);
-        view.setOnPopupClickListener(mPopupClickListener);
-        view.setPopup(popup);
-        view.setPosition(eventBound, -hourHeight / 4 + seperateH, hourHeight / 2 - seperateH * 2);
-        return view;
-    }
+
 
     @Override
     public DayView getDayView(int hour) {
@@ -56,7 +46,5 @@ public class CdvDecorationDefault implements CdvDecoration {
         this.mEventClickListener = listener;
     }
 
-    public void setOnPopupClickListener(PopupView.OnEventPopupClickListener listener) {
-        this.mPopupClickListener = listener;
-    }
+
 }

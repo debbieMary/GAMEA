@@ -17,7 +17,6 @@ import java.util.List;
 
 import elalto.gamea.R;
 import elalto.gamea.map.canchas.view.Calendar.data.IEvent;
-import elalto.gamea.map.canchas.view.Calendar.data.IPopup;
 import elalto.gamea.map.canchas.view.Calendar.data.ITimeDuration;
 import elalto.gamea.map.canchas.view.Calendar.decoration.CdvDecoration;
 import elalto.gamea.map.canchas.view.Calendar.decoration.CdvDecorationDefault;
@@ -50,8 +49,6 @@ public class CalendarDayView extends FrameLayout {
     private CdvDecoration mDecoration;
 
     private List<? extends IEvent> mEvents;
-
-    private List<? extends IPopup> mPopups;
 
     public CalendarDayView(Context context) {
         super(context);
@@ -93,7 +90,6 @@ public class CalendarDayView extends FrameLayout {
         }
 
         mEvents = new ArrayList<>();
-        mPopups = new ArrayList<>();
         mDecoration = new CdvDecorationDefault(getContext());
 
         refresh();
@@ -104,7 +100,6 @@ public class CalendarDayView extends FrameLayout {
 
         drawEvents();
 
-        drawPopups();
     }
 
     private void drawDayViews() {
@@ -138,20 +133,7 @@ public class CalendarDayView extends FrameLayout {
         }
     }
 
-    private void drawPopups() {
-        mLayoutPopup.removeAllViews();
 
-        for (IPopup popup : mPopups) {
-            Rect rect = getTimeBound(popup);
-
-            // add popup views
-            PopupView view =
-                getDecoration().getPopupView(popup, rect, mTimeHeight, mSeparateHourHeight);
-            if (popup != null) {
-                mLayoutPopup.addView(view, view.getLayoutParams());
-            }
-        }
-    }
 
     private Rect getTimeBound(ITimeDuration event) {
         Rect rect = new Rect();
@@ -173,10 +155,6 @@ public class CalendarDayView extends FrameLayout {
         refresh();
     }
 
-    public void setPopups(List<? extends IPopup> popups) {
-        this.mPopups = popups;
-        refresh();
-    }
 
     public void setLimitTime(int startHour, int endHour) {
         if (startHour >= endHour) {

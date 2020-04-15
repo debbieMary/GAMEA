@@ -5,6 +5,7 @@ import java.util.List;
 import elalto.gamea.map.canchas.entities.CanchaCobro;
 import elalto.gamea.map.canchas.entities.Horarios;
 import elalto.gamea.map.canchas.model.CanchaCobroInteractor;
+import elalto.gamea.map.canchas.model.Event;
 import elalto.gamea.map.canchas.model.HorariosDisponiblesInteractor;
 import elalto.gamea.map.canchas.view.CanchaCobroView;
 import elalto.gamea.map.canchas.view.HorariosDisponiblesView;
@@ -22,7 +23,7 @@ public class HorariosDisponiblesPresenterImpl implements HorariosDisponiblesPres
 
 
     @Override
-    public void onSuccess(List<Horarios> horarios) {
+    public void onSuccess(List<Event> horarios) {
         if (horariosDisponiblesCobroView != null) {
             horariosDisponiblesCobroView.hideProgress();
             horariosDisponiblesCobroView.populate(horarios);

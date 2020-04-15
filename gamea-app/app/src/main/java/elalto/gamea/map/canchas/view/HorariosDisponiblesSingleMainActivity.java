@@ -12,7 +12,10 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import elalto.gamea.R;
 import elalto.gamea.map.canchas.entities.Horarios;
+import elalto.gamea.map.canchas.model.CanchasInteractorImpl;
+import elalto.gamea.map.canchas.model.Event;
 import elalto.gamea.map.canchas.presenter.HorariosDisponiblesPresenter;
+import elalto.gamea.map.canchas.presenter.HorariosDisponiblesPresenterImpl;
 import elalto.gamea.map.canchas.view.Calendar.*;
 import elalto.gamea.map.canchas.view.Calendar.data.IEvent;
 import elalto.gamea.map.canchas.view.Calendar.decoration.CdvDecorationDefault;
@@ -32,8 +35,7 @@ public class HorariosDisponiblesSingleMainActivity extends AppCompatActivity imp
     TextView lbl_nombre_cancha;
 
     private Calendar fechaYhora = Calendar.getInstance();
-    ArrayList<Horarios> horarios = new ArrayList<Horarios>();
-    ArrayList<String> array_horario_inicio = new ArrayList<String>();
+    ArrayList<Event> horarios = new ArrayList<Event>();
     SimpleDateFormat fecha = new SimpleDateFormat("yyyy/MM/dd");
     String fecha_actual;
 
@@ -55,6 +57,12 @@ public class HorariosDisponiblesSingleMainActivity extends AppCompatActivity imp
 
         lbl_nombre_cancha = (TextView) findViewById(R.id.lbl_nombre_cancha);
         lbl_nombre_cancha.setText(nombre_cancha);
+
+        fecha_actual = fecha.format(fechaYhora.getTime());
+        Log.e("$$$$$$$$",fecha_actual);
+
+        horariosDisponiblesPresenter = new HorariosDisponiblesPresenterImpl(this, new CanchasInteractorImpl());
+        horariosDisponiblesPresenter.getHorariosDisponibles(id_cancha, fecha_actual, fecha_actual);
 
 
         dayView = (CalendarDayView) findViewById(R.id.calendar);
@@ -146,8 +154,7 @@ public class HorariosDisponiblesSingleMainActivity extends AppCompatActivity imp
     }
 
     @Override
-    public void populate(List<Horarios> horariosList) {
-        array_horario_inicio.clear();
+    public void populate(List<Event> horariosList) {
         //addHorarioArrayInicio();
         horarios.addAll(horariosList);
         //addMissingHours();

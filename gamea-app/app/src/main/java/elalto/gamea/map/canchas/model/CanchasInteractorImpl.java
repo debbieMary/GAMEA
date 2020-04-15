@@ -33,7 +33,8 @@ public class CanchasInteractorImpl implements CanchasInteractor, CanchaCobroInte
     List<CanchaInfo> canchaInfo = new ArrayList<CanchaInfo>();
     List<CanchaCobro> canchaCobro = new ArrayList<CanchaCobro>();
     List<MisReservas> misReservas = new ArrayList<MisReservas>();
-    List<Horarios> horarios = new ArrayList<Horarios>();
+    List<Event> event =  new ArrayList<Event>();
+
     public static final String URL_BASE = "https://api-game-bo.herokuapp.com/canchas/";
     public static final String URL_SECOND = "https://api-game-bo.herokuapp.com/cobros/";
     public static final String URL_THIRD = "https://api-game-bo.herokuapp.com/reservas/";
@@ -427,7 +428,7 @@ public class CanchasInteractorImpl implements CanchasInteractor, CanchaCobroInte
     public void getHorariosDisponibles(String id_cancha, String fecha_inicio, String fecha_fin, onHorariosDisponiblesFinishedListener listener) {
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
-        horarios.clear();
+        event.clear();
         try {
             URL url = new URL(URL_THIRD + get_horarios_por_fecha);
             HttpURLConnection client = (HttpURLConnection) url.openConnection();
@@ -461,7 +462,7 @@ public class CanchasInteractorImpl implements CanchasInteractor, CanchaCobroInte
             JSONObject horariosJson = new JSONObject(result.toString());
             getHorariosList(horariosJson);
             Log.e("########", "****************************");
-            listener.onSuccess(horarios);
+            listener.onSuccess(event);
 
         } catch (NullPointerException e) {
             listener.onFailed("Error");
@@ -492,6 +493,7 @@ public class CanchasInteractorImpl implements CanchasInteractor, CanchaCobroInte
     private void getHorariosList(JSONObject horariosJson) {
         try {
             JSONArray data = horariosJson.getJSONArray("data");
+            Log.e("$$$$$", data.toString());
             setHorariosArrayList(data);
             /**/
         } catch (JSONException e) {
@@ -510,10 +512,10 @@ public class CanchasInteractorImpl implements CanchasInteractor, CanchaCobroInte
                     int horaInicio = Integer.parseInt(horariosDisponiblesObject.getString("hora_inicio").split(":")[0]);
                     int horaFin = Integer.parseInt(horariosDisponiblesObject.getString("hora_fin").split(":")[0]);
 
-                    for (int i = horaInicio; i < horaFin; i++) {
+                    /*for (int i = horaInicio; i < horaFin; i++) {
                         String hora = Integer.toString(i).length() == 1 ? "0" + Integer.toString(i) : Integer.toString(i);
                         horarios.add(new Horarios(fecha, hora + ":00", "1"));
-                    }
+                    }*/
             }
 
         } catch (JSONException e) {

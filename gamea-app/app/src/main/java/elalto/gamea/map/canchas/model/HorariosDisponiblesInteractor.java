@@ -2,13 +2,10 @@ package elalto.gamea.map.canchas.model;
 
 import java.util.List;
 
-import elalto.gamea.map.canchas.entities.CanchaCobro;
-import elalto.gamea.map.canchas.entities.Horarios;
-import elalto.network.entities.TokenManager;
 
 public interface HorariosDisponiblesInteractor {
   interface onHorariosDisponiblesFinishedListener {
-    void onSuccess(List<Horarios> horarios);
+    void onSuccess(List<Event> horarios);
 
     void onFailed(String message);
   }

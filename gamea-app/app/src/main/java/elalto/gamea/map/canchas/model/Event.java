@@ -1,4 +1,4 @@
-package elalto.gamea.map.canchas.view;
+package elalto.gamea.map.canchas.model;
 
 import java.util.Calendar;
 
