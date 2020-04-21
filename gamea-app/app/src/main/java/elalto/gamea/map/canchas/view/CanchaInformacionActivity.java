@@ -69,7 +69,7 @@ public class CanchaInformacionActivity extends AppCompatActivity implements Canc
     }
 
     public void verHorariosDisponibles(View v){
-        Intent i= new  Intent(this, HorariosDisponiblesSingleMainActivity.class);
+        Intent i= new  Intent(this, HorariosDisponiblesActivity.class);
         i.putExtra("id_cancha",  id_cancha);
         i.putExtra("distrito",  distrito);
         i.putExtra("nombre_cancha",  nombre_cancha);

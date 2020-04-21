@@ -9,9 +9,13 @@ import elalto.gamea.map.canchas.view.Adapters.PagerAdapter;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 
 import com.google.android.material.tabs.TabLayout;
+
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 
 
 public class HorariosDisponiblesActivity extends AppCompatActivity {
@@ -20,6 +24,14 @@ public class HorariosDisponiblesActivity extends AppCompatActivity {
     String id_cancha;
     String distrito;
     String nombre_cancha;
+
+    private Calendar fechaYhora = Calendar.getInstance();
+    SimpleDateFormat fecha = new SimpleDateFormat("yyyy/MM/dd");
+
+
+
+    String fecha_actual;
+    String fecha_manhiana;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,10 +44,16 @@ public class HorariosDisponiblesActivity extends AppCompatActivity {
         nombre_cancha = bundle.getString("nombre_cancha");
         distrito = bundle.getString("distrito");
 
+        fecha_actual = fecha.format(fechaYhora.getTime());
+        fechaYhora.add(Calendar.DATE, 1);
+        fecha_manhiana = fecha.format(fechaYhora.getTime());
+        Log.e("$$$-FECHA ACTUAL-$$$$$", fecha_actual);
+        Log.e("$$$-FECHA MANHIA-$$$$$", fecha_manhiana);
+
 
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tab_layout);
-        tabLayout.addTab(tabLayout.newTab().setText("Hoy"));
-        tabLayout.addTab(tabLayout.newTab().setText("Mañana"));
+        tabLayout.addTab(tabLayout.newTab().setText(fecha_actual));
+        tabLayout.addTab(tabLayout.newTab().setText(fecha_manhiana));
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
         final ViewPager viewPager = (ViewPager) findViewById(R.id.pager);
         final PagerAdapter adapter = new PagerAdapter

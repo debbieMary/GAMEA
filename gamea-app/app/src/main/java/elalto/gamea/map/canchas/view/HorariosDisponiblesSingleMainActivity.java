@@ -88,50 +88,6 @@ public class HorariosDisponiblesSingleMainActivity extends AppCompatActivity imp
     }
 
 
-    /*public void addEvents(){
-        events = new ArrayList<>();
-
-        {
-            int eventColor = ContextCompat.getColor(this, R.color.eventColor);
-            Calendar timeStart = Calendar.getInstance();
-            timeStart.set(Calendar.HOUR_OF_DAY, 8);
-            timeStart.set(Calendar.MINUTE, 0);
-            Calendar timeEnd = (Calendar) timeStart.clone();
-            timeEnd.set(Calendar.HOUR_OF_DAY, 10);
-            timeEnd.set(Calendar.MINUTE, 0);
-            Event event = new Event(0, timeStart, timeEnd, "Event", "Hockaido", eventColor);
-
-            events.add(event);
-        }
-
-        {
-            int eventColor = ContextCompat.getColor(this, R.color.eventColor);
-            Calendar timeStart = Calendar.getInstance();
-            timeStart.set(Calendar.HOUR_OF_DAY, 16);
-            timeStart.set(Calendar.MINUTE, 0);
-            Calendar timeEnd = (Calendar) timeStart.clone();
-            timeEnd.set(Calendar.HOUR_OF_DAY, 18);
-            timeEnd.set(Calendar.MINUTE, 0);
-            Event event = new Event(0, timeStart, timeEnd, "Another event", "Hockaido", eventColor);
-
-            events.add(event);
-        }
-        {
-            int eventColor = getResources().getColor(R.color.eventColor);
-            Calendar timeStart = Calendar.getInstance();
-            timeStart.set(Calendar.HOUR_OF_DAY, 18);
-            timeStart.set(Calendar.MINUTE, 0);
-            Calendar timeEnd = (Calendar) timeStart.clone();
-            timeEnd.add(Calendar.HOUR_OF_DAY, 20);
-            timeEnd.add(Calendar.MINUTE, 0);
-            Event event = new Event(0, timeStart, timeEnd, "event 6", "house", eventColor);
-            events.add(event);
-        }
-
-
-
-    }*/
-
     public void reservarCancha(View v) {
         Intent i = new Intent(this, ReservarCanchaActivity.class);
         i.putExtra("id_cancha", id_cancha);
@@ -153,14 +109,7 @@ public class HorariosDisponiblesSingleMainActivity extends AppCompatActivity imp
 
     @Override
     public void populate(List<Event> horariosList) {
-        Log.e("Debbie", "hola");
-        Log.e("Debbie", horariosList.size()+"");
-        Log.e("Debbie", horariosList+"");
-        Log.e("Debbie", "hola");
-        //addHorarioArrayInicio();
         events.addAll(horariosList);
-        Log.e("Debbie", "hola");
-        //addMissingHours();
 
     }
 
