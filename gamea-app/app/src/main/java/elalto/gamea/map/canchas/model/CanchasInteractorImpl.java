@@ -464,19 +464,16 @@ public class CanchasInteractorImpl implements CanchasInteractor, CanchaCobroInte
             Log.e("HORARIOS DISPONIBLES", result.toString());
             JSONObject horariosJson = new JSONObject(result.toString());
             getHorariosList(horariosJson);
-            Log.e("########", "****************************" );
-            Log.e("###LENHGT#####", event.size()+"");
-            Log.e("###LENHGT#####", event+"");
             listener.onSuccess(event);
 
         } catch (NullPointerException e) {
-            listener.onFailed("Error 1"+ e.getMessage());
+            listener.onFailed(e.getMessage());
             e.printStackTrace();
         } catch (JSONException e) {
-            listener.onFailed("Error 2" + e.getMessage());
+            listener.onFailed( e.getMessage());
             e.printStackTrace();
         } catch (Exception e) {
-            listener.onFailed("Error 3" + e.getMessage());
+            listener.onFailed( e.getMessage());
             e.printStackTrace();
         }
     }
@@ -498,7 +495,7 @@ public class CanchasInteractorImpl implements CanchasInteractor, CanchaCobroInte
     private void getHorariosList(JSONObject horariosJson) {
         try {
             JSONArray data = horariosJson.getJSONArray("data");
-            Log.e("$$$$$", data.toString());
+            Log.e("HORARIOS DATA", data.toString());
             setHorariosArrayList(data);
             /**/
         } catch (JSONException e) {
@@ -508,7 +505,6 @@ public class CanchasInteractorImpl implements CanchasInteractor, CanchaCobroInte
 
 
     public void setHorariosArrayList(JSONArray data) {
-     Log.e("<3<3<3<3", data.toString());
         try {
 
                 for (int j = 0; j < data.length(); j++) {

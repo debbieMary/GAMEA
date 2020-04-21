@@ -1,7 +1,5 @@
 package elalto.gamea.map.canchas.presenter;
 
-import android.util.Log;
-
 import java.util.List;
 
 import elalto.gamea.map.canchas.entities.Event;
@@ -21,8 +19,6 @@ public class HorariosDisponiblesPresenterImpl implements HorariosDisponiblesPres
 
     @Override
     public void onSuccess(List<Event> horarios) {
-        Log.e("hola hola",horarios.size()+"");
-        Log.e("hola hola",horarios+"");
         if (horariosDisponiblesCobroView != null) {
             horariosDisponiblesCobroView.hideProgress();
             horariosDisponiblesCobroView.populate(horarios);
