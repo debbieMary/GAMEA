@@ -60,7 +60,6 @@ public class HorariosDisponiblesSingleMainActivity extends AppCompatActivity imp
         lbl_nombre_cancha.setText(nombre_cancha);
 
         fecha_actual = fecha.format(fechaYhora.getTime());
-        Log.e("$$$$$$$$", fecha_actual);
 
         dayView = (CalendarDayView) findViewById(R.id.calendar);
         dayView.setLimitTime(7, 20);

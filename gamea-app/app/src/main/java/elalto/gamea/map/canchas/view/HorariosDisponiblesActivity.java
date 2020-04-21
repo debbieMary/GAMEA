@@ -47,8 +47,7 @@ public class HorariosDisponiblesActivity extends AppCompatActivity {
         fecha_actual = fecha.format(fechaYhora.getTime());
         fechaYhora.add(Calendar.DATE, 1);
         fecha_manhiana = fecha.format(fechaYhora.getTime());
-        Log.e("$$$-FECHA ACTUAL-$$$$$", fecha_actual);
-        Log.e("$$$-FECHA MANHIA-$$$$$", fecha_manhiana);
+
 
 
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tab_layout);
@@ -60,6 +59,7 @@ public class HorariosDisponiblesActivity extends AppCompatActivity {
                 (getSupportFragmentManager(), tabLayout.getTabCount());
         viewPager.setAdapter(adapter);
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
+
         tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
