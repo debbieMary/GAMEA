@@ -16,6 +16,7 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class CanchaInformacionActivity extends AppCompatActivity implements CanchasInfoView {
@@ -45,6 +46,7 @@ public class CanchaInformacionActivity extends AppCompatActivity implements Canc
     TextView lbl_direccion;
     TextView lbl_telefono;
 
+    ArrayList<String> images = new ArrayList<String>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -59,7 +61,7 @@ public class CanchaInformacionActivity extends AppCompatActivity implements Canc
         lbl_nombre_cancha.setText(nombre_cancha);
         canchasInfoPresenter = new CanchasInfoPresenterImpl(this, new CanchasInteractorImpl());
         canchasInfoPresenter.getCanchasInfo(id_cancha);
-        mCustomPagerAdapter = new CustomPagerAdapter(this);
+        mCustomPagerAdapter = new CustomPagerAdapter(this, images);
         mViewPager = (ViewPager) findViewById(R.id.pager);
         mViewPager.setAdapter(mCustomPagerAdapter);
 
@@ -108,6 +110,9 @@ public class CanchaInformacionActivity extends AppCompatActivity implements Canc
         lbl_distrito.setText(distrito);
         lbl_direccion.setText(canchaInfoObject.get(0).getDireccion());
         lbl_telefono.setText(canchaInfoObject.get(0).getTelefono());
+        images.add(canchaInfoObject.get(0).getFoto1());
+        images.add(canchaInfoObject.get(0).getFoto2());
+        images.add(canchaInfoObject.get(0).getFoto3());
 
     }
 

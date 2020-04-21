@@ -3,17 +3,19 @@ package elalto.gamea.map.canchas.view;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import java.util.ArrayList;
+
 import elalto.gamea.R;
-import elalto.gamea.map.canchas.entities.Horarios;
 import elalto.gamea.map.canchas.model.CanchasInteractorImpl;
-import elalto.gamea.map.canchas.model.Event;
+import elalto.gamea.map.canchas.entities.Event;
 import elalto.gamea.map.canchas.presenter.HorariosDisponiblesPresenter;
 import elalto.gamea.map.canchas.presenter.HorariosDisponiblesPresenterImpl;
 import elalto.gamea.map.canchas.view.Calendar.*;
@@ -35,12 +37,11 @@ public class HorariosDisponiblesSingleMainActivity extends AppCompatActivity imp
     TextView lbl_nombre_cancha;
 
     private Calendar fechaYhora = Calendar.getInstance();
-    ArrayList<Event> horarios = new ArrayList<Event>();
     SimpleDateFormat fecha = new SimpleDateFormat("yyyy/MM/dd");
     String fecha_actual;
 
     CalendarDayView dayView;
-    ArrayList<IEvent> events;
+    ArrayList<IEvent> events = new ArrayList<IEvent>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,14 +60,14 @@ public class HorariosDisponiblesSingleMainActivity extends AppCompatActivity imp
         lbl_nombre_cancha.setText(nombre_cancha);
 
         fecha_actual = fecha.format(fechaYhora.getTime());
-        Log.e("$$$$$$$$",fecha_actual);
+        Log.e("$$$$$$$$", fecha_actual);
 
+        dayView = (CalendarDayView) findViewById(R.id.calendar);
+        dayView.setLimitTime(7, 20);
         horariosDisponiblesPresenter = new HorariosDisponiblesPresenterImpl(this, new CanchasInteractorImpl());
         horariosDisponiblesPresenter.getHorariosDisponibles(id_cancha, fecha_actual, fecha_actual);
 
-
-        dayView = (CalendarDayView) findViewById(R.id.calendar);
-        dayView.setLimitTime(8, 20);
+        dayView.setEvents(events);
 
         ((CdvDecorationDefault) (dayView.getDecoration())).setOnEventClickListener(
                 new EventView.OnEventClickListener() {
@@ -84,13 +85,10 @@ public class HorariosDisponiblesSingleMainActivity extends AppCompatActivity imp
                         }
                     }
                 });
-
-        addEvents();
-
     }
 
 
-    public void addEvents(){
+    /*public void addEvents(){
         events = new ArrayList<>();
 
         {
@@ -109,10 +107,10 @@ public class HorariosDisponiblesSingleMainActivity extends AppCompatActivity imp
         {
             int eventColor = ContextCompat.getColor(this, R.color.eventColor);
             Calendar timeStart = Calendar.getInstance();
-            timeStart.set(Calendar.HOUR_OF_DAY, 18);
+            timeStart.set(Calendar.HOUR_OF_DAY, 16);
             timeStart.set(Calendar.MINUTE, 0);
             Calendar timeEnd = (Calendar) timeStart.clone();
-            timeEnd.set(Calendar.HOUR_OF_DAY, 20);
+            timeEnd.set(Calendar.HOUR_OF_DAY, 18);
             timeEnd.set(Calendar.MINUTE, 0);
             Event event = new Event(0, timeStart, timeEnd, "Another event", "Hockaido", eventColor);
 
@@ -121,18 +119,18 @@ public class HorariosDisponiblesSingleMainActivity extends AppCompatActivity imp
         {
             int eventColor = getResources().getColor(R.color.eventColor);
             Calendar timeStart = Calendar.getInstance();
-            timeStart.set(Calendar.HOUR_OF_DAY, 16);
-            timeStart.set(Calendar.MINUTE, 15);
+            timeStart.set(Calendar.HOUR_OF_DAY, 18);
+            timeStart.set(Calendar.MINUTE, 0);
             Calendar timeEnd = (Calendar) timeStart.clone();
-            timeEnd.add(Calendar.HOUR_OF_DAY, 1);
-            timeEnd.add(Calendar.MINUTE, 30);
-            Event event = new Event(3, timeStart, timeEnd, "event 6", "house", eventColor);
+            timeEnd.add(Calendar.HOUR_OF_DAY, 20);
+            timeEnd.add(Calendar.MINUTE, 0);
+            Event event = new Event(0, timeStart, timeEnd, "event 6", "house", eventColor);
             events.add(event);
         }
 
-        dayView.setEvents(events);
 
-    }
+
+    }*/
 
     public void reservarCancha(View v) {
         Intent i = new Intent(this, ReservarCanchaActivity.class);
@@ -155,15 +153,20 @@ public class HorariosDisponiblesSingleMainActivity extends AppCompatActivity imp
 
     @Override
     public void populate(List<Event> horariosList) {
+        Log.e("Debbie", "hola");
+        Log.e("Debbie", horariosList.size()+"");
+        Log.e("Debbie", horariosList+"");
+        Log.e("Debbie", "hola");
         //addHorarioArrayInicio();
-        horarios.addAll(horariosList);
+        events.addAll(horariosList);
+        Log.e("Debbie", "hola");
         //addMissingHours();
 
     }
 
     @Override
     public void showErrorMessage(String message) {
-        Toast.makeText(this,message , Toast.LENGTH_LONG).show();
+        Toast.makeText(this, message, Toast.LENGTH_LONG).show();
     }
 
 

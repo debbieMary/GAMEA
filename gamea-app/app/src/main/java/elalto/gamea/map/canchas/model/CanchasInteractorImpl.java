@@ -4,6 +4,8 @@ package elalto.gamea.map.canchas.model;
 import android.os.StrictMode;
 import android.util.Log;
 
+import androidx.core.content.ContextCompat;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -15,13 +17,14 @@ import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.Comparator;
+import java.util.Calendar;
 import java.util.List;
 
+import elalto.gamea.R;
 import elalto.gamea.map.canchas.entities.Cancha;
 import elalto.gamea.map.canchas.entities.CanchaCobro;
 import elalto.gamea.map.canchas.entities.CanchaInfo;
-import elalto.gamea.map.canchas.entities.Horarios;
+import elalto.gamea.map.canchas.entities.Event;
 import elalto.gamea.map.canchas.entities.MisReservas;
 import elalto.network.entities.TokenManager;
 
@@ -73,7 +76,7 @@ public class CanchasInteractorImpl implements CanchasInteractor, CanchaCobroInte
             }
             Log.d("Canchas list", result.toString());
             JSONObject resultadoCanchas = new JSONObject(result.toString());
-            getCanchas(resultadoCanchas);
+            getCanchasObject(resultadoCanchas);
             listener.onSuccess(canchas);
         } catch (NullPointerException e) {
             listener.onFailed("Error");
@@ -87,7 +90,7 @@ public class CanchasInteractorImpl implements CanchasInteractor, CanchaCobroInte
         }
     }
 
-    private void getCanchas(JSONObject jsonCanchas) {
+    private void getCanchasObject(JSONObject jsonCanchas) {
         try {
             JSONArray data = jsonCanchas.getJSONArray("data");
             for (int i = 0; i < data.length(); i++) {
@@ -250,13 +253,13 @@ public class CanchasInteractorImpl implements CanchasInteractor, CanchaCobroInte
             getCobrosObject(resultadoCobros);
             listener.onSuccessCC(canchaCobro);
         } catch (NullPointerException e) {
-            listener.onFailedCC("Error");
+            listener.onFailedCC("Error getting cancha cobros");
             e.printStackTrace();
         } catch (JSONException e) {
-            listener.onFailedCC("Error");
+            listener.onFailedCC("Error getting cancha cobros");
             e.printStackTrace();
         } catch (Exception e) {
-            listener.onFailedCC("Error");
+            listener.onFailedCC("Error getting cancha cobros");
             e.printStackTrace();
         }
     }
@@ -461,17 +464,19 @@ public class CanchasInteractorImpl implements CanchasInteractor, CanchaCobroInte
             Log.e("HORARIOS DISPONIBLES", result.toString());
             JSONObject horariosJson = new JSONObject(result.toString());
             getHorariosList(horariosJson);
-            Log.e("########", "****************************");
+            Log.e("########", "****************************" );
+            Log.e("###LENHGT#####", event.size()+"");
+            Log.e("###LENHGT#####", event+"");
             listener.onSuccess(event);
 
         } catch (NullPointerException e) {
-            listener.onFailed("Error");
+            listener.onFailed("Error 1"+ e.getMessage());
             e.printStackTrace();
         } catch (JSONException e) {
-            listener.onFailed("Error");
+            listener.onFailed("Error 2" + e.getMessage());
             e.printStackTrace();
         } catch (Exception e) {
-            listener.onFailed("Error");
+            listener.onFailed("Error 3" + e.getMessage());
             e.printStackTrace();
         }
     }
@@ -503,7 +508,7 @@ public class CanchasInteractorImpl implements CanchasInteractor, CanchaCobroInte
 
 
     public void setHorariosArrayList(JSONArray data) {
-
+     Log.e("<3<3<3<3", data.toString());
         try {
 
                 for (int j = 0; j < data.length(); j++) {
@@ -511,16 +516,23 @@ public class CanchasInteractorImpl implements CanchasInteractor, CanchaCobroInte
                     String fecha = horariosDisponiblesObject.getString("fecha").split("T")[0];
                     int horaInicio = Integer.parseInt(horariosDisponiblesObject.getString("hora_inicio").split(":")[0]);
                     int horaFin = Integer.parseInt(horariosDisponiblesObject.getString("hora_fin").split(":")[0]);
+                    int id_reserva = Integer.parseInt(horariosDisponiblesObject.getString("id_reserva").split(":")[0]);
 
-                    /*for (int i = horaInicio; i < horaFin; i++) {
-                        String hora = Integer.toString(i).length() == 1 ? "0" + Integer.toString(i) : Integer.toString(i);
-                        horarios.add(new Horarios(fecha, hora + ":00", "1"));
-                    }*/
-            }
+
+                    //int eventColor = ContextCompat.getColor(, R.color.eventColor);
+                    Calendar timeStart = Calendar.getInstance();
+                    timeStart.set(Calendar.HOUR_OF_DAY, horaInicio);
+                    timeStart.set(Calendar.MINUTE, 0);
+                    Calendar timeEnd = (Calendar) timeStart.clone();
+                    timeEnd.set(Calendar.HOUR_OF_DAY, horaFin);
+                    timeEnd.set(Calendar.MINUTE, 0);
+                    event.add(new Event (id_reserva, timeStart, timeEnd, "Reserva", fecha, 123));
+
+
+                }
 
         } catch (JSONException e) {
             e.printStackTrace();
         }
     }
-
 }

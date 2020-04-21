@@ -1,6 +1,7 @@
 package elalto.gamea.map.canchas.view.Calendar;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.graphics.Rect;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
@@ -79,7 +80,8 @@ public class EventView extends FrameLayout {
     public void setEvent(IEvent event) {
         this.mEvent = event;
         mEventName.setText(String.valueOf(event.getName()));
-        mEventContent.setBackgroundColor(event.getColor());
+        //mEventContent.setBackgroundColor(event.getColor());
+        mEventContent.setBackgroundColor(Color.BLUE);
     }
 
     public void setPosition(Rect rect, int topMargin, int bottomMargin){

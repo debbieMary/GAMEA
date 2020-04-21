@@ -1,6 +1,8 @@
 package elalto.gamea.map.canchas.view;
 
 import  elalto.gamea.R;
+import elalto.gamea.map.canchas.view.ImagesAndDrawing.ImageLoader;
+
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,24 +12,23 @@ import android.widget.LinearLayout;
 
 import androidx.viewpager.widget.PagerAdapter;
 
+import java.util.ArrayList;
+
 class CustomPagerAdapter extends PagerAdapter {
 
     Context mContext;
     LayoutInflater mLayoutInflater;
-    int[] mResources = {
-            R.drawable.foto1,
-            R.drawable.foto2,
-            R.drawable.foto3
-    };
+    ArrayList<String> mResources;
 
-    public CustomPagerAdapter(Context context) {
+    public CustomPagerAdapter(Context context , ArrayList<String> pics) {
         mContext = context;
+        mResources= pics;
         mLayoutInflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
 
     @Override
     public int getCount() {
-        return mResources.length;
+        return mResources.size();
     }
 
     @Override
@@ -40,7 +41,12 @@ class CustomPagerAdapter extends PagerAdapter {
         View itemView = mLayoutInflater.inflate(R.layout.pager_item, container, false);
 
         ImageView imageView = (ImageView) itemView.findViewById(R.id.imageView);
-        imageView.setImageResource(mResources[position]);
+        /*imageView.setImageResource(mResources[position]);*/
+
+        ImageLoader imgLoader;
+        imgLoader = new ImageLoader(mContext);
+        imgLoader.DisplayImage(mResources.get(position),imageView);
+
 
         container.addView(itemView);
 

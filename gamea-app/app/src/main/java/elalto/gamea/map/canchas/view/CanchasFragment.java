@@ -230,7 +230,7 @@ public class CanchasFragment extends Fragment implements OnMapReadyCallback, Per
             MarkerOptions markerOptions = new MarkerOptions();
             markerOptions.position(new LatLng(canchaCobroList.get(i).getLatitud(), canchaCobroList.get(i).getLongitud()));
             markerOptions.icon(icon);
-            markerOptions.setSnippet(canchaCobroList.get(i).getTelefono().toString());
+            markerOptions.setSnippet("Tel: " +canchaCobroList.get(i).getTelefono().toString());
             markerOptions.title("Punto: "+canchaCobroList.get(i).getNombre_cobro().toString());
             markerOptionsListCobros.add(markerOptions);
         }

@@ -1,4 +1,4 @@
-package elalto.gamea.map.canchas.model;
+package elalto.gamea.map.canchas.entities;
 
 import java.util.Calendar;
 
@@ -9,24 +9,24 @@ import elalto.gamea.map.canchas.view.Calendar.data.IEvent;
  */
 public class Event implements IEvent {
 
-    private long mId;
-    private Calendar mStartTime;
-    private Calendar mEndTime;
-    private String mName;
-    private String mLocation;
-    private int mColor;
+    public int mId;
+    public Calendar mStartTime;
+    public Calendar mEndTime;
+    public String mName;
+    public String mDate;
+    public int mColor;
 
     public Event() {
 
     }
 
-    public Event(long mId, Calendar mStartTime, Calendar mEndTime, String mName, String mLocation,
+    public Event(int mId, Calendar mStartTime, Calendar mEndTime, String mName, String mDate,
                  int mColor) {
         this.mId = mId;
         this.mStartTime = mStartTime;
         this.mEndTime = mEndTime;
         this.mName = mName;
-        this.mLocation = mLocation;
+        this.mDate = mDate;
         this.mColor = mColor;
     }
 
@@ -34,7 +34,7 @@ public class Event implements IEvent {
         return mId;
     }
 
-    public void setId(long id) {
+    public void setId(int id) {
         this.mId = id;
     }
 
@@ -62,12 +62,12 @@ public class Event implements IEvent {
         this.mName = name;
     }
 
-    public String getLocation() {
-        return mLocation;
+    public String getDate() {
+        return mDate;
     }
 
-    public void setLocation(String location) {
-        this.mLocation = location;
+    public void setDate(String date ) {
+        this.mDate = date;
     }
 
     public int getColor() {

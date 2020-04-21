@@ -2,6 +2,8 @@ package elalto.gamea.map.canchas.model;
 
 import java.util.List;
 
+import elalto.gamea.map.canchas.entities.Event;
+
 
 public interface HorariosDisponiblesInteractor {
   interface onHorariosDisponiblesFinishedListener {

@@ -1,15 +1,12 @@
 package elalto.gamea.map.canchas.presenter;
 
+import android.util.Log;
+
 import java.util.List;
 
-import elalto.gamea.map.canchas.entities.CanchaCobro;
-import elalto.gamea.map.canchas.entities.Horarios;
-import elalto.gamea.map.canchas.model.CanchaCobroInteractor;
-import elalto.gamea.map.canchas.model.Event;
+import elalto.gamea.map.canchas.entities.Event;
 import elalto.gamea.map.canchas.model.HorariosDisponiblesInteractor;
-import elalto.gamea.map.canchas.view.CanchaCobroView;
 import elalto.gamea.map.canchas.view.HorariosDisponiblesView;
-import elalto.network.entities.TokenManager;
 
 public class HorariosDisponiblesPresenterImpl implements HorariosDisponiblesPresenter, HorariosDisponiblesInteractor.onHorariosDisponiblesFinishedListener{
     private HorariosDisponiblesView horariosDisponiblesCobroView;
@@ -24,6 +21,8 @@ public class HorariosDisponiblesPresenterImpl implements HorariosDisponiblesPres
 
     @Override
     public void onSuccess(List<Event> horarios) {
+        Log.e("hola hola",horarios.size()+"");
+        Log.e("hola hola",horarios+"");
         if (horariosDisponiblesCobroView != null) {
             horariosDisponiblesCobroView.hideProgress();
             horariosDisponiblesCobroView.populate(horarios);
