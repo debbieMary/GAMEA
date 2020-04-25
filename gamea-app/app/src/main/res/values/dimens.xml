@@ -6,6 +6,7 @@
     <dimen name="small_label_margin">4dp</dimen>
     <dimen name="xx_small_label_margin">2dp</dimen>
     <dimen name="space_between_buttons">8dp</dimen>
+    <dimen name="text_view_separator">8dp</dimen>
 
 
     <dimen name="dayHeight">64dp</dimen>

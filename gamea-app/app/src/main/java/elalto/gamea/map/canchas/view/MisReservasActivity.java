@@ -60,8 +60,8 @@ public class MisReservasActivity extends AppCompatActivity  implements MisReserv
         if(misReservasArray.get(arrayPosition).getEstado() == 2){
             Intent i = new Intent(MisReservasActivity.this, PopupCanchaTicket.class );
             i.putExtra("nombre",misReservasArray.get(arrayPosition).getNombre());
-            i.putExtra("distrito", misReservasArray.get(arrayPosition).getDistrito());
-            i.putExtra("id_reserva", misReservasArray.get(arrayPosition).getId_reserva());
+            i.putExtra("distrito", misReservasArray.get(arrayPosition).getDistrito()+"");
+            i.putExtra("id_reserva", misReservasArray.get(arrayPosition).getId_reserva()+"");
             i.putExtra("fecha",misReservasArray.get(arrayPosition).getFecha());
             i.putExtra("hora_inicio", misReservasArray.get(arrayPosition).getHora_inicio());
             i.putExtra("hora_fin", misReservasArray.get(arrayPosition).getHora_fin());
