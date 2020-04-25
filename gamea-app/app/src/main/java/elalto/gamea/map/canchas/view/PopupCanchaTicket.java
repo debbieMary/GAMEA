@@ -7,6 +7,7 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.TextView;
 import elalto.gamea.R;
+import elalto.gamea.map.canchas.utils.GeneralUtils;
 
 public class PopupCanchaTicket extends Activity {
 
@@ -22,13 +23,17 @@ public class PopupCanchaTicket extends Activity {
 	TextView lbl_nombre_reserva;
 	TextView lbl_observaciones;
 
+	GeneralUtils utils= new GeneralUtils();
+
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		this.getWindow().requestFeature(Window.FEATURE_NO_TITLE);
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_popup_cancha_ticket);
-		getWindow().setLayout(WindowManager.LayoutParams.MATCH_PARENT,WindowManager.LayoutParams.WRAP_CONTENT);
+		int width =utils.get_width(PopupCanchaTicket.this);
+		int height =(int) (utils.get_height(PopupCanchaTicket.this)*0.80);
+		getWindow().setLayout(WindowManager.LayoutParams.MATCH_PARENT, height);
 		bundle= getIntent().getExtras();
 
 		lbl_nombre= (TextView) this.findViewById(R.id.lbl_nombre);

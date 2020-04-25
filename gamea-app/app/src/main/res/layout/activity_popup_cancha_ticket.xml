@@ -22,7 +22,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="end"
-                    android:layout_marginTop="16dp"
+                    android:layout_marginTop="8dp"
                     android:layout_marginRight="16dp"
                     android:background="@drawable/close"
                     android:clickable="true"
@@ -33,7 +33,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/activity_vertical_margin"
-                    android:layout_marginTop="@dimen/activity_vertical_margin"
                     android:layout_marginRight="@dimen/activity_vertical_margin"
                     android:gravity="center_horizontal"
                     android:text=""
@@ -336,7 +335,7 @@
                     android:layout_marginLeft="@dimen/activity_vertical_margin"
                     android:layout_marginTop="@dimen/activity_vertical_margin"
                     android:layout_marginRight="@dimen/activity_vertical_margin"
-                    android:layout_marginBottom="@dimen/small_label_margin"
+                    android:layout_marginBottom="@dimen/activity_vertical_margin"
                     android:orientation="horizontal">
 
                     <LinearLayout
