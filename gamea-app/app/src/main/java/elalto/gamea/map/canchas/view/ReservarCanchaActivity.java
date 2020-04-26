@@ -34,16 +34,16 @@ public class ReservarCanchaActivity extends AppCompatActivity implements CanchaR
     String id_cancha;
     String nombre_cancha;
     String distrito;
+    String fecha_reserva;
     Spinner sp_horario_inicio;
     Spinner sp_horario_fin;
     ArrayAdapter<String> horario_inicio_adapter;
     ArrayAdapter<String> horario_fin_adapter;
     TextView lbl_nombre_cancha;
+    TextView lbl_fecha_reserva;
     String selected_hora_inicio;
     String selected_hora_fin;
     EditText txt_observaciones;
-    private Calendar fechaYhora = Calendar.getInstance();
-    SimpleDateFormat fecha = new SimpleDateFormat("yyyy/MM/dd");
     CanchaReservaPresenter canchaReservaPresenter;
     ArrayList<String> array_horario_inicio = new ArrayList<String>();
     ArrayList<String> array_horario_fin = new ArrayList<String>();
@@ -53,7 +53,7 @@ public class ReservarCanchaActivity extends AppCompatActivity implements CanchaR
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_reservar_cancha);
         setHorarios();
-        toolbar = (androidx.appcompat.widget.Toolbar) findViewById(R.id.toolbar);
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setTitle("RESERVA DE CANCHA");
         canchaReservaPresenter = new CanchaReservaPresenterImpl(this, new CanchasInteractorImpl());
         sp_horario_inicio = (Spinner) this.findViewById(R.id.sp_horario_inicio);
@@ -62,11 +62,17 @@ public class ReservarCanchaActivity extends AppCompatActivity implements CanchaR
         id_cancha = bundle.getString("id_cancha");
         nombre_cancha = bundle.getString("nombre_cancha");
         distrito = bundle.getString("distrito");
+        fecha_reserva = bundle.getString("fecha_reserva");
+
+        Toast.makeText(ReservarCanchaActivity.this,fecha_reserva , Toast.LENGTH_LONG).show();
 
         txt_observaciones = (EditText) this.findViewById(R.id.txt_observaciones);
 
         lbl_nombre_cancha = (TextView) this.findViewById(R.id.lbl_nombre_cancha);
         lbl_nombre_cancha.setText(nombre_cancha);
+
+        lbl_fecha_reserva = (TextView) this.findViewById(R.id.lbl_fecha_reserva);
+        lbl_fecha_reserva.setText(fecha_reserva);
 
         horario_inicio_adapter = new ArrayAdapter<String>(this,
                 android.R.layout.simple_spinner_item, array_horario_inicio);
@@ -136,7 +142,7 @@ public class ReservarCanchaActivity extends AppCompatActivity implements CanchaR
         try {
             jsonReserva.put("id_cancha", id_cancha);
             jsonReserva.put("id_usuario", "2");
-            jsonReserva.put("fecha_reserva", fecha.format(fechaYhora.getTime()));
+            jsonReserva.put("fecha_reserva", fecha_reserva);
             jsonReserva.put("hora_inicio", selected_hora_inicio);
             jsonReserva.put("hora_fin", selected_hora_fin);
             jsonReserva.put("ci_quien_reserva", "8330965");

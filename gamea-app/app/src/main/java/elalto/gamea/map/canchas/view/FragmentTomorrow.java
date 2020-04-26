@@ -1,37 +1,38 @@
 package elalto.gamea.map.canchas.view;
 
 import android.os.Bundle;
-import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-
-import androidx.fragment.app.Fragment;
-
-import java.util.ArrayList;
-
 import elalto.gamea.R;
 import elalto.gamea.map.canchas.entities.Event;
 import elalto.gamea.map.canchas.view.Calendar.CalendarDayView;
 import elalto.gamea.map.canchas.view.Calendar.EventView;
 import elalto.gamea.map.canchas.view.Calendar.data.IEvent;
 import elalto.gamea.map.canchas.view.Calendar.decoration.CdvDecorationDefault;
+import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import androidx.fragment.app.Fragment;
+import java.util.ArrayList;
 
 public class FragmentTomorrow extends Fragment {
 
     CalendarDayView dayView;
     ArrayList<IEvent> events = new ArrayList<IEvent>();
+    View view;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        //setCalendar();
-        return inflater.inflate(R.layout.fragment_tomorrow, container, false);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        view = inflater.inflate(R.layout.fragment_tomorrow, container, false);
+        setCalendar();
+        return view;
     }
 
 
     public  void setCalendar(){
-        dayView = (CalendarDayView) getView().findViewById(R.id.calendarTomorrow);
-        dayView.setLimitTime(7, 23);
+
+        dayView = (CalendarDayView) view.findViewById(R.id.calendarTomorrow);
+        dayView.setLimitTime(7, 20);
         //TODO  filter events
         dayView.setEvents(events);
         ((CdvDecorationDefault) (dayView.getDecoration())).setOnEventClickListener(

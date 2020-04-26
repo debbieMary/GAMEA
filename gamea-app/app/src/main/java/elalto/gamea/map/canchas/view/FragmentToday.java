@@ -12,6 +12,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 
@@ -21,16 +23,22 @@ public class FragmentToday extends Fragment {
 
     CalendarDayView dayView;
     ArrayList<IEvent> events = new ArrayList<IEvent>();
+    View view;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        //setCalendar();
-        return inflater.inflate(R.layout.fragment_today, container, false);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        view = inflater.inflate(R.layout.fragment_today, container, false);
+        //Toast.makeText(getContext(), getArguments().getString("edttext"), Toast.LENGTH_LONG).show();
+        /*String lalala= getArguments().getString("edttext");*/
+        setCalendar();
+        return view;
     }
 
 
     public  void setCalendar(){
-        dayView = (CalendarDayView) getView().findViewById(R.id.calendarToday);
+
+        dayView = (CalendarDayView) view.findViewById(R.id.calendarToday);
         dayView.setLimitTime(7, 20);
         //TODO  filter events
         dayView.setEvents(events);
