@@ -47,6 +47,7 @@ public class CanchasInteractorImpl implements CanchasInteractor, CanchaCobroInte
     public static final String reservar_cancha = "reservar";
     public static final String get_mis_reservas = "misReservas";
     public static final String get_horarios_por_fecha = "listarReservasPorfecha";
+    public static final String TOKEN= "R2FtZWE6Q2FuY2hhcw==";
 
     @Override
     public void getCanchas(TokenManager tokenManager, onCanchasFinishedListener listener) {
@@ -59,14 +60,9 @@ public class CanchasInteractorImpl implements CanchasInteractor, CanchaCobroInte
             //client.setDoOutput(true);
             client.setDoInput(true);
             client.setRequestProperty("Content-Type", "application/json; charset=UTF-8");
+            client.setRequestProperty("Authorization", TOKEN);
             client.setRequestMethod("GET");
             client.connect();
-            /*String json = "";
-            OutputStreamWriter writer = new OutputStreamWriter(client.getOutputStream());
-            String output = json;
-            writer.write(output);
-            writer.flush();
-            writer.close();*/
             InputStream input = client.getInputStream();
             BufferedReader reader = new BufferedReader(new InputStreamReader(input));
             StringBuilder result = new StringBuilder();
@@ -127,6 +123,7 @@ public class CanchasInteractorImpl implements CanchasInteractor, CanchaCobroInte
             client.setDoOutput(true);
             client.setDoInput(true);
             client.setRequestProperty("Content-Type", "application/json; charset=UTF-8");
+            client.setRequestProperty("Authorization", TOKEN);
             client.setRequestMethod("POST");
             client.connect();
             String json = setIdCancha(id_cancha);
@@ -233,6 +230,7 @@ public class CanchasInteractorImpl implements CanchasInteractor, CanchaCobroInte
             HttpURLConnection client = (HttpURLConnection) url.openConnection();
             client.setDoInput(true);
             client.setRequestProperty("Content-Type", "application/json; charset=UTF-8");
+            client.setRequestProperty("Authorization", TOKEN);
             client.setRequestMethod("GET");
             client.connect();
             InputStream input;
@@ -296,6 +294,7 @@ public class CanchasInteractorImpl implements CanchasInteractor, CanchaCobroInte
             client.setDoOutput(true);
             client.setDoInput(true);
             client.setRequestProperty("Content-Type", "application/json; charset=UTF-8");
+            client.setRequestProperty("Authorization", TOKEN);
             client.setRequestMethod("POST");
             client.connect();
             String json = reserva;
@@ -349,6 +348,7 @@ public class CanchasInteractorImpl implements CanchasInteractor, CanchaCobroInte
             client.setDoOutput(true);
             client.setDoInput(true);
             client.setRequestProperty("Content-Type", "application/json; charset=UTF-8");
+            client.setRequestProperty("Authorization", TOKEN);
             client.setRequestMethod("POST");
             client.connect();
             String json = setIdUsuario(id_usuario);
@@ -438,6 +438,7 @@ public class CanchasInteractorImpl implements CanchasInteractor, CanchaCobroInte
             client.setDoOutput(true);
             client.setDoInput(true);
             client.setRequestProperty("Content-Type", "application/json; charset=UTF-8");
+            client.setRequestProperty("Authorization", TOKEN);
             client.setRequestMethod("POST");
             client.connect();
             String json = setBodyHorarios(id_cancha, fecha_inicio, fecha_fin);
