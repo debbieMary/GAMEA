@@ -125,8 +125,6 @@ public class ReservarCanchaActivity extends AppCompatActivity implements CanchaR
         array_horario_inicio.add("19:00");
         array_horario_inicio.add("20:00");
         array_horario_inicio.add("21:00");
-        array_horario_inicio.add("22:00");
-        array_horario_inicio.add("23:00");
         array_horario_fin.addAll(array_horario_inicio);
         array_horario_fin.remove(0);
         selected_hora_inicio = array_horario_inicio.get(0);
@@ -172,7 +170,7 @@ public class ReservarCanchaActivity extends AppCompatActivity implements CanchaR
     public void populateMessage(String message) {
 
         Toast.makeText(this,message , Toast.LENGTH_LONG).show();
-        Intent i = new Intent(this, HorariosDisponiblesSingleMainActivity.class);
+        Intent i = new Intent(this, HorariosDisponiblesActivity.class);
         i.putExtra("id_cancha", id_cancha);
         i.putExtra("nombre_cancha", nombre_cancha);
         i.putExtra("distrito", distrito);

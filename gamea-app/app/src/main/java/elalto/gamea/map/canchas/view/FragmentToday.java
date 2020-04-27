@@ -24,13 +24,15 @@ public class FragmentToday extends Fragment {
     CalendarDayView dayView;
     ArrayList<IEvent> events = new ArrayList<IEvent>();
     View view;
+    HorariosDisponiblesActivity hd=  new HorariosDisponiblesActivity();
+    String fecha_actual;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_today, container, false);
-        //Toast.makeText(getContext(), getArguments().getString("edttext"), Toast.LENGTH_LONG).show();
-        /*String lalala= getArguments().getString("edttext");*/
+        fecha_actual= hd.getToday();
+        events.addAll(hd.getHorariosReservados(fecha_actual));
         setCalendar();
         return view;
     }

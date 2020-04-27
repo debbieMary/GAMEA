@@ -19,11 +19,16 @@ public class FragmentTomorrow extends Fragment {
     CalendarDayView dayView;
     ArrayList<IEvent> events = new ArrayList<IEvent>();
     View view;
+    HorariosDisponiblesActivity hd=  new HorariosDisponiblesActivity();
+    String fecha_manhiana;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_tomorrow, container, false);
+        fecha_manhiana= hd.getTomorrow();
+        Log.e("lalala", "manhiana "  +  fecha_manhiana);
+        events.addAll(hd.getHorariosReservados(fecha_manhiana));
         setCalendar();
         return view;
     }
