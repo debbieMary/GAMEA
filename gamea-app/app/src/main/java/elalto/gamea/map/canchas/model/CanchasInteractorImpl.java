@@ -46,7 +46,7 @@ public class CanchasInteractorImpl implements CanchasInteractor, CanchaCobroInte
     public static final String listar_cobros = "listarCobros";
     public static final String reservar_cancha = "reservar";
     public static final String get_mis_reservas = "misReservas";
-    public static final String get_horarios_por_fecha = "listarReservasPorfecha";
+    public static final String get_horarios_por_fecha = "listarReservasPorRangofecha";
     public static final String TOKEN= "R2FtZWE6Q2FuY2hhcw==";
 
     @Override
@@ -484,7 +484,8 @@ public class CanchasInteractorImpl implements CanchasInteractor, CanchaCobroInte
         JSONObject jsonObject = new JSONObject();
         try {
             jsonObject.put("id_cancha", id_cancha);
-            jsonObject.put("fecha", fecha_inicio);
+            jsonObject.put("fecha_inicio", fecha_inicio);
+            jsonObject.put("fecha_fin", fecha_fin);
         } catch (JSONException e) {
             e.printStackTrace();
         }

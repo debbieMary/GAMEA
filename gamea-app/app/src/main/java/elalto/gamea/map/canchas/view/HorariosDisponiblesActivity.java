@@ -38,6 +38,7 @@ public class HorariosDisponiblesActivity extends AppCompatActivity  implements H
 
     public static String fecha_actual;
     public static String fecha_manhiana;
+    public static int eventColor;
     String fecha_reserva;
 
     int posicion_fecha=0;
@@ -52,6 +53,9 @@ public class HorariosDisponiblesActivity extends AppCompatActivity  implements H
         bundle = getIntent().getExtras();
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setTitle("HOARARIOS DISPONIBLES");
+
+        eventColor = getResources().getColor(R.color.eventColor);
+
         id_cancha = bundle.getString("id_cancha");
         nombre_cancha = bundle.getString("nombre_cancha");
         distrito = bundle.getString("distrito");
@@ -74,6 +78,7 @@ public class HorariosDisponiblesActivity extends AppCompatActivity  implements H
         i.putExtra("distrito", distrito);
         i.putExtra("fecha_reserva",fecha_reserva);
         startActivity(i);
+        finish();
     }
 
     public String getToday(){
@@ -131,9 +136,7 @@ public class HorariosDisponiblesActivity extends AppCompatActivity  implements H
                         events.get(i).getEndTime(),
                         events.get(i).getName(),
                         events.get(i).getDate(),
-                        events.get(i).getColor()
-
-                )
+                        eventColor)
               );
           }
       }
