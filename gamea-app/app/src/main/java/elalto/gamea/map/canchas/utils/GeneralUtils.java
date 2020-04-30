@@ -21,5 +21,9 @@ public class GeneralUtils {
         return  height;
     }
 
+    public String transformDate(String fecha){
+        return fecha.split("-")[2]+"/"+ fecha.split("-")[1]+"/"+fecha.split("-")[0];
+    }
+
 
 }

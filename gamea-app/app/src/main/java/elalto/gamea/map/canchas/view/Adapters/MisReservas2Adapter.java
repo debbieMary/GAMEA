@@ -13,11 +13,13 @@ import java.util.ArrayList;
 
 import elalto.gamea.R;
 import elalto.gamea.map.canchas.entities.MisReservas;
+import elalto.gamea.map.canchas.utils.GeneralUtils;
 
 public class MisReservas2Adapter extends RecyclerView.Adapter<MisReservas2Adapter.PlanetViewHolder> {
 
     ArrayList<MisReservas> planetList;
     Context context;
+    GeneralUtils generalUtils =  new GeneralUtils();
 
     public MisReservas2Adapter(ArrayList<MisReservas> planetList, Context context) {
         this.planetList = planetList;
@@ -31,17 +33,20 @@ public class MisReservas2Adapter extends RecyclerView.Adapter<MisReservas2Adapte
         return viewHolder;
     }
 
+
+
+
     @Override
     public void onBindViewHolder(MisReservas2Adapter.PlanetViewHolder holder, int position) {
         MisReservas misReservas = planetList.get(position);
         final String nombre_cancha = misReservas.getNombre();
         final int estado = misReservas.getEstado();
-        final String fecha = misReservas.getFecha();
+        final String fecha = generalUtils.transformDate(misReservas.getFecha().split("T")[0]);
         final String hora_inicio = misReservas.getHora_inicio();
         final String hora_fin = misReservas.getHora_fin();
 
         holder.lbl_nombre_cancha.setText(nombre_cancha);
-        holder.lbl_fecha.setText(fecha.split("T")[0]);
+        holder.lbl_fecha.setText(fecha);
         holder.lbl_hora_inicio.setText(hora_inicio);
         holder.lbl_hora_fin.setText(hora_fin);
         if (estado == 1){

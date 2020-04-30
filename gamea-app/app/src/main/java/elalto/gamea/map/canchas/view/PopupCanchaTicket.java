@@ -46,7 +46,7 @@ public class PopupCanchaTicket extends Activity {
 		lbl_id_reserva.setText(bundle.getString("id_reserva"));
 
 		lbl_fecha= (TextView) this.findViewById(R.id.lbl_fecha);
-		lbl_fecha.setText(bundle.getString("fecha").split("T")[0]);
+		lbl_fecha.setText(utils.transformDate((bundle.getString("fecha").split("T")[0])));
 
 		lbl_hora_inicio= (TextView) this.findViewById(R.id.lbl_hora_inicio);
 		lbl_hora_inicio.setText(bundle.getString("hora_inicio"));

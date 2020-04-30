@@ -7,7 +7,7 @@ import java.util.Calendar;
  */
 public interface IEvent extends ITimeDuration {
 
-    String getName();
+    String getObs();
 
     int getColor();
 }

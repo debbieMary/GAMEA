@@ -44,12 +44,12 @@ public class FragmentTomorrow extends Fragment {
                 new EventView.OnEventClickListener() {
                     @Override
                     public void onEventClick(EventView view, IEvent data) {
-                        Log.e("TAG", "onEventClick:" + data.getName());
+                        Log.e("TAG", "onEventClick:" + data.getObs());
                     }
 
                     @Override
                     public void onEventViewClick(View view, EventView eventView, IEvent data) {
-                        Log.e("TAG", "onEventViewClick:" + data.getName());
+                        Log.e("TAG", "onEventViewClick:" + data.getObs());
                         if (data instanceof Event) {
                             // change event (ex: set event color)
                             dayView.setEvents(events);

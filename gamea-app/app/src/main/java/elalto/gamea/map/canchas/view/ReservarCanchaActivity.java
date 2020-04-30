@@ -7,6 +7,7 @@ import elalto.gamea.R;
 import elalto.gamea.map.canchas.model.CanchasInteractorImpl;
 import elalto.gamea.map.canchas.presenter.CanchaReservaPresenter;
 import elalto.gamea.map.canchas.presenter.CanchaReservaPresenterImpl;
+import elalto.gamea.map.canchas.utils.GeneralUtils;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -47,6 +48,7 @@ public class ReservarCanchaActivity extends AppCompatActivity implements CanchaR
     CanchaReservaPresenter canchaReservaPresenter;
     ArrayList<String> array_horario_inicio = new ArrayList<String>();
     ArrayList<String> array_horario_fin = new ArrayList<String>();
+    GeneralUtils utils= new GeneralUtils();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,16 +65,14 @@ public class ReservarCanchaActivity extends AppCompatActivity implements CanchaR
         nombre_cancha = bundle.getString("nombre_cancha");
         distrito = bundle.getString("distrito");
         fecha_reserva = bundle.getString("fecha_reserva");
-
-        Toast.makeText(ReservarCanchaActivity.this,fecha_reserva , Toast.LENGTH_LONG).show();
-
+        
         txt_observaciones = (EditText) this.findViewById(R.id.txt_observaciones);
 
         lbl_nombre_cancha = (TextView) this.findViewById(R.id.lbl_nombre_cancha);
         lbl_nombre_cancha.setText(nombre_cancha);
 
         lbl_fecha_reserva = (TextView) this.findViewById(R.id.lbl_fecha_reserva);
-        lbl_fecha_reserva.setText(fecha_reserva);
+        lbl_fecha_reserva.setText(utils.transformDate(fecha_reserva.replace("/","-")));
 
         horario_inicio_adapter = new ArrayAdapter<String>(this,
                 android.R.layout.simple_spinner_item, array_horario_inicio);

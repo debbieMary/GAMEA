@@ -9,6 +9,7 @@ import elalto.gamea.map.canchas.entities.Event;
 import elalto.gamea.map.canchas.model.CanchasInteractorImpl;
 import elalto.gamea.map.canchas.presenter.HorariosDisponiblesPresenter;
 import elalto.gamea.map.canchas.presenter.HorariosDisponiblesPresenterImpl;
+import elalto.gamea.map.canchas.utils.GeneralUtils;
 import elalto.gamea.map.canchas.view.Adapters.PagerAdapter;
 import elalto.gamea.map.canchas.view.Calendar.data.IEvent;
 
@@ -41,7 +42,9 @@ public class HorariosDisponiblesActivity extends AppCompatActivity  implements H
     public static int eventColor;
     String fecha_reserva;
 
-    int posicion_fecha=0;
+    int posicion_fecha= 0;
+
+    GeneralUtils utils= new GeneralUtils();
 
     public static ArrayList<Event> events = new ArrayList<Event>();
     HorariosDisponiblesPresenter horariosDisponiblesPresenter;
@@ -92,8 +95,8 @@ public class HorariosDisponiblesActivity extends AppCompatActivity  implements H
     public void setFragment(){
 
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tab_layout);
-        tabLayout.addTab(tabLayout.newTab().setText(fecha_actual));
-        tabLayout.addTab(tabLayout.newTab().setText(fecha_manhiana));
+        tabLayout.addTab(tabLayout.newTab().setText(utils.transformDate(fecha_actual.replace("/","-"))));
+        tabLayout.addTab(tabLayout.newTab().setText(utils.transformDate(fecha_manhiana.replace("/","-"))));
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
         final ViewPager viewPager = (ViewPager) findViewById(R.id.pager);
         final PagerAdapter adapter = new PagerAdapter
@@ -134,7 +137,7 @@ public class HorariosDisponiblesActivity extends AppCompatActivity  implements H
                         (int) events.get(i).getId(),
                         events.get(i).getStartTime(),
                         events.get(i).getEndTime(),
-                        events.get(i).getName(),
+                        events.get(i).getObs(),
                         events.get(i).getDate(),
                         eventColor)
               );

@@ -12,7 +12,7 @@ public class Event implements IEvent {
     public int mId;
     public Calendar mStartTime;
     public Calendar mEndTime;
-    public String mName;
+    public String mObs;
     public String mDate;
     public int mColor;
 
@@ -20,12 +20,12 @@ public class Event implements IEvent {
 
     }
 
-    public Event(int mId, Calendar mStartTime, Calendar mEndTime, String mName, String mDate,
+    public Event(int mId, Calendar mStartTime, Calendar mEndTime, String mObs, String mDate,
                  int mColor) {
         this.mId = mId;
         this.mStartTime = mStartTime;
         this.mEndTime = mEndTime;
-        this.mName = mName;
+        this.mObs = mObs;
         this.mDate = mDate;
         this.mColor = mColor;
     }
@@ -54,12 +54,12 @@ public class Event implements IEvent {
         this.mEndTime = endTime;
     }
 
-    public String getName() {
-        return mName;
+    public String getObs() {
+        return mObs;
     }
 
-    public void setName(String name) {
-        this.mName = name;
+    public void setObs(String obs) {
+        this.mObs = obs;
     }
 
     public String getDate() {

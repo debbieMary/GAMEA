@@ -3,6 +3,8 @@ package elalto.gamea.map.canchas.view.Calendar;
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.Rect;
+import android.graphics.drawable.GradientDrawable;
+import android.os.Build;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,6 +12,9 @@ import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import androidx.core.content.ContextCompat;
+
 import elalto.gamea.R;
 import elalto.gamea.map.canchas.view.Calendar.data.IEvent;
 
@@ -79,8 +84,15 @@ public class EventView extends FrameLayout {
 
     public void setEvent(IEvent event) {
         this.mEvent = event;
-        mEventName.setText(String.valueOf(event.getName()));
-        mEventContent.setBackgroundColor(event.getColor());
+        GradientDrawable shape =  new GradientDrawable();
+        shape.setCornerRadius( 20 );
+        shape.setColor(event.getColor());
+        mEventName.setText(String.valueOf(event.getObs()));
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+            mEventContent.setBackground(shape);
+        }else{
+            mEventContent.setBackgroundColor(event.getColor());
+        }
     }
 
     public void setPosition(Rect rect, int topMargin, int bottomMargin){
