@@ -4,6 +4,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import elalto.gamea.R;
+import elalto.gamea.map.canchas.entities.Event;
+import elalto.gamea.map.canchas.entities.Horas;
 import elalto.gamea.map.canchas.model.CanchasInteractorImpl;
 import elalto.gamea.map.canchas.presenter.CanchaReservaPresenter;
 import elalto.gamea.map.canchas.presenter.CanchaReservaPresenterImpl;
@@ -18,14 +20,9 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import org.json.JSONException;
 import org.json.JSONObject;
-
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
-
 
 
 public class ReservarCanchaActivity extends AppCompatActivity implements CanchaReservaView {
@@ -48,6 +45,8 @@ public class ReservarCanchaActivity extends AppCompatActivity implements CanchaR
     CanchaReservaPresenter canchaReservaPresenter;
     ArrayList<String> array_horario_inicio = new ArrayList<String>();
     ArrayList<String> array_horario_fin = new ArrayList<String>();
+    ArrayList<Event> events = new ArrayList<Event>();
+    ArrayList<Horas> horas =  new ArrayList<Horas>();
     GeneralUtils utils= new GeneralUtils();
 
     @Override
@@ -55,6 +54,7 @@ public class ReservarCanchaActivity extends AppCompatActivity implements CanchaR
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_reservar_cancha);
         setHorarios();
+        setHorasInit();
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setTitle("RESERVA DE CANCHA");
         canchaReservaPresenter = new CanchaReservaPresenterImpl(this, new CanchasInteractorImpl());
@@ -65,7 +65,8 @@ public class ReservarCanchaActivity extends AppCompatActivity implements CanchaR
         nombre_cancha = bundle.getString("nombre_cancha");
         distrito = bundle.getString("distrito");
         fecha_reserva = bundle.getString("fecha_reserva");
-        
+        events= (ArrayList<Event>) bundle.getSerializable("event");
+
         txt_observaciones = (EditText) this.findViewById(R.id.txt_observaciones);
 
         lbl_nombre_cancha = (TextView) this.findViewById(R.id.lbl_nombre_cancha);
@@ -106,6 +107,12 @@ public class ReservarCanchaActivity extends AppCompatActivity implements CanchaR
             public void onNothingSelected(AdapterView<?> arg0) {
             }
         });
+    }
+
+    private void setHorasInit() {
+        for (int i = 7 ;  i < 23; i++){
+          horas.add(new Horas(i, 0));
+        }
     }
 
 

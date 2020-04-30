@@ -80,6 +80,7 @@ public class HorariosDisponiblesActivity extends AppCompatActivity  implements H
         i.putExtra("nombre_cancha", nombre_cancha);
         i.putExtra("distrito", distrito);
         i.putExtra("fecha_reserva",fecha_reserva);
+        i.putExtra("event", getHorariosReservados(fecha_reserva));
         startActivity(i);
         finish();
     }
