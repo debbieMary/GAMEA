@@ -13,6 +13,7 @@ import elalto.gamea.map.canchas.utils.GeneralUtils;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -22,7 +23,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 
 
 public class ReservarCanchaActivity extends AppCompatActivity implements CanchaReservaView {
@@ -66,6 +71,9 @@ public class ReservarCanchaActivity extends AppCompatActivity implements CanchaR
         distrito = bundle.getString("distrito");
         fecha_reserva = bundle.getString("fecha_reserva");
         events= (ArrayList<Event>) bundle.getSerializable("event");
+        if(events != null && events.size() >0){
+            llenarDisponibilidad();
+        }
 
         txt_observaciones = (EditText) this.findViewById(R.id.txt_observaciones);
 
@@ -107,6 +115,26 @@ public class ReservarCanchaActivity extends AppCompatActivity implements CanchaR
             public void onNothingSelected(AdapterView<?> arg0) {
             }
         });
+    }
+
+    private void llenarDisponibilidad() {
+        for(int i=0 ; i < events.size() ; i++){
+
+            SimpleDateFormat dateformat = new SimpleDateFormat("kk:mm");
+            Integer hora_inicio= Integer.parseInt(dateformat.format(events.get(i).getStartTime().getTime()).split(":")[0]);
+            Integer hora_fin = Integer.parseInt(dateformat.format(events.get(i).getEndTime().getTime()).split(":")[0]);
+
+            System.out.println("lalalala");
+            cambiarEstadoDeDisponibilidad(hora_inicio, hora_fin);
+        }
+    }
+
+    private void cambiarEstadoDeDisponibilidad(int hora_inicio, int hora_fin) {
+      for( int i= hora_inicio ; i< hora_fin; i++){
+              horas.get(i);
+
+      }
+        Log.e("lalala", horas.toString());
     }
 
     private void setHorasInit() {
@@ -189,5 +217,10 @@ public class ReservarCanchaActivity extends AppCompatActivity implements CanchaR
     public void showErrorMessage(String message) {
         Toast.makeText(this,message , Toast.LENGTH_LONG).show();
         finish();
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
     }
 }

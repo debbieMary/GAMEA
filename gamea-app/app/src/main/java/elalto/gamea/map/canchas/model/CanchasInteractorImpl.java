@@ -517,8 +517,6 @@ public class CanchasInteractorImpl implements CanchasInteractor, CanchaCobroInte
                     int id_reserva = Integer.parseInt(horariosDisponiblesObject.getString("id_reserva").split(":")[0]);
                     String observaciones = horariosDisponiblesObject.getString("observaciones");
 
-
-                    //int eventColor = ContextCompat.getColor(, R.color.eventColor);
                     Calendar timeStart = Calendar.getInstance();
                     timeStart.set(Calendar.HOUR_OF_DAY, horaInicio);
                     timeStart.set(Calendar.MINUTE, 0);
@@ -526,8 +524,6 @@ public class CanchasInteractorImpl implements CanchasInteractor, CanchaCobroInte
                     timeEnd.set(Calendar.HOUR_OF_DAY, horaFin);
                     timeEnd.set(Calendar.MINUTE, 0);
                     event.add(new Event (id_reserva, timeStart, timeEnd, observaciones, fecha, 123));
-
-
                 }
 
         } catch (JSONException e) {

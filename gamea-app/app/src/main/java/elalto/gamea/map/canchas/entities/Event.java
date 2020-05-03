@@ -1,5 +1,6 @@
 package elalto.gamea.map.canchas.entities;
 
+import java.io.Serializable;
 import java.util.Calendar;
 
 import elalto.gamea.map.canchas.view.Calendar.data.IEvent;
@@ -7,7 +8,7 @@ import elalto.gamea.map.canchas.view.Calendar.data.IEvent;
 /**
  * Created by FRAMGIA\pham.van.khac on 07/07/2016.
  */
-public class Event implements IEvent {
+public class Event implements IEvent , Serializable {
 
     public int mId;
     public Calendar mStartTime;
