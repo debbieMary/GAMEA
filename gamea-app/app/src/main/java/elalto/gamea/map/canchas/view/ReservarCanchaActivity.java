@@ -49,6 +49,7 @@ public class ReservarCanchaActivity extends AppCompatActivity implements CanchaR
     GeneralUtils utils = new GeneralUtils();
     int inicio_global = 7;
     int fin_global = 23;
+    HorariosDisponiblesActivity horariosDisponiblesActivity=  new HorariosDisponiblesActivity();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -157,9 +158,11 @@ public class ReservarCanchaActivity extends AppCompatActivity implements CanchaR
                 canchaReservaPresenter.saveCanchasReserva(getStringJson());
             } else {
                 Toast.makeText(this, "El horario que usted quiere reservar se encuentra ocupado", Toast.LENGTH_SHORT).show();
+                finish();
             }
         }else{
             Toast.makeText(this, "Horario inválido", Toast.LENGTH_SHORT).show();
+            finish();
         }
     }
 
@@ -219,7 +222,7 @@ public class ReservarCanchaActivity extends AppCompatActivity implements CanchaR
 
     @Override
     public void populateMessage(String message) {
-
+        horariosDisponiblesActivity.activityStatic.finish();
         Toast.makeText(this, message, Toast.LENGTH_LONG).show();
         Intent i = new Intent(this, HorariosDisponiblesActivity.class);
         i.putExtra("id_cancha", id_cancha);

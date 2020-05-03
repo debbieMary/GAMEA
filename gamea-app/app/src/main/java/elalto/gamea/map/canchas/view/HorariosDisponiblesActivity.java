@@ -13,6 +13,7 @@ import elalto.gamea.map.canchas.utils.GeneralUtils;
 import elalto.gamea.map.canchas.view.Adapters.PagerAdapter;
 import elalto.gamea.map.canchas.view.Calendar.data.IEvent;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -48,11 +49,15 @@ public class HorariosDisponiblesActivity extends AppCompatActivity  implements H
 
     public static ArrayList<Event> events = new ArrayList<Event>();
     HorariosDisponiblesPresenter horariosDisponiblesPresenter;
+    public static Activity activityStatic;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_horarios_disponibles);
+
+        activityStatic= HorariosDisponiblesActivity.this;
+
         bundle = getIntent().getExtras();
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setTitle("HOARARIOS DISPONIBLES");
@@ -82,7 +87,6 @@ public class HorariosDisponiblesActivity extends AppCompatActivity  implements H
         i.putExtra("fecha_reserva",fecha_reserva);
         i.putExtra("event", getHorariosReservados(fecha_reserva));
         startActivity(i);
-        finish();
     }
 
     public String getToday(){
