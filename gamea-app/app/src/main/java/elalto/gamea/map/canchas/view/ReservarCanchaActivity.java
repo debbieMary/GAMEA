@@ -21,6 +21,7 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -51,8 +52,10 @@ public class ReservarCanchaActivity extends AppCompatActivity implements CanchaR
     ArrayList<String> array_horario_inicio = new ArrayList<String>();
     ArrayList<String> array_horario_fin = new ArrayList<String>();
     ArrayList<Event> events = new ArrayList<Event>();
-    ArrayList<Horas> horas =  new ArrayList<Horas>();
-    GeneralUtils utils= new GeneralUtils();
+    ArrayList<Horas> horas = new ArrayList<Horas>();
+    GeneralUtils utils = new GeneralUtils();
+    int inicio_global = 7;
+    int fin_global = 23;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,8 +73,8 @@ public class ReservarCanchaActivity extends AppCompatActivity implements CanchaR
         nombre_cancha = bundle.getString("nombre_cancha");
         distrito = bundle.getString("distrito");
         fecha_reserva = bundle.getString("fecha_reserva");
-        events= (ArrayList<Event>) bundle.getSerializable("event");
-        if(events != null && events.size() >0){
+        events = (ArrayList<Event>) bundle.getSerializable("event");
+        if (events != null && events.size() > 0) {
             llenarDisponibilidad();
         }
 
@@ -81,7 +84,7 @@ public class ReservarCanchaActivity extends AppCompatActivity implements CanchaR
         lbl_nombre_cancha.setText(nombre_cancha);
 
         lbl_fecha_reserva = (TextView) this.findViewById(R.id.lbl_fecha_reserva);
-        lbl_fecha_reserva.setText(utils.transformDate(fecha_reserva.replace("/","-")));
+        lbl_fecha_reserva.setText(utils.transformDate(fecha_reserva.replace("/", "-")));
 
         horario_inicio_adapter = new ArrayAdapter<String>(this,
                 android.R.layout.simple_spinner_item, array_horario_inicio);
@@ -118,34 +121,37 @@ public class ReservarCanchaActivity extends AppCompatActivity implements CanchaR
     }
 
     private void llenarDisponibilidad() {
-        for(int i=0 ; i < events.size() ; i++){
+        for (int i = 0; i < events.size(); i++) {
 
             SimpleDateFormat dateformat = new SimpleDateFormat("kk:mm");
-            Integer hora_inicio= Integer.parseInt(dateformat.format(events.get(i).getStartTime().getTime()).split(":")[0]);
+            Integer hora_inicio = Integer.parseInt(dateformat.format(events.get(i).getStartTime().getTime()).split(":")[0]);
             Integer hora_fin = Integer.parseInt(dateformat.format(events.get(i).getEndTime().getTime()).split(":")[0]);
-
-            System.out.println("lalalala");
             cambiarEstadoDeDisponibilidad(hora_inicio, hora_fin);
         }
     }
 
     private void cambiarEstadoDeDisponibilidad(int hora_inicio, int hora_fin) {
-      for( int i= hora_inicio ; i< hora_fin; i++){
-              horas.get(i);
-
-      }
+        for (int i = 0; i < horas.size(); i++) {
+            Log.e("lalala", horas.get(i).getHora() + "");
+            Log.e("lalala", horas.get(i).getEstadoHora() + "");
+            if (horas.get(i).getHora() >= hora_inicio && horas.get(i).getHora() < hora_fin) {
+                horas.get(i).setEstadoHora(1);
+            }
+            Log.e("lalala", horas.get(i).getHora() + "");
+            Log.e("lalala", horas.get(i).getEstadoHora() + "");
+        }
         Log.e("lalala", horas.toString());
     }
 
     private void setHorasInit() {
-        for (int i = 7 ;  i < 23; i++){
-          horas.add(new Horas(i, 0));
+        for (int i = inicio_global; i < fin_global; i++) {
+            horas.add(new Horas(i, 0));
         }
     }
 
 
     public void setHorarios() {
-        array_horario_inicio.add("07:00");
+        /*array_horario_inicio.add("07:00");
         array_horario_inicio.add("08:00");
         array_horario_inicio.add("09:00");
         array_horario_inicio.add("10:00");
@@ -159,7 +165,14 @@ public class ReservarCanchaActivity extends AppCompatActivity implements CanchaR
         array_horario_inicio.add("18:00");
         array_horario_inicio.add("19:00");
         array_horario_inicio.add("20:00");
-        array_horario_inicio.add("21:00");
+        array_horario_inicio.add("21:00");*/
+        for (int i = inicio_global; i < fin_global; i++) {
+            if (i < 10) {
+                array_horario_inicio.add("0" + i + ":00");
+            } else {
+                array_horario_inicio.add(i + ":00");
+            }
+        }
         array_horario_fin.addAll(array_horario_inicio);
         array_horario_fin.remove(0);
         selected_hora_inicio = array_horario_inicio.get(0);
@@ -204,7 +217,7 @@ public class ReservarCanchaActivity extends AppCompatActivity implements CanchaR
     @Override
     public void populateMessage(String message) {
 
-        Toast.makeText(this,message , Toast.LENGTH_LONG).show();
+        Toast.makeText(this, message, Toast.LENGTH_LONG).show();
         Intent i = new Intent(this, HorariosDisponiblesActivity.class);
         i.putExtra("id_cancha", id_cancha);
         i.putExtra("nombre_cancha", nombre_cancha);
@@ -215,7 +228,7 @@ public class ReservarCanchaActivity extends AppCompatActivity implements CanchaR
 
     @Override
     public void showErrorMessage(String message) {
-        Toast.makeText(this,message , Toast.LENGTH_LONG).show();
+        Toast.makeText(this, message, Toast.LENGTH_LONG).show();
         finish();
     }
 
