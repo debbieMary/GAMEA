@@ -30,7 +30,7 @@ import elalto.network.entities.TokenManager;
 
 public class CanchasInteractorImpl implements CanchasInteractor, CanchaCobroInteractor,
         CanchasInfoInteractor, CanchaReservaInteractor, MisReservasInteractor,
-        HorariosDisponiblesInteractor {
+        HorariosDisponiblesInteractor, CantidadReservasPendientesInteractor {
 
     List<Cancha> canchas = new ArrayList<Cancha>();
     List<CanchaInfo> canchaInfo = new ArrayList<CanchaInfo>();
@@ -38,14 +38,15 @@ public class CanchasInteractorImpl implements CanchasInteractor, CanchaCobroInte
     List<MisReservas> misReservas = new ArrayList<MisReservas>();
     List<Event> event =  new ArrayList<Event>();
 
-    public static final String URL_BASE = "https://api-game-bo.herokuapp.com/canchas/";
-    public static final String URL_SECOND = "https://api-game-bo.herokuapp.com/cobros/";
-    public static final String URL_THIRD = "https://api-game-bo.herokuapp.com/reservas/";
+    public static final String URL_CANCHAS = "https://api-game-bo.herokuapp.com/canchas/";
+    public static final String URL_COBROS = "https://api-game-bo.herokuapp.com/cobros/";
+    public static final String URL_RESERVAS = "https://api-game-bo.herokuapp.com/reservas/";
     public static final String listar_canchas = "listartodos";
     public static final String info_canchas = "listarPorId";
     public static final String listar_cobros = "listarCobros";
     public static final String reservar_cancha = "reservar";
     public static final String get_mis_reservas = "misReservas";
+    public static final String get_cantidad_mis_reservas_pendientes = "cantidadReservasPendientes";
     public static final String get_horarios_por_fecha = "listarReservasPorRangofecha";
     public static final String TOKEN= "R2FtZWE6Q2FuY2hhcw==";
 
@@ -55,7 +56,7 @@ public class CanchasInteractorImpl implements CanchasInteractor, CanchaCobroInte
         StrictMode.setThreadPolicy(policy);
         canchas.clear();
         try {
-            URL url = new URL(URL_BASE + listar_canchas);
+            URL url = new URL(URL_CANCHAS + listar_canchas);
             HttpURLConnection client = (HttpURLConnection) url.openConnection();
             //client.setDoOutput(true);
             client.setDoInput(true);
@@ -118,7 +119,7 @@ public class CanchasInteractorImpl implements CanchasInteractor, CanchaCobroInte
         StrictMode.setThreadPolicy(policy);
         canchaInfo.clear();
         try {
-            URL url = new URL(URL_BASE + info_canchas);
+            URL url = new URL(URL_CANCHAS + info_canchas);
             HttpURLConnection client = (HttpURLConnection) url.openConnection();
             client.setDoOutput(true);
             client.setDoInput(true);
@@ -226,7 +227,7 @@ public class CanchasInteractorImpl implements CanchasInteractor, CanchaCobroInte
         StrictMode.setThreadPolicy(policy);
         canchas.clear();
         try {
-            URL url = new URL(URL_SECOND + listar_cobros);
+            URL url = new URL(URL_COBROS + listar_cobros);
             HttpURLConnection client = (HttpURLConnection) url.openConnection();
             client.setDoInput(true);
             client.setRequestProperty("Content-Type", "application/json; charset=UTF-8");
@@ -289,7 +290,7 @@ public class CanchasInteractorImpl implements CanchasInteractor, CanchaCobroInte
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
         try {
-            URL url = new URL(URL_THIRD + reservar_cancha);
+            URL url = new URL(URL_RESERVAS + reservar_cancha);
             HttpURLConnection client = (HttpURLConnection) url.openConnection();
             client.setDoOutput(true);
             client.setDoInput(true);
@@ -343,7 +344,7 @@ public class CanchasInteractorImpl implements CanchasInteractor, CanchaCobroInte
         StrictMode.setThreadPolicy(policy);
         misReservas.clear();
         try {
-            URL url = new URL(URL_THIRD + get_mis_reservas);
+            URL url = new URL(URL_RESERVAS + get_mis_reservas);
             HttpURLConnection client = (HttpURLConnection) url.openConnection();
             client.setDoOutput(true);
             client.setDoInput(true);
@@ -433,7 +434,7 @@ public class CanchasInteractorImpl implements CanchasInteractor, CanchaCobroInte
         StrictMode.setThreadPolicy(policy);
         event.clear();
         try {
-            URL url = new URL(URL_THIRD + get_horarios_por_fecha);
+            URL url = new URL(URL_RESERVAS + get_horarios_por_fecha);
             HttpURLConnection client = (HttpURLConnection) url.openConnection();
             client.setDoOutput(true);
             client.setDoInput(true);
@@ -527,6 +528,58 @@ public class CanchasInteractorImpl implements CanchasInteractor, CanchaCobroInte
                 }
 
         } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+    @Override
+    public void getCantidadReservasPendientes(String id_usuario, onCantidadReservasPendientesFinishedListener listener) {
+        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+        StrictMode.setThreadPolicy(policy);
+        misReservas.clear();
+        try {
+            URL url = new URL(URL_RESERVAS + get_cantidad_mis_reservas_pendientes);
+            HttpURLConnection client = (HttpURLConnection) url.openConnection();
+            client.setDoOutput(true);
+            client.setDoInput(true);
+            client.setRequestProperty("Content-Type", "application/json; charset=UTF-8");
+            client.setRequestProperty("Authorization", TOKEN);
+            client.setRequestMethod("POST");
+            client.connect();
+            String json = setIdUsuario(id_usuario);
+            OutputStreamWriter writer = new OutputStreamWriter(client.getOutputStream());
+            String output = json;
+            writer.write(output);
+            writer.flush();
+            writer.close();
+
+            InputStream input;
+            int status = client.getResponseCode();
+
+            if (status != HttpURLConnection.HTTP_OK) {
+                input = client.getErrorStream();
+            } else {
+                input = client.getInputStream();
+            }
+            BufferedReader reader = new BufferedReader(new InputStreamReader(input));
+            StringBuilder result = new StringBuilder();
+            String line;
+            while ((line = reader.readLine()) != null) {
+                result.append(line);
+            }
+            Log.e("MisReservas", result.toString());
+            JSONObject resultMisReservas = new JSONObject(result.toString());
+            //TODO get result
+            listener.onSuccessCantidadReservasPendientes(2);
+        } catch (NullPointerException e) {
+            listener.onFailedCantidadReservasPendientes("Error");
+            e.printStackTrace();
+        } catch (JSONException e) {
+            listener.onFailedCantidadReservasPendientes("Error");
+            e.printStackTrace();
+        } catch (Exception e) {
+            listener.onFailedCantidadReservasPendientes("Error");
             e.printStackTrace();
         }
     }
