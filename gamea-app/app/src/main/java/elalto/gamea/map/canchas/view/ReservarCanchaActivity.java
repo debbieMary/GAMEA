@@ -164,8 +164,7 @@ public class ReservarCanchaActivity extends AppCompatActivity implements CanchaR
     public void reservarCancha(View v) {
         if(validarHoras()){
             if (verificarDisponibilidad()) {
-                Log.e("alalala", "error");
-                //canchaReservaPresenter.saveCanchasReserva(getStringJson());
+                canchaReservaPresenter.saveCanchasReserva(getStringJson());
             } else {
                 Toast.makeText(this, "El horario que usted quiere reservar se encuentra ocupado", Toast.LENGTH_SHORT).show();
                 finish();
