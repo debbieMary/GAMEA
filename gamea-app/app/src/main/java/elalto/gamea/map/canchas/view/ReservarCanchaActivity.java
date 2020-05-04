@@ -8,6 +8,9 @@ import elalto.gamea.map.canchas.entities.Horas;
 import elalto.gamea.map.canchas.model.CanchasInteractorImpl;
 import elalto.gamea.map.canchas.presenter.CanchaReservaPresenter;
 import elalto.gamea.map.canchas.presenter.CanchaReservaPresenterImpl;
+import elalto.gamea.map.canchas.presenter.CantidadReservasPendientesPresenter;
+import elalto.gamea.map.canchas.presenter.CantidadReservasPendientesPresenterImpl;
+import elalto.gamea.map.canchas.presenter.CantidadReservasPendientesView;
 import elalto.gamea.map.canchas.utils.GeneralUtils;
 import android.content.Intent;
 import android.os.Bundle;
@@ -24,7 +27,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 
-public class ReservarCanchaActivity extends AppCompatActivity implements CanchaReservaView {
+public class ReservarCanchaActivity extends AppCompatActivity implements CanchaReservaView , CantidadReservasPendientesView {
 
     Toolbar toolbar;
     Bundle bundle;
@@ -42,6 +45,7 @@ public class ReservarCanchaActivity extends AppCompatActivity implements CanchaR
     String selected_hora_fin;
     EditText txt_observaciones;
     CanchaReservaPresenter canchaReservaPresenter;
+    CantidadReservasPendientesPresenter cantidadReservasPendientesPresenter;
     ArrayList<String> array_horario_inicio = new ArrayList<String>();
     ArrayList<String> array_horario_fin = new ArrayList<String>();
     ArrayList<Event> events = new ArrayList<Event>();
@@ -57,6 +61,10 @@ public class ReservarCanchaActivity extends AppCompatActivity implements CanchaR
         setContentView(R.layout.activity_reservar_cancha);
         setHorariosSpinner();
         setHorasArrayInit();
+
+        cantidadReservasPendientesPresenter = new CantidadReservasPendientesPresenterImpl(this, new CanchasInteractorImpl());
+        cantidadReservasPendientesPresenter.getCantidadReservasPendientes("2");
+
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setTitle("RESERVA DE CANCHA");
         canchaReservaPresenter = new CanchaReservaPresenterImpl(this, new CanchasInteractorImpl());
@@ -245,5 +253,29 @@ public class ReservarCanchaActivity extends AppCompatActivity implements CanchaR
         events.clear();
         horas.clear();
         super.onStop();
+    }
+
+    @Override
+    public void showProgressCantidadReservasPendientes() {
+
+    }
+
+    @Override
+    public void hideProgressCantidadReservasPendientes() {
+
+    }
+
+    @Override
+    public void populateCantidadReservasPendientes(int cantidad) {
+        if(cantidad > 2){
+            Toast.makeText(this, "Tienes muchas reservas pendientes", Toast.LENGTH_SHORT).show();
+            finish();
+        }
+    }
+
+    @Override
+    public void showErrorMessageCantidadReservasPendientes(String message) {
+       Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
+       finish();
     }
 }

@@ -568,10 +568,10 @@ public class CanchasInteractorImpl implements CanchasInteractor, CanchaCobroInte
             while ((line = reader.readLine()) != null) {
                 result.append(line);
             }
-            Log.e("MisReservas", result.toString());
-            JSONObject resultMisReservas = new JSONObject(result.toString());
-            //TODO get result
-            listener.onSuccessCantidadReservasPendientes(2);
+            Log.e("ReservasPendientes", result.toString());
+            JSONObject reservasPendientesJson = new JSONObject(result.toString());
+            int cantidad= getCantidadReservasPendientesInt(reservasPendientesJson);
+            listener.onSuccessCantidadReservasPendientes(cantidad);
         } catch (NullPointerException e) {
             listener.onFailedCantidadReservasPendientes("Error");
             e.printStackTrace();
@@ -582,5 +582,20 @@ public class CanchasInteractorImpl implements CanchasInteractor, CanchaCobroInte
             listener.onFailedCantidadReservasPendientes("Error");
             e.printStackTrace();
         }
+    }
+
+    public int getCantidadReservasPendientesInt(JSONObject jsonObjectCantidad){
+        int cantidadReserva= 0 ;
+        try {
+            JSONArray data = jsonObjectCantidad.getJSONArray("data");
+            for (int i = 0; i < data.length(); i++) {
+                JSONObject reservaObject = data.getJSONObject(i);
+                cantidadReserva= reservaObject.getInt("cantidad");
+            }
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return cantidadReserva;
     }
 }
