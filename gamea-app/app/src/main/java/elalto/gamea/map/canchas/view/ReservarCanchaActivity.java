@@ -14,6 +14,7 @@ import elalto.gamea.map.canchas.presenter.CantidadReservasPendientesView;
 import elalto.gamea.map.canchas.utils.GeneralUtils;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -163,7 +164,8 @@ public class ReservarCanchaActivity extends AppCompatActivity implements CanchaR
     public void reservarCancha(View v) {
         if(validarHoras()){
             if (verificarDisponibilidad()) {
-                canchaReservaPresenter.saveCanchasReserva(getStringJson());
+                Log.e("alalala", "error");
+                //canchaReservaPresenter.saveCanchasReserva(getStringJson());
             } else {
                 Toast.makeText(this, "El horario que usted quiere reservar se encuentra ocupado", Toast.LENGTH_SHORT).show();
                 finish();
@@ -267,8 +269,8 @@ public class ReservarCanchaActivity extends AppCompatActivity implements CanchaR
 
     @Override
     public void populateCantidadReservasPendientes(int cantidad) {
-        if(cantidad > 2){
-            Toast.makeText(this, "Tienes muchas reservas pendientes", Toast.LENGTH_SHORT).show();
+        if(cantidad >= 2){
+            Toast.makeText(this, "No puedes tener más de dos reservas pendientes", Toast.LENGTH_LONG).show();
             finish();
         }
     }

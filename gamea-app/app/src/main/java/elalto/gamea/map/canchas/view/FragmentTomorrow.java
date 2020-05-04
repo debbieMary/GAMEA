@@ -57,4 +57,10 @@ public class FragmentTomorrow extends Fragment {
                     }
                 });
     }
+
+    @Override
+    public void onStop() {
+        events.clear();
+        super.onStop();
+    }
 }

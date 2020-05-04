@@ -516,7 +516,7 @@ public class CanchasInteractorImpl implements CanchasInteractor, CanchaCobroInte
                     int horaInicio = Integer.parseInt(horariosDisponiblesObject.getString("hora_inicio").split(":")[0]);
                     int horaFin = Integer.parseInt(horariosDisponiblesObject.getString("hora_fin").split(":")[0]);
                     int id_reserva = Integer.parseInt(horariosDisponiblesObject.getString("id_reserva").split(":")[0]);
-                    String observaciones = horariosDisponiblesObject.getString("observaciones");
+                    String observaciones = "Reservado";//horariosDisponiblesObject.getString("observaciones");
 
                     Calendar timeStart = Calendar.getInstance();
                     timeStart.set(Calendar.HOUR_OF_DAY, horaInicio);

@@ -60,7 +60,7 @@ public class HorariosDisponiblesActivity extends AppCompatActivity  implements H
 
         bundle = getIntent().getExtras();
         toolbar = (Toolbar) findViewById(R.id.toolbar);
-        toolbar.setTitle("HOARARIOS DISPONIBLES");
+        toolbar.setTitle("HORARIOS DISPONIBLES");
 
         eventColor = getResources().getColor(R.color.eventColor);
 
@@ -172,5 +172,11 @@ public class HorariosDisponiblesActivity extends AppCompatActivity  implements H
     @Override
     public void showErrorMessage(String message) {
         Toast.makeText(this, message, Toast.LENGTH_LONG).show();
+    }
+
+    @Override
+    protected void onStop() {
+        events.clear();
+        super.onStop();
     }
 }
