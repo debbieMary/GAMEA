@@ -248,12 +248,12 @@ public class ReservarCanchaActivity extends AppCompatActivity implements CanchaR
     }
 
     @Override
-    protected void onStop() {
+    protected void onDestroy() {
         array_horario_inicio.clear();
         array_horario_fin.clear();
         events.clear();
         horas.clear();
-        super.onStop();
+        super.onDestroy();
     }
 
     @Override

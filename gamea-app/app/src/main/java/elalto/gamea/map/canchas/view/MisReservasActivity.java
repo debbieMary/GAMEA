@@ -15,6 +15,7 @@ import elalto.gamea.map.canchas.view.Adapters.RecyclerItemClickListener;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
@@ -92,5 +93,13 @@ public class MisReservasActivity extends AppCompatActivity  implements MisReserv
     @Override
     public void showErrorMessage(String message) {
         Toast.makeText(this, message , Toast.LENGTH_LONG).show();
+    }
+
+    @Override
+    protected void onDestroy() {
+        Log.e("onDestroy","me estoy deestruyendo");
+        misReservasArray.clear();
+        adapter.notifyDataSetChanged();
+        super.onDestroy();
     }
 }

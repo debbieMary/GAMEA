@@ -56,6 +56,7 @@ public class HorariosDisponiblesActivity extends AppCompatActivity  implements H
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_horarios_disponibles);
 
+
         activityStatic= HorariosDisponiblesActivity.this;
 
         bundle = getIntent().getExtras();
@@ -173,10 +174,5 @@ public class HorariosDisponiblesActivity extends AppCompatActivity  implements H
     public void showErrorMessage(String message) {
         Toast.makeText(this, message, Toast.LENGTH_LONG).show();
     }
-
-    @Override
-    protected void onStop() {
-        events.clear();
-        super.onStop();
-    }
+    
 }
