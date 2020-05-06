@@ -174,5 +174,12 @@ public class HorariosDisponiblesActivity extends AppCompatActivity  implements H
     public void showErrorMessage(String message) {
         Toast.makeText(this, message, Toast.LENGTH_LONG).show();
     }
-    
+
+    @Override
+    protected void onDestroy() {
+        Log.e("onDestroy","me estoy deestruyendo");
+        events.clear();
+        super.onDestroy();
+    }
+
 }
