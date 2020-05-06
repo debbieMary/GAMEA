@@ -37,7 +37,7 @@ public class HorariosDisponiblesPresenterImpl implements HorariosDisponiblesPres
     public void getHorariosDisponibles(String id_cancha, String fecha_inicio, String fecha_fin) {
         horariosDisponiblesInteractor.getHorariosDisponibles(id_cancha,  fecha_inicio, fecha_fin, this);
         if (horariosDisponiblesCobroView != null) {
-            horariosDisponiblesCobroView.hideProgress();
+            horariosDisponiblesCobroView.showProgress();
         }
     }
 

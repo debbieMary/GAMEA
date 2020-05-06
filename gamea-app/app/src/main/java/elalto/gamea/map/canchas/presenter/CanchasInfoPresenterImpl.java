@@ -39,7 +39,7 @@ public class CanchasInfoPresenterImpl implements CanchasInfoPresenter, CanchasIn
     public void getCanchasInfo(String id_cancha) {
         canchasInfoInteractor.getCanchasInfo(id_cancha, this);
         if (canchasInfoView != null) {
-            canchasInfoView.hideProgress();
+            canchasInfoView.showProgress();
         }
     }
 

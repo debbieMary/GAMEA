@@ -38,7 +38,7 @@ public class CanchaReservaPresenterImpl implements CanchaReservaPresenter, Canch
     public void saveCanchasReserva(String reserva) {
         canchaReservaInteractor.saveCanchasReserva(reserva, this);
         if (canchaReservaView != null) {
-            canchaReservaView.hideProgress();
+            canchaReservaView.showProgress();
         }
     }
 

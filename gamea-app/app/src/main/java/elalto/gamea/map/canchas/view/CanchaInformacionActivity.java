@@ -59,8 +59,14 @@ public class CanchaInformacionActivity extends AppCompatActivity implements Canc
         Log.e(tag,nombre_cancha+" "+id_cancha);
         lbl_nombre_cancha= (TextView) this.findViewById(R.id.lbl_nombre_cancha);
         lbl_nombre_cancha.setText(nombre_cancha);
+
+        progressDialog = new ProgressDialog(this);
+        progressDialog.setMessage("Obteniendo informacion de cancha...");
+        progressDialog.setCancelable(false);
+
         canchasInfoPresenter = new CanchasInfoPresenterImpl(this, new CanchasInteractorImpl());
         canchasInfoPresenter.getCanchasInfo(id_cancha);
+
         mCustomPagerAdapter = new CustomPagerAdapter(this, images);
         mViewPager = (ViewPager) findViewById(R.id.pager);
         mViewPager.setAdapter(mCustomPagerAdapter);
@@ -84,12 +90,12 @@ public class CanchaInformacionActivity extends AppCompatActivity implements Canc
 
     @Override
     public void showProgress() {
-
+        progressDialog.show();
     }
 
     @Override
     public void hideProgress() {
-
+        progressDialog.dismiss();
     }
 
     @Override
@@ -137,5 +143,6 @@ public class CanchaInformacionActivity extends AppCompatActivity implements Canc
     @Override
     public void showErrorMessage(String message) {
         Toast.makeText(this,message , Toast.LENGTH_LONG).show();
+        finish();
     }
 }

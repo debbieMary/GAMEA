@@ -40,7 +40,7 @@ public class CanchaCobroPresenterImpl implements CanchaCobroPresenter, CanchaCob
     public void getCobros(TokenManager tokenManager) {
         canchaCobroInteractor.getCobros(tokenManager, this);
         if (canchaCobroView != null) {
-            canchaCobroView.hideProgressCC();
+            canchaCobroView.showProgressCC();
         }
     }
 

@@ -40,7 +40,7 @@ public class MisReservasPresenterImpl implements MisReservasPresenter, MisReserv
     public void getMisReservas(String id_usuario) {
         misReservasInteractor.getMisReservas(id_usuario, this);
         if (misReservasView != null) {
-            misReservasView.hideProgress();
+            misReservasView.showProgress();
         }
     }
 

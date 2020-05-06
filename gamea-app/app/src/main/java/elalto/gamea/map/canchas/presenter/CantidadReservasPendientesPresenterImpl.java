@@ -34,7 +34,7 @@ public class CantidadReservasPendientesPresenterImpl implements CantidadReservas
     public void getCantidadReservasPendientes(String id_usuario) {
         cantidadReservasPendientesInteractor.getCantidadReservasPendientes(id_usuario, this);
         if (cantidadReservasPendientesView != null) {
-            cantidadReservasPendientesView.hideProgressCantidadReservasPendientes();
+            cantidadReservasPendientesView.showProgressCantidadReservasPendientes();
         }
     }
 
