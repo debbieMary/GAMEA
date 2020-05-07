@@ -74,19 +74,19 @@ public class CanchasFragment extends Fragment implements OnMapReadyCallback, Per
         Mapbox.getInstance(getContext(), getString(R.string.map_token));
         View view = inflater.inflate(R.layout.fragment_canchas, container, false);
         ButterKnife.bind(this, view);
-
-        progressDialog = new ProgressDialog(getActivity());
-        progressDialog.setMessage("Obteniendo informacion...");
-        progressDialog.setCancelable(false);
-
         presenter = new CanchasPresenterImpl(this, new CanchasInteractorImpl());
         presenterCobro = new CanchaCobroPresenterImpl(this, new CanchasInteractorImpl());
+
+        progressDialog = new ProgressDialog(getActivity());
         toolbar.setTitle("Canchas deportivas");
         ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
         tokenManager = TokenManager.getInstance(getActivity().getSharedPreferences("prefs", Context.MODE_PRIVATE));
         mapView = view.findViewById(R.id.mapView);
         mapView.onCreate(savedInstanceState);
         mapView.getMapAsync(this);
+        progressDialog.setMessage("Obteniendo informacion...");
+        progressDialog.setCancelable(false);
+        //progressDialog.show();
         return view;
     }
 

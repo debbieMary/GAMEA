@@ -36,7 +36,7 @@ public class CanchasPresenterImpl implements CanchasPresenter, CanchasInteractor
     public void getCanchas(TokenManager tokenManager) {
         canchasInteractor.getCanchas(tokenManager, this);
         if (canchasView != null) {
-            canchasView.showProgress();
+            canchasView.hideProgress();
         }
     }
 
