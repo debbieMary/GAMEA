@@ -177,7 +177,6 @@ public class HorariosDisponiblesActivity extends AppCompatActivity  implements H
 
     @Override
     protected void onDestroy() {
-        Log.e("onDestroy","me estoy deestruyendo");
         events.clear();
         super.onDestroy();
     }

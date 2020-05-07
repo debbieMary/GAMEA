@@ -86,7 +86,7 @@ public class CanchasFragment extends Fragment implements OnMapReadyCallback, Per
         mapView.getMapAsync(this);
         progressDialog.setMessage("Obteniendo informacion...");
         progressDialog.setCancelable(false);
-        //progressDialog.show();
+        progressDialog.show();
         return view;
     }
 
