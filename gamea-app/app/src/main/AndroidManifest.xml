@@ -22,7 +22,10 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".map.canchas.view.PopupCanchaTicket" android:theme="@style/Base.Theme.AppCompat.Light.Dialog"></activity>
+        <activity android:name=".map.canchas.view.DeleteReservaActivity"></activity>
+        <activity
+            android:name=".map.canchas.view.PopupCanchaTicket"
+            android:theme="@style/Base.Theme.AppCompat.Light.Dialog" />
         <activity android:name=".map.canchas.view.MisReservasActivity" />
         <activity android:name=".map.canchas.view.HorariosDisponiblesActivity" />
         <activity android:name=".map.canchas.view.ReservarCanchaActivity" />

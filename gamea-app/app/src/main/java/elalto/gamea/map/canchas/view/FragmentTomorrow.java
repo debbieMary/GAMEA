@@ -27,7 +27,7 @@ public class FragmentTomorrow extends Fragment {
                              Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_tomorrow, container, false);
         fecha_manhiana= hd.getTomorrow();
-        Log.e("lalala", "manhiana "  +  fecha_manhiana);
+        Log.e("activity_delete_reserva", "manhiana "  +  fecha_manhiana);
         events.addAll(hd.getHorariosReservados(fecha_manhiana));
         setCalendar();
         return view;

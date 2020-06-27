@@ -5,7 +5,6 @@ import com.facebook.stetho.okhttp3.StethoInterceptor;
 
 import java.io.IOException;
 
-import elalto.gamea.BuildConfig;
 import elalto.network.entities.TokenManager;
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
