@@ -10,9 +10,10 @@ import elalto.gamea.map.canchas.entities.MisReservas;
 import elalto.gamea.map.canchas.model.CanchasInteractorImpl;
 import elalto.gamea.map.canchas.presenter.MisReservasPresenter;
 import elalto.gamea.map.canchas.presenter.MisReservasPresenterImpl;
-import elalto.gamea.map.canchas.view.Adapters.MisReservas2Adapter;
+import elalto.gamea.map.canchas.view.Adapters.MisReservasAdapter;
 import elalto.gamea.map.canchas.view.Adapters.RecyclerItemClickListener;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -26,10 +27,11 @@ public class MisReservasActivity extends AppCompatActivity  implements MisReserv
 
     Toolbar toolbar;
     MisReservasPresenter misReservasPresenter;
-    MisReservas2Adapter adapter;
+    MisReservasAdapter adapter;
     RecyclerView recyclerView;
     private RecyclerView.LayoutManager layoutManager;
     ArrayList<MisReservas> misReservasArray = new ArrayList<MisReservas>();
+    public static Integer DELETE_CONTACT_REQUEST = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,7 +43,7 @@ public class MisReservasActivity extends AppCompatActivity  implements MisReserv
         recyclerView = (RecyclerView) findViewById(R.id.rv_mis_reservas);
         layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
-        adapter = new MisReservas2Adapter(misReservasArray,getApplicationContext());
+        adapter = new MisReservasAdapter(misReservasArray,getApplicationContext());
         misReservasPresenter = new MisReservasPresenterImpl(this, new CanchasInteractorImpl());
         misReservasPresenter.getMisReservas("2");
         recyclerView.setAdapter(adapter);
@@ -51,7 +53,7 @@ public class MisReservasActivity extends AppCompatActivity  implements MisReserv
                         goToPopup(position);
                     }
                     @Override public void onLongItemClick(View view, int position) {
-
+                        goToDeleteReservaDialog(position);
                     }
                 })
         );
@@ -72,6 +74,17 @@ public class MisReservasActivity extends AppCompatActivity  implements MisReserv
             startActivity(i);
         }
     }
+
+
+    public void goToDeleteReservaDialog(int arrayPosition){
+        if(misReservasArray.get(arrayPosition).getEstado() == 1){
+            Intent i=  new Intent(MisReservasActivity.this, DeleteReservaActivity.class);
+            i.putExtra("id_reserva", misReservasArray.get(arrayPosition).getId_reserva());
+            i.putExtra("nombre_cancha", misReservasArray.get(arrayPosition).getNombre());
+            startActivityForResult(i, DELETE_CONTACT_REQUEST);
+        }
+    }
+
 
     @Override
     public void showProgress() {
@@ -97,9 +110,20 @@ public class MisReservasActivity extends AppCompatActivity  implements MisReserv
 
     @Override
     protected void onDestroy() {
-        Log.e("onDestroy","me estoy deestruyendo");
         misReservasArray.clear();
         adapter.notifyDataSetChanged();
         super.onDestroy();
+    }
+
+
+    protected void onActivityResult(int requestCode, int resultCode,
+                                    Intent data) {
+        if (requestCode == DELETE_CONTACT_REQUEST) {
+            if (resultCode == RESULT_OK) {
+                Intent intent=  new Intent(MisReservasActivity.this, MisReservasActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        }
     }
 }

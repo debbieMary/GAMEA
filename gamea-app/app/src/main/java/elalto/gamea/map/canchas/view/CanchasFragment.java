@@ -224,7 +224,7 @@ public class CanchasFragment extends Fragment implements OnMapReadyCallback, Per
     @Override
     public void populateMapCC(List<CanchaCobro> canchaCobroList) {
         IconFactory iconFactory = IconFactory.getInstance(getActivity());
-        Icon icon = iconFactory.fromResource(R.drawable.hospital);
+        Icon icon = iconFactory.fromResource(R.drawable.punto_cobro3);
         markerOptionsListCobros = new ArrayList<>();
         for (int i = 0; i < canchaCobroList.size(); i++) {
             MarkerOptions markerOptions = new MarkerOptions();

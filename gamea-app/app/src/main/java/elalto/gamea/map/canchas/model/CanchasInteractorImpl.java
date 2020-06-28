@@ -26,11 +26,18 @@ import elalto.gamea.map.canchas.entities.CanchaCobro;
 import elalto.gamea.map.canchas.entities.CanchaInfo;
 import elalto.gamea.map.canchas.entities.Event;
 import elalto.gamea.map.canchas.entities.MisReservas;
+import elalto.network.canchas.ApiServiceCanchas;
+import elalto.network.canchas.ApiUtilsCanchas;
+import elalto.network.canchas.entities.DeleteReservaBody;
+import elalto.network.canchas.entities.DeleteReservaResponse;
 import elalto.network.entities.TokenManager;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class CanchasInteractorImpl implements CanchasInteractor, CanchaCobroInteractor,
         CanchasInfoInteractor, CanchaReservaInteractor, MisReservasInteractor,
-        HorariosDisponiblesInteractor, CantidadReservasPendientesInteractor {
+        HorariosDisponiblesInteractor, CantidadReservasPendientesInteractor, DeleteReservaInteractor {
 
     List<Cancha> canchas = new ArrayList<Cancha>();
     List<CanchaInfo> canchaInfo = new ArrayList<CanchaInfo>();
@@ -597,5 +604,29 @@ public class CanchasInteractorImpl implements CanchasInteractor, CanchaCobroInte
             e.printStackTrace();
         }
         return cantidadReserva;
+    }
+
+    ApiServiceCanchas apiService;
+    private final String TAG="[CANCHAS_SERVICE]";
+
+    @Override
+    public void deleteReservaCancha(DeleteReservaBody deleteReservaBody, final onDeleteReservaFinishedListener listener) {
+        apiService = ApiUtilsCanchas.getCanchasService();
+        Call<DeleteReservaResponse> call = apiService.deleteReserva(TOKEN, deleteReservaBody);
+        call.enqueue(new Callback<DeleteReservaResponse>() {
+            @Override
+            public void onResponse(Call<DeleteReservaResponse> call, Response<DeleteReservaResponse> response) {
+                if(response.isSuccessful()){
+                    Log.d(TAG,"SUCCESS!!! Services version: "+  response.body().getMensaje());
+                    Log.d(TAG,"SUCCESS!!! Services version: "+  response.body().toString());
+                    listener.onSuccess(response.body());
+                }
+            }
+            @Override
+            public void onFailure(Call<DeleteReservaResponse> call, Throwable t) {
+                Log.e(TAG,"ERROR!!! Services version: "+  t.getMessage());
+                listener.onFailed(t.getMessage());
+            }
+        });
     }
 }

@@ -1,5 +1,6 @@
 package elalto.gamea.map.canchas.view.Adapters;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
@@ -17,19 +18,21 @@ import elalto.gamea.map.canchas.entities.MisReservas;
 import elalto.gamea.map.canchas.utils.GeneralUtils;
 import elalto.gamea.map.canchas.view.DeleteReservaActivity;
 
-public class MisReservas2Adapter extends RecyclerView.Adapter<MisReservas2Adapter.PlanetViewHolder> {
+import static elalto.gamea.map.canchas.view.MisReservasActivity.DELETE_CONTACT_REQUEST;
+
+public class MisReservasAdapter extends RecyclerView.Adapter<MisReservasAdapter.PlanetViewHolder> {
 
     ArrayList<MisReservas> planetList;
     Context context;
     GeneralUtils generalUtils =  new GeneralUtils();
 
-    public MisReservas2Adapter(ArrayList<MisReservas> planetList, Context context) {
+    public MisReservasAdapter(ArrayList<MisReservas> planetList, Context context) {
         this.planetList = planetList;
         this.context =  context;
     }
 
     @Override
-    public MisReservas2Adapter.PlanetViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public MisReservasAdapter.PlanetViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View v= LayoutInflater.from(parent.getContext()).inflate(R.layout.item_mis_reservas,parent,false);
         PlanetViewHolder viewHolder=new PlanetViewHolder(v);
         return viewHolder;
@@ -39,7 +42,7 @@ public class MisReservas2Adapter extends RecyclerView.Adapter<MisReservas2Adapte
 
 
     @Override
-    public void onBindViewHolder(MisReservas2Adapter.PlanetViewHolder holder, int position) {
+    public void onBindViewHolder(MisReservasAdapter.PlanetViewHolder holder, int position) {
         MisReservas misReservas = planetList.get(position);
         final String nombre_cancha = misReservas.getNombre();
         final int estado = misReservas.getEstado();
@@ -53,26 +56,13 @@ public class MisReservas2Adapter extends RecyclerView.Adapter<MisReservas2Adapte
         holder.lbl_hora_fin.setText(hora_fin);
         if (estado == 1){
             holder.img_estado.setBackgroundResource(R.drawable.img_reservado);
-            holder.img_delete.setVisibility(View.VISIBLE);
         } else if ( estado == 2) {
             holder.img_estado.setBackgroundResource(R.drawable.img_pagado);
-            holder.img_delete.setVisibility(View.GONE);
         } else if (estado ==3) {
             holder.img_estado.setBackgroundResource(R.drawable.img_rechazado);
-            holder.img_delete.setVisibility(View.GONE);
         } else {
 
         }
-        holder.img_delete.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent i=  new Intent(context, DeleteReservaActivity.class);
-                i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                i.putExtra("id_reserva", id_reserva);
-                i.putExtra("nombre_cancha", nombre_cancha);
-                context.startActivity(i);
-            }
-        });
     }
 
     @Override
@@ -86,7 +76,7 @@ public class MisReservas2Adapter extends RecyclerView.Adapter<MisReservas2Adapte
         public TextView lbl_fecha;
         public TextView lbl_hora_inicio;
         public TextView lbl_hora_fin;
-        public ImageView img_estado, img_delete;
+        public ImageView img_estado;
 
         public PlanetViewHolder(View view) {
             super(view);
@@ -95,7 +85,6 @@ public class MisReservas2Adapter extends RecyclerView.Adapter<MisReservas2Adapte
             lbl_hora_inicio = (TextView) view.findViewById(R.id.lbl_hora_inicio);
             lbl_hora_fin = (TextView) view.findViewById(R.id.lbl_hora_fin);
             img_estado = (ImageView) view.findViewById(R.id.img_estado);
-            img_delete = (ImageView) view.findViewById(R.id.img_delete);
         }
     }
 }
