@@ -411,24 +411,26 @@ public class CanchasInteractorImpl implements CanchasInteractor, CanchaCobroInte
         try {
             JSONArray data = resultMisReservasObject.getJSONArray("data");
             for (int i = 0; i < data.length(); i++) {
-                JSONObject misReservasObject = data.getJSONObject(i);
-                misReservas.add(new MisReservas(
-                        misReservasObject.getString("nombre"),
-                        misReservasObject.getString("distrito"),
-                        misReservasObject.getInt("id_reserva"),
-                        misReservasObject.getInt("id_cancha"),
-                        misReservasObject.getInt("id_usuario"),
-                        misReservasObject.getString("fecha"),
-                        misReservasObject.getString("hora_inicio"),
-                        misReservasObject.getString("hora_fin"),
-                        misReservasObject.getString("ci_quien_reserva"),
-                        misReservasObject.getString("nombre_reserva"),
-                        misReservasObject.getString("observaciones"),
-                        misReservasObject.getInt("modo_registro"),
-                        misReservasObject.getInt("estado"),
-                        misReservasObject.getString("fecha_alta"),
-                        misReservasObject.getString("fecha_update")
-                ));
+                if(i < 10){
+                    JSONObject misReservasObject = data.getJSONObject(i);
+                    misReservas.add(new MisReservas(
+                            misReservasObject.getString("nombre"),
+                            misReservasObject.getString("distrito"),
+                            misReservasObject.getInt("id_reserva"),
+                            misReservasObject.getInt("id_cancha"),
+                            misReservasObject.getInt("id_usuario"),
+                            misReservasObject.getString("fecha"),
+                            misReservasObject.getString("hora_inicio"),
+                            misReservasObject.getString("hora_fin"),
+                            misReservasObject.getString("ci_quien_reserva"),
+                            misReservasObject.getString("nombre_reserva"),
+                            misReservasObject.getString("observaciones"),
+                            misReservasObject.getInt("modo_registro"),
+                            misReservasObject.getInt("estado"),
+                            misReservasObject.getString("fecha_alta"),
+                            misReservasObject.getString("fecha_update")
+                    ));
+                }
             }
         } catch (JSONException e) {
             e.printStackTrace();
@@ -617,8 +619,7 @@ public class CanchasInteractorImpl implements CanchasInteractor, CanchaCobroInte
             @Override
             public void onResponse(Call<DeleteReservaResponse> call, Response<DeleteReservaResponse> response) {
                 if(response.isSuccessful()){
-                    Log.d(TAG,"SUCCESS!!! Services version: "+  response.body().getMensaje());
-                    Log.d(TAG,"SUCCESS!!! Services version: "+  response.body().toString());
+                    Log.d(TAG,"SUCCESS!!!: "+  response.body().getMensaje());
                     listener.onSuccess(response.body());
                 }
             }
