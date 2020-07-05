@@ -34,6 +34,7 @@ public class HorariosDisponiblesActivity extends AppCompatActivity  implements H
     String id_cancha;
     String distrito;
     String nombre_cancha;
+    Integer precio_hora;
 
     private Calendar fechaYhora = Calendar.getInstance();
     SimpleDateFormat fecha = new SimpleDateFormat("yyyy/MM/dd");
@@ -68,6 +69,7 @@ public class HorariosDisponiblesActivity extends AppCompatActivity  implements H
         id_cancha = bundle.getString("id_cancha");
         nombre_cancha = bundle.getString("nombre_cancha");
         distrito = bundle.getString("distrito");
+        precio_hora=  bundle.getInt("precio_hora");
 
         fecha_actual = fecha.format(fechaYhora.getTime());
         fecha_reserva= fecha_actual;
@@ -86,6 +88,7 @@ public class HorariosDisponiblesActivity extends AppCompatActivity  implements H
         i.putExtra("nombre_cancha", nombre_cancha);
         i.putExtra("distrito", distrito);
         i.putExtra("fecha_reserva",fecha_reserva);
+        i.putExtra("precio_hora",  precio_hora);
         i.putExtra("event", getHorariosReservados(fecha_reserva));
         startActivity(i);
     }

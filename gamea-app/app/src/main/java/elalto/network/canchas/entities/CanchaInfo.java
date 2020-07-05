@@ -82,7 +82,7 @@ public class CanchaInfo {
     private String foto3;
     @SerializedName("precio_hora")
     @Expose
-    private Object precioHora;
+    private Integer precioHora;
     @SerializedName("hora_inicio")
     @Expose
     private String horaInicio;
@@ -128,7 +128,7 @@ public class CanchaInfo {
      * @param foto3
      * @param foto2
      */
-    public CanchaInfo(Integer idCancha, String nombre, Double longitud, Double latitud, String categoria, String tipoEscenarioDeportivo, String tienePerimetral, String tieneTingladoTecho, String tipoPavimento, String seEncuentra, String administradoPor, String graderias, String banos, String camerinos, String accesoLibre, Integer quienRealizo, String estado, String distrito, String direccion, String telefono, String fechaAlta, String usuarioAlta, String foto1, String foto2, String foto3, Object precioHora, String horaInicio, String horaFin) {
+    public CanchaInfo(Integer idCancha, String nombre, Double longitud, Double latitud, String categoria, String tipoEscenarioDeportivo, String tienePerimetral, String tieneTingladoTecho, String tipoPavimento, String seEncuentra, String administradoPor, String graderias, String banos, String camerinos, String accesoLibre, Integer quienRealizo, String estado, String distrito, String direccion, String telefono, String fechaAlta, String usuarioAlta, String foto1, String foto2, String foto3, Integer precioHora, String horaInicio, String horaFin) {
         super();
         this.idCancha = idCancha;
         this.nombre = nombre;
@@ -485,15 +485,15 @@ public class CanchaInfo {
         return this;
     }
 
-    public Object getPrecioHora() {
+    public Integer getPrecioHora() {
         return precioHora;
     }
 
-    public void setPrecioHora(Object precioHora) {
+    public void setPrecioHora(Integer precioHora) {
         this.precioHora = precioHora;
     }
 
-    public CanchaInfo withPrecioHora(Object precioHora) {
+    public CanchaInfo withPrecioHora(Integer precioHora) {
         this.precioHora = precioHora;
         return this;
     }

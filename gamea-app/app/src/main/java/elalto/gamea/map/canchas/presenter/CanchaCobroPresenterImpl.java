@@ -2,11 +2,11 @@ package elalto.gamea.map.canchas.presenter;
 
 import java.util.List;
 
-import elalto.gamea.map.canchas.entities.CanchaCobro;
 import elalto.gamea.map.canchas.model.CanchaCobroInteractor;
 import elalto.gamea.map.canchas.model.CanchasInteractor;
 import elalto.gamea.map.canchas.view.CanchaCobroView;
 import elalto.gamea.map.canchas.view.CanchasView;
+import elalto.network.canchas.entities.CanchaCobro;
 import elalto.network.entities.TokenManager;
 
 public class CanchaCobroPresenterImpl implements CanchaCobroPresenter, CanchaCobroInteractor.onCobroFinishedListener {
@@ -20,7 +20,7 @@ public class CanchaCobroPresenterImpl implements CanchaCobroPresenter, CanchaCob
 
 
     @Override
-    public void onSuccessCC(List<CanchaCobro> canchaCobroList) {
+    public void onSuccess(List<CanchaCobro> canchaCobroList) {
         if (canchaCobroView != null) {
             canchaCobroView.hideProgressCC();
             canchaCobroView.populateMapCC(canchaCobroList);
@@ -28,7 +28,7 @@ public class CanchaCobroPresenterImpl implements CanchaCobroPresenter, CanchaCob
     }
 
     @Override
-    public void onFailedCC(String message) {
+    public void onFailed(String message) {
         if (canchaCobroView != null) {
             canchaCobroView.hideProgressCC();
             canchaCobroView.showErrorMessageCC(message);

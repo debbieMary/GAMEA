@@ -19,12 +19,12 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
-import elalto.gamea.map.canchas.entities.CanchaCobro;
 import elalto.gamea.map.canchas.entities.Event;
 import elalto.gamea.map.canchas.entities.MisReservas;
 import elalto.network.canchas.ApiServiceCanchas;
 import elalto.network.canchas.ApiUtilsCanchas;
 import elalto.network.canchas.entities.Cancha;
+import elalto.network.canchas.entities.CanchaCobroResponse;
 import elalto.network.canchas.entities.CanchaInfoBody;
 import elalto.network.canchas.entities.CanchaInfoResponse;
 import elalto.network.canchas.entities.DeleteReservaBody;
@@ -39,15 +39,13 @@ public class CanchasInteractorImpl implements CanchasInteractor, CanchaCobroInte
         CanchasInfoInteractor, CanchaReservaInteractor, MisReservasInteractor,
         HorariosDisponiblesInteractor, CantidadReservasPendientesInteractor, DeleteReservaInteractor {
 
-    List<Cancha> canchas = new ArrayList<Cancha>();
-    List<CanchaCobro> canchaCobro = new ArrayList<CanchaCobro>();
     List<MisReservas> misReservas = new ArrayList<MisReservas>();
     List<Event> event =  new ArrayList<Event>();
 
     public static final String URL_CANCHAS = "https://api-game-bo.herokuapp.com/canchas/";
-    public static final String URL_COBROS = "https://api-game-bo.herokuapp.com/cobros/";
+    public static final String URL_COBROS = "https://api-game-bo.herokuapp.com/cobros/listarCobros";
     public static final String URL_RESERVAS = "https://api-game-bo.herokuapp.com/reservas/";
-    public static final String listar_cobros = "listarCobros";
+    public static final String listar_cobros = "";
     public static final String reservar_cancha = "reservar";
     public static final String get_mis_reservas = "misReservas";
     public static final String get_cantidad_mis_reservas_pendientes = "cantidadReservasPendientes";
@@ -108,115 +106,29 @@ public class CanchasInteractorImpl implements CanchasInteractor, CanchaCobroInte
         return canchaInfoBody;
     }
 
-    /*@Override
-    public void getCanchasInfo(String id_cancha, onCanchasInfoFinishedListener listener) {
-        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
-        StrictMode.setThreadPolicy(policy);
-        canchaInfo.clear();
-        try {
-            URL url = new URL(URL_CANCHAS + info_canchas);
-            HttpURLConnection client = (HttpURLConnection) url.openConnection();
-            client.setDoOutput(true);
-            client.setDoInput(true);
-            client.setRequestProperty("Content-Type", "application/json; charset=UTF-8");
-            client.setRequestProperty("Authorization", TOKEN);
-            client.setRequestMethod("POST");
-            client.connect();
-            String json = setIdCancha(id_cancha);
-            OutputStreamWriter writer = new OutputStreamWriter(client.getOutputStream());
-            String output = json;
-            writer.write(output);
-            writer.flush();
-            writer.close();
-
-            InputStream input;
-            int status = client.getResponseCode();
-
-            if (status != HttpURLConnection.HTTP_OK) {
-                input = client.getErrorStream();
-            } else {
-                input = client.getInputStream();
-            }
-            BufferedReader reader = new BufferedReader(new InputStreamReader(input));
-            StringBuilder result = new StringBuilder();
-            String line;
-            while ((line = reader.readLine()) != null) {
-                result.append(line);
-            }
-            Log.e("CanchaInfo", result.toString());
-            JSONObject resultCanchainfo = new JSONObject(result.toString());
-            getCanchaInfo(resultCanchainfo);
-            Log.e("########", canchaInfo.toString());
-            listener.onSuccess(canchaInfo);
-        } catch (NullPointerException e) {
-            listener.onFailed("Error");
-            e.printStackTrace();
-        } catch (JSONException e) {
-            listener.onFailed("Error");
-            e.printStackTrace();
-        } catch (Exception e) {
-            listener.onFailed("Error");
-            e.printStackTrace();
-        }
-    }
-
-
-    public String setIdCancha(String id_cancha) {
-        JSONObject jsonObject = new JSONObject();
-        try {
-            jsonObject.put("id_cancha", id_cancha);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        return jsonObject.toString();
-    }
-
-
-    private void getCanchaInfo(JSONObject canchaInfoParameter) {
-        try {
-            JSONArray data = canchaInfoParameter.getJSONArray("data");
-            for (int i = 0; i < data.length(); i++) {
-                JSONObject canchaInfoObject = data.getJSONObject(i);
-                Log.e("data", canchaInfoObject.toString());
-                canchaInfo.add(new CanchaInfo(
-                                canchaInfoObject.getInt("id_cancha"),
-                                canchaInfoObject.getString("nombre"),
-                                canchaInfoObject.getString("categoria"),
-                                canchaInfoObject.getDouble("longitud"),
-                                canchaInfoObject.getDouble("latitud"),
-                                canchaInfoObject.getString("tipo_escenario_deportivo"),
-                                canchaInfoObject.getString("tiene_perimetral"),
-                                canchaInfoObject.getString("tiene_tinglado_techo"),
-                                canchaInfoObject.getString("tipo_pavimento"),
-                                canchaInfoObject.getString("se_encuentra"),
-                                canchaInfoObject.getString("administrado_por"),
-                                canchaInfoObject.getString("graderias"),
-                                canchaInfoObject.getString("banos"),
-                                canchaInfoObject.getString("camerinos"),
-                                canchaInfoObject.getString("acceso_libre"),
-                                canchaInfoObject.getString("quien_realizo"),
-                                canchaInfoObject.getString("estado"),
-                                canchaInfoObject.getString("distrito"),
-                                canchaInfoObject.getString("direccion"),
-                                canchaInfoObject.getString("telefono"),
-                                canchaInfoObject.getString("foto1"),
-                                canchaInfoObject.getString("foto2"),
-                                canchaInfoObject.getString("foto3"),
-                                canchaInfoObject.getString("fecha_Alta"),
-                                canchaInfoObject.getString("usuario_alta"),
-                                canchaInfoObject.getString("hora_inicio"),
-                                canchaInfoObject.getString("hora_fin")
-                        )
-                );
-            }
-
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-    }*/
-
 
     @Override
+    public void getCobros(TokenManager tokenManager, onCobroFinishedListener listener) {
+        apiService = ApiUtilsCanchas.getCanchasService();
+        Call<CanchaCobroResponse> call = apiService.getListadoCobros(TOKEN);
+        call.enqueue(new Callback<CanchaCobroResponse>() {
+            @Override
+            public void onResponse(Call<CanchaCobroResponse> call, Response<CanchaCobroResponse> response) {
+                if(response.isSuccessful()){
+                    Log.d(TAG,"SUCCESS!!!: "+  response.body().getMensaje());
+                    listener.onSuccess(response.body().getData());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<CanchaCobroResponse> call, Throwable t) {
+                Log.e(TAG,"ERROR!!! Services version: "+  t.getMessage());
+                listener.onFailed(t.getMessage());
+            }
+        });
+    }
+
+    /*@Override
     public void getCobros(TokenManager tokenManager, onCobroFinishedListener listener) {
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
@@ -278,7 +190,7 @@ public class CanchasInteractorImpl implements CanchasInteractor, CanchaCobroInte
         } catch (JSONException e) {
             e.printStackTrace();
         }
-    }
+    }*/
 
     @Override
     public void saveCanchasReserva(String reserva, onCanchasReservaFinishedListener listener) {
@@ -618,4 +530,5 @@ public class CanchasInteractorImpl implements CanchasInteractor, CanchaCobroInte
             }
         });
     }
+
 }

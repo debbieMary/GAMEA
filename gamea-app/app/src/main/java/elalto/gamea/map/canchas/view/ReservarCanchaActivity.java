@@ -54,6 +54,7 @@ public class ReservarCanchaActivity extends AppCompatActivity implements CanchaR
     GeneralUtils utils = new GeneralUtils();
     int inicio_global = 7;
     int fin_global = 23;
+    Integer precio_hora;
     HorariosDisponiblesActivity horariosDisponiblesActivity=  new HorariosDisponiblesActivity();
 
     @Override
@@ -75,6 +76,7 @@ public class ReservarCanchaActivity extends AppCompatActivity implements CanchaR
         id_cancha = bundle.getString("id_cancha");
         nombre_cancha = bundle.getString("nombre_cancha");
         distrito = bundle.getString("distrito");
+        precio_hora= bundle.getInt("precio_hora");
         fecha_reserva = bundle.getString("fecha_reserva");
         events = (ArrayList<Event>) bundle.getSerializable("event");
         if (events != null && events.size() > 0) {
@@ -175,6 +177,21 @@ public class ReservarCanchaActivity extends AppCompatActivity implements CanchaR
         }
     }
 
+    private Integer getPrecioTotal() {
+        Integer precioTotal= 0 ;
+        precioTotal= precio_hora;
+        Integer index=0;
+        for(int i = Integer.parseInt(selected_hora_inicio.split(":")[0]);  i < Integer.parseInt(selected_hora_fin.split(":")[0]); i++){
+            if(index<1){
+                precioTotal=  precioTotal;
+            }else{
+                precioTotal= precioTotal+ precioTotal;
+            }
+            index++;
+        }
+        return precioTotal;
+    }
+
     private boolean validarHoras() {
         boolean status = true;
         Integer inicio= Integer.parseInt(selected_hora_inicio.split(":")[0]);
@@ -198,6 +215,9 @@ public class ReservarCanchaActivity extends AppCompatActivity implements CanchaR
         return status;
     }
 
+
+
+
     public String getStringJson() {
         JSONObject jsonReserva = new JSONObject();
         try {
@@ -211,6 +231,7 @@ public class ReservarCanchaActivity extends AppCompatActivity implements CanchaR
             jsonReserva.put("modo_registro", "1");
             jsonReserva.put("nombre_reserva", "Debbie Zuleta");
             jsonReserva.put("estado", "1");
+            jsonReserva.put("precio_hora", getPrecioTotal());
 
         } catch (JSONException e) {
             e.printStackTrace();

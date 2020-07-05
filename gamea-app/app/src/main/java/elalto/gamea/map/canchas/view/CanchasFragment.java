@@ -36,13 +36,13 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import elalto.gamea.R;
-import elalto.gamea.map.canchas.entities.CanchaCobro;
 import elalto.gamea.map.canchas.model.CanchasInteractorImpl;
 import elalto.gamea.map.canchas.presenter.CanchaCobroPresenter;
 import elalto.gamea.map.canchas.presenter.CanchaCobroPresenterImpl;
 import elalto.gamea.map.canchas.presenter.CanchasPresenter;
 import elalto.gamea.map.canchas.presenter.CanchasPresenterImpl;
 import elalto.network.canchas.entities.Cancha;
+import elalto.network.canchas.entities.CanchaCobro;
 import elalto.network.entities.TokenManager;
 import es.dmoral.toasty.Toasty;
 
@@ -230,7 +230,7 @@ public class CanchasFragment extends Fragment implements OnMapReadyCallback, Per
             markerOptions.position(new LatLng(canchaCobroList.get(i).getLatitud(), canchaCobroList.get(i).getLongitud()));
             markerOptions.icon(icon);
             markerOptions.setSnippet("Tel: " +canchaCobroList.get(i).getTelefono().toString());
-            markerOptions.title("Punto: "+canchaCobroList.get(i).getNombre_cobro().toString());
+            markerOptions.title("Punto: "+canchaCobroList.get(i).getNombreCobro().toString());
             markerOptionsListCobros.add(markerOptions);
         }
         mapboxMap.addMarkers(markerOptionsListCobros);

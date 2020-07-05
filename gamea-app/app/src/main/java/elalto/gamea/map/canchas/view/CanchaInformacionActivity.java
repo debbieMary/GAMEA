@@ -46,6 +46,8 @@ public class CanchaInformacionActivity extends AppCompatActivity implements Canc
     TextView lbl_distrito;
     TextView lbl_direccion;
     TextView lbl_telefono;
+    TextView lbl_precio_hora;
+    Integer precio_hora;
 
     ArrayList<String> images = new ArrayList<String>();
     @Override
@@ -72,6 +74,7 @@ public class CanchaInformacionActivity extends AppCompatActivity implements Canc
         Intent i= new  Intent(this, HorariosDisponiblesActivity.class);
         i.putExtra("id_cancha",  id_cancha);
         i.putExtra("distrito",  distrito);
+        i.putExtra("precio_hora", precio_hora);
         i.putExtra("nombre_cancha",  nombre_cancha);
         startActivity(i);
     }
@@ -110,6 +113,9 @@ public class CanchaInformacionActivity extends AppCompatActivity implements Canc
         lbl_distrito.setText(distrito);
         lbl_direccion.setText(canchaInfoObject.get(0).getDireccion());
         lbl_telefono.setText(canchaInfoObject.get(0).getTelefono());
+        canchaInfoObject.get(0).getPrecioHora();
+        precio_hora= canchaInfoObject.get(0).getPrecioHora();
+        lbl_precio_hora.setText("Bs. "+ precio_hora);
         images.add(canchaInfoObject.get(0).getFoto1());
         images.add(canchaInfoObject.get(0).getFoto2());
         images.add(canchaInfoObject.get(0).getFoto3());
@@ -138,6 +144,7 @@ public class CanchaInformacionActivity extends AppCompatActivity implements Canc
         lbl_distrito= (TextView) this.findViewById(R.id.lbl_distrito);
         lbl_direccion= (TextView) this.findViewById(R.id.lbl_direccion);
         lbl_telefono= (TextView) this.findViewById(R.id.lbl_telefono);
+        lbl_precio_hora= (TextView) this.findViewById(R.id.lbl_precio_hora);
     }
 
     @Override

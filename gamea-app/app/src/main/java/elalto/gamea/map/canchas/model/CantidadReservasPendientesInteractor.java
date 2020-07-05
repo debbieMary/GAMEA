@@ -2,7 +2,6 @@ package elalto.gamea.map.canchas.model;
 
 import java.util.List;
 
-import elalto.gamea.map.canchas.entities.CanchaCobro;
 import elalto.network.entities.TokenManager;
 
 public interface CantidadReservasPendientesInteractor {
