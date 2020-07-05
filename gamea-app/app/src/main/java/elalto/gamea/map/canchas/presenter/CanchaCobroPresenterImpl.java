@@ -2,7 +2,6 @@ package elalto.gamea.map.canchas.presenter;
 
 import java.util.List;
 
-import elalto.gamea.map.canchas.entities.Cancha;
 import elalto.gamea.map.canchas.entities.CanchaCobro;
 import elalto.gamea.map.canchas.model.CanchaCobroInteractor;
 import elalto.gamea.map.canchas.model.CanchasInteractor;

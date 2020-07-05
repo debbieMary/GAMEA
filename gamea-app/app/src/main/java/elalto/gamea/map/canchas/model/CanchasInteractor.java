@@ -2,7 +2,7 @@ package elalto.gamea.map.canchas.model;
 
 import java.util.List;
 
-import elalto.gamea.map.canchas.entities.Cancha;
+import elalto.network.canchas.entities.Cancha;
 import elalto.network.entities.TokenManager;
 
 public interface CanchasInteractor {

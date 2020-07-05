@@ -36,14 +36,13 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import elalto.gamea.R;
-import elalto.gamea.map.canchas.entities.Cancha;
 import elalto.gamea.map.canchas.entities.CanchaCobro;
-import elalto.gamea.map.canchas.model.CanchaCobroInteractor;
 import elalto.gamea.map.canchas.model.CanchasInteractorImpl;
 import elalto.gamea.map.canchas.presenter.CanchaCobroPresenter;
 import elalto.gamea.map.canchas.presenter.CanchaCobroPresenterImpl;
 import elalto.gamea.map.canchas.presenter.CanchasPresenter;
 import elalto.gamea.map.canchas.presenter.CanchasPresenterImpl;
+import elalto.network.canchas.entities.Cancha;
 import elalto.network.entities.TokenManager;
 import es.dmoral.toasty.Toasty;
 
@@ -182,10 +181,10 @@ public class CanchasFragment extends Fragment implements OnMapReadyCallback, Per
         markerOptionsList = new ArrayList<>();
         for (int i = 0; i < canchaList.size(); i++) {
             MarkerOptions markerOptions = new MarkerOptions();
-            markerOptions.position(new LatLng(canchaList.get(i).getLat(), canchaList.get(i).getLng()));
+            markerOptions.position(new LatLng(canchaList.get(i).getLatitud(), canchaList.get(i).getLongitud()));
             markerOptions.icon(icon);
-            markerOptions.snippet(String.valueOf(canchaList.get(i).getId_cancha()));
-            markerOptions.title(canchaList.get(i).getNombre_cancha().toString());
+            markerOptions.snippet(String.valueOf(canchaList.get(i).getIdCancha()));
+            markerOptions.title(canchaList.get(i).getNombre().toString());
             markerOptionsList.add(markerOptions);
         }
         mapboxMap.addMarkers(markerOptionsList);

@@ -2,9 +2,9 @@ package elalto.gamea.map.canchas.presenter;
 
 import java.util.List;
 
-import elalto.gamea.map.canchas.entities.Cancha;
 import elalto.gamea.map.canchas.model.CanchasInteractor;
 import elalto.gamea.map.canchas.view.CanchasView;
+import elalto.network.canchas.entities.Cancha;
 import elalto.network.entities.TokenManager;
 
 public class CanchasPresenterImpl implements CanchasPresenter, CanchasInteractor.onCanchasFinishedListener {

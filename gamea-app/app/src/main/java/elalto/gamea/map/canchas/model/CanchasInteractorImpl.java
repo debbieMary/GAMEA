@@ -19,17 +19,16 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
-
-import elalto.gamea.R;
-import elalto.gamea.map.canchas.entities.Cancha;
 import elalto.gamea.map.canchas.entities.CanchaCobro;
 import elalto.gamea.map.canchas.entities.CanchaInfo;
 import elalto.gamea.map.canchas.entities.Event;
 import elalto.gamea.map.canchas.entities.MisReservas;
 import elalto.network.canchas.ApiServiceCanchas;
 import elalto.network.canchas.ApiUtilsCanchas;
+import elalto.network.canchas.entities.Cancha;
 import elalto.network.canchas.entities.DeleteReservaBody;
 import elalto.network.canchas.entities.DeleteReservaResponse;
+import elalto.network.canchas.entities.ListadoCanchasResponse;
 import elalto.network.entities.TokenManager;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -57,7 +56,29 @@ public class CanchasInteractorImpl implements CanchasInteractor, CanchaCobroInte
     public static final String get_horarios_por_fecha = "listarReservasPorRangofecha";
     public static final String TOKEN= "R2FtZWE6Q2FuY2hhcw==";
 
+
     @Override
+    public void getCanchas(TokenManager tokenManager, onCanchasFinishedListener listener) {
+        apiService = ApiUtilsCanchas.getCanchasService();
+        Call<ListadoCanchasResponse> call = apiService.getListadoCanchas(TOKEN);
+        call.enqueue(new Callback<ListadoCanchasResponse>() {
+            @Override
+            public void onResponse(Call<ListadoCanchasResponse> call, Response<ListadoCanchasResponse> response) {
+                if(response.isSuccessful()){
+                    Log.d(TAG,"SUCCESS!!!: "+  response.body().getMensaje());
+                    listener.onSuccess(response.body().getData());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ListadoCanchasResponse> call, Throwable t) {
+                Log.e(TAG,"ERROR!!! Services version: "+  t.getMessage());
+                listener.onFailed(t.getMessage());
+            }
+
+        });
+    }
+    /*@Override
     public void getCanchas(TokenManager tokenManager, onCanchasFinishedListener listener) {
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
@@ -117,7 +138,7 @@ public class CanchasInteractorImpl implements CanchasInteractor, CanchaCobroInte
         } catch (JSONException e) {
             e.printStackTrace();
         }
-    }
+    }*/
 
 
     @Override
