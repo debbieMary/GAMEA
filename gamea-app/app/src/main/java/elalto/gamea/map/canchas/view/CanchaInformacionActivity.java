@@ -1,10 +1,11 @@
 package elalto.gamea.map.canchas.view;
 
 import elalto.gamea.R;
-import elalto.gamea.map.canchas.entities.CanchaInfo;
 import elalto.gamea.map.canchas.model.CanchasInteractorImpl;
 import elalto.gamea.map.canchas.presenter.CanchasInfoPresenter;
 import elalto.gamea.map.canchas.presenter.CanchasInfoPresenterImpl;
+import elalto.network.canchas.entities.CanchaInfo;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.viewpager.widget.ViewPager;
@@ -57,15 +58,14 @@ public class CanchaInformacionActivity extends AppCompatActivity implements Canc
         toolbar = (androidx.appcompat.widget.Toolbar) findViewById(R.id.toolbar);
         toolbar.setTitle("INFORMACIÓN DE CANCHAS");
         Log.e(tag,nombre_cancha+" "+id_cancha);
+
+        progressDialog = new ProgressDialog(this);
+        progressDialog.setMessage("Obteniendo informacion...");
+        progressDialog.setCancelable(false);
         lbl_nombre_cancha= (TextView) this.findViewById(R.id.lbl_nombre_cancha);
         lbl_nombre_cancha.setText(nombre_cancha);
         canchasInfoPresenter = new CanchasInfoPresenterImpl(this, new CanchasInteractorImpl());
         canchasInfoPresenter.getCanchasInfo(id_cancha);
-        mCustomPagerAdapter = new CustomPagerAdapter(this, images);
-        mViewPager = (ViewPager) findViewById(R.id.pager);
-        mViewPager.setAdapter(mCustomPagerAdapter);
-
-
     }
 
     public void verHorariosDisponibles(View v){
@@ -84,27 +84,27 @@ public class CanchaInformacionActivity extends AppCompatActivity implements Canc
 
     @Override
     public void showProgress() {
-
+        progressDialog.show();
     }
 
     @Override
     public void hideProgress() {
-
+        progressDialog.hide();
     }
 
     @Override
     public void populateInfo(List<CanchaInfo> canchaInfoObject) {
         initLabelInformation();
-        lbl_tipo_escenario.setText(canchaInfoObject.get(0).getTipo_escenario_deportivo());
-        lbl_muro_perimetral.setText(canchaInfoObject.get(0).getTiene_perimetral());
-        lbl_techo.setText(canchaInfoObject.get(0).getTiene_tinglado_techo());
-        lbl_se_encuentra.setText(canchaInfoObject.get(0).getSe_encuentra());
-        lbl_administrado_por.setText(canchaInfoObject.get(0).getAdministrado_por());
+        lbl_tipo_escenario.setText(canchaInfoObject.get(0).getTipoEscenarioDeportivo());
+        lbl_muro_perimetral.setText(canchaInfoObject.get(0).getTienePerimetral());
+        lbl_techo.setText(canchaInfoObject.get(0).getTieneTingladoTecho());
+        lbl_se_encuentra.setText(canchaInfoObject.get(0).getSeEncuentra());
+        lbl_administrado_por.setText(canchaInfoObject.get(0).getAdministradoPor());
         lbl_graderias.setText(canchaInfoObject.get(0).getGraderias());
         lbl_banhio.setText(canchaInfoObject.get(0).getBanos());
         lbl_camerinos.setText(canchaInfoObject.get(0).getCamerinos());
-        lbl_horarios_acceso_libre.setText(canchaInfoObject.get(0).getAcceso_libre());
-        lbl_realizado_por.setText(canchaInfoObject.get(0).getQuien_realizo());
+        lbl_horarios_acceso_libre.setText(canchaInfoObject.get(0).getAccesoLibre());
+        lbl_realizado_por.setText(canchaInfoObject.get(0).getQuienRealizo()+"");
         lbl_estado.setText(canchaInfoObject.get(0).getEstado());
         distrito = canchaInfoObject.get(0).getDistrito();
         lbl_distrito.setText(distrito);
@@ -113,7 +113,13 @@ public class CanchaInformacionActivity extends AppCompatActivity implements Canc
         images.add(canchaInfoObject.get(0).getFoto1());
         images.add(canchaInfoObject.get(0).getFoto2());
         images.add(canchaInfoObject.get(0).getFoto3());
+        setViewPagerImages();
+    }
 
+    public void setViewPagerImages(){
+        mCustomPagerAdapter = new CustomPagerAdapter(this, images);
+        mViewPager = (ViewPager) findViewById(R.id.pager);
+        mViewPager.setAdapter(mCustomPagerAdapter);
     }
 
     public void initLabelInformation(){

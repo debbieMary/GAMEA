@@ -2,6 +2,8 @@ package elalto.network.canchas;
 
 
 
+import elalto.network.canchas.entities.CanchaInfoBody;
+import elalto.network.canchas.entities.CanchaInfoResponse;
 import elalto.network.canchas.entities.DeleteReservaBody;
 import elalto.network.canchas.entities.DeleteReservaResponse;
 import elalto.network.canchas.entities.ListadoCanchasResponse;
@@ -28,6 +30,9 @@ public interface ApiServiceCanchas {
     @GET("canchas/listartodos")
     Call<ListadoCanchasResponse> getListadoCanchas(@Header("Authorization") String authHeader);
 
+    //register user
+    @POST("canchas/listarPorId")
+    Call<CanchaInfoResponse> getCanchaInfo( @Header("Authorization") String authHeader, @Body CanchaInfoBody canchaInfoBody);
 
     @PUT("reservas/aprobar")
     Call<DeleteReservaResponse> deleteReserva(@Header("Authorization") String authHeader, @Body DeleteReservaBody deleteReservaBody);
