@@ -22,6 +22,7 @@ public class PopupCanchaTicket extends Activity {
 	TextView lbl_ci_quien_reserva;
 	TextView lbl_nombre_reserva;
 	TextView lbl_observaciones;
+	TextView lbl_total;
 
 	GeneralUtils utils= new GeneralUtils();
 
@@ -62,6 +63,9 @@ public class PopupCanchaTicket extends Activity {
 
 		lbl_observaciones= (TextView) this.findViewById(R.id.lbl_observaciones);
 		lbl_observaciones.setText(bundle.getString("observaciones"));
+
+		lbl_total =  (TextView) this.findViewById(R.id.lbl_total);
+		lbl_total.setText("Bs. "+ bundle.getString("total"));
 
 	}
 

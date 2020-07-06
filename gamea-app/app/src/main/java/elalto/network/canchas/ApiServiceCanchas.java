@@ -5,10 +5,11 @@ package elalto.network.canchas;
 import elalto.network.canchas.entities.CanchaCobroResponse;
 import elalto.network.canchas.entities.CanchaInfoBody;
 import elalto.network.canchas.entities.CanchaInfoResponse;
+import elalto.network.canchas.entities.CantidadReservasResponse;
 import elalto.network.canchas.entities.DeleteReservaBody;
 import elalto.network.canchas.entities.DeleteReservaResponse;
 import elalto.network.canchas.entities.ListadoCanchasResponse;
-import elalto.network.canchas.entities.MisReservasBody;
+import elalto.network.canchas.entities.IdUsuarioBody;
 import elalto.network.canchas.entities.MisReservasResponse;
 import elalto.network.canchas.entities.ReservaBody;
 import elalto.network.canchas.entities.ReservaResponse;
@@ -34,7 +35,11 @@ public interface ApiServiceCanchas {
     Call<ReservaResponse> saveReserva(@Header("Authorization") String authHeader, @Body ReservaBody reservaBody);
 
     @POST("reservas/misReservas")
-    Call<MisReservasResponse> getMisReservas(@Header("Authorization") String authHeader, @Body MisReservasBody misReservaBody);
+    Call<MisReservasResponse> getMisReservas(@Header("Authorization") String authHeader, @Body IdUsuarioBody misReservaBody);
+
+
+    @POST("reservas/cantidadReservasPendientes")
+    Call<CantidadReservasResponse> getCantidadPendientes(@Header("Authorization") String authHeader, @Body IdUsuarioBody misReservaBody);
 
     @PUT("reservas/aprobar")
     Call<DeleteReservaResponse> deleteReserva(@Header("Authorization") String authHeader, @Body DeleteReservaBody deleteReservaBody);

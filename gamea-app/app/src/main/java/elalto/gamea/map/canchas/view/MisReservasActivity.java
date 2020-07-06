@@ -12,12 +12,10 @@ import elalto.gamea.map.canchas.presenter.MisReservasPresenterImpl;
 import elalto.gamea.map.canchas.view.Adapters.MisReservasAdapter;
 import elalto.gamea.map.canchas.view.Adapters.RecyclerItemClickListener;
 import elalto.network.canchas.entities.MisReservas;
-import elalto.network.canchas.entities.MisReservasBody;
+import elalto.network.canchas.entities.IdUsuarioBody;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
@@ -33,7 +31,7 @@ public class MisReservasActivity extends AppCompatActivity  implements MisReserv
     private RecyclerView.LayoutManager layoutManager;
     ArrayList<MisReservas> misReservasArray = new ArrayList<MisReservas>();
     public static Integer DELETE_CONTACT_REQUEST = 1;
-    MisReservasBody misReservasBody  = new MisReservasBody();
+    IdUsuarioBody idUsuarioBody = new IdUsuarioBody();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,8 +45,8 @@ public class MisReservasActivity extends AppCompatActivity  implements MisReserv
         recyclerView.setLayoutManager(layoutManager);
         adapter = new MisReservasAdapter(misReservasArray,getApplicationContext());
         misReservasPresenter = new MisReservasPresenterImpl(this, new CanchasInteractorImpl());
-        misReservasBody.setIdUsuario("2");
-        misReservasPresenter.getMisReservas(misReservasBody);
+        idUsuarioBody.setIdUsuario("2");
+        misReservasPresenter.getMisReservas(idUsuarioBody);
         recyclerView.setAdapter(adapter);
         recyclerView.addOnItemTouchListener(
                 new RecyclerItemClickListener(MisReservasActivity.this, recyclerView ,new RecyclerItemClickListener.OnItemClickListener() {
@@ -74,7 +72,7 @@ public class MisReservasActivity extends AppCompatActivity  implements MisReserv
             i.putExtra("ci_quien_reserva", misReservasArray.get(arrayPosition).getCiQuienReserva());
             i.putExtra("nombre_reserva", misReservasArray.get(arrayPosition).getNombreReserva());
             i.putExtra("observaciones" , misReservasArray.get(arrayPosition).getObservaciones());
-            i.putExtra("total" , ""+ misReservasArray.get(arrayPosition).getTotal());
+            i.putExtra("total" ,  misReservasArray.get(arrayPosition).getTotal());
             startActivity(i);
         }
     }

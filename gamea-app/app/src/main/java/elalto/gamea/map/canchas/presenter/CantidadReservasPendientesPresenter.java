@@ -1,7 +1,9 @@
 package elalto.gamea.map.canchas.presenter;
 
+import elalto.network.canchas.entities.IdUsuarioBody;
+
 public interface CantidadReservasPendientesPresenter {
-    void getCantidadReservasPendientes(String id_usuario);
+    void getCantidadReservasPendientes(IdUsuarioBody id_usuario);
     void onDestroy();
 }
 

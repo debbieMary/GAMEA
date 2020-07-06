@@ -2,7 +2,7 @@ package elalto.gamea.map.canchas.model;
 
 import java.util.List;
 
-import elalto.network.entities.TokenManager;
+import elalto.network.canchas.entities.IdUsuarioBody;
 
 public interface CantidadReservasPendientesInteractor {
   interface onCantidadReservasPendientesFinishedListener {
@@ -11,5 +11,5 @@ public interface CantidadReservasPendientesInteractor {
     void onFailedCantidadReservasPendientes(String message);
   }
 
-  void getCantidadReservasPendientes(String id_usuario, CantidadReservasPendientesInteractor.onCantidadReservasPendientesFinishedListener listener);
+  void getCantidadReservasPendientes(IdUsuarioBody idUsuarioBody, CantidadReservasPendientesInteractor.onCantidadReservasPendientesFinishedListener listener);
 }

@@ -3,7 +3,7 @@ package elalto.network.canchas.entities;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class MisReservasBody {
+public class IdUsuarioBody {
 
     @SerializedName("id_usuario")
     @Expose
@@ -13,14 +13,14 @@ public class MisReservasBody {
      * No args constructor for use in serialization
      *
      */
-    public MisReservasBody() {
+    public IdUsuarioBody() {
     }
 
     /**
      *
      * @param idUsuario
      */
-    public MisReservasBody(String idUsuario) {
+    public IdUsuarioBody(String idUsuario) {
         super();
         this.idUsuario = idUsuario;
     }
@@ -33,7 +33,7 @@ public class MisReservasBody {
         this.idUsuario = idUsuario;
     }
 
-    public MisReservasBody withIdUsuario(String idUsuario) {
+    public IdUsuarioBody withIdUsuario(String idUsuario) {
         this.idUsuario = idUsuario;
         return this;
     }

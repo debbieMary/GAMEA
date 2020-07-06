@@ -2,7 +2,7 @@ package elalto.gamea.map.canchas.model;
 
 import java.util.List;
 import elalto.network.canchas.entities.MisReservas;
-import elalto.network.canchas.entities.MisReservasBody;
+import elalto.network.canchas.entities.IdUsuarioBody;
 
 public interface MisReservasInteractor {
     interface onMisReservasFinishedListener {
@@ -10,5 +10,5 @@ public interface MisReservasInteractor {
 
         void onFailed(String message);
     }
-    void getMisReservas(MisReservasBody misReservasBody, onMisReservasFinishedListener listener);
+    void getMisReservas(IdUsuarioBody idUsuarioBody, onMisReservasFinishedListener listener);
 }

@@ -2,6 +2,7 @@ package elalto.gamea.map.canchas.presenter;
 
 
 import elalto.gamea.map.canchas.model.CantidadReservasPendientesInteractor;
+import elalto.network.canchas.entities.IdUsuarioBody;
 
 public class CantidadReservasPendientesPresenterImpl implements CantidadReservasPendientesPresenter , CantidadReservasPendientesInteractor.onCantidadReservasPendientesFinishedListener {
 
@@ -31,7 +32,7 @@ public class CantidadReservasPendientesPresenterImpl implements CantidadReservas
     }
 
     @Override
-    public void getCantidadReservasPendientes(String id_usuario) {
+    public void getCantidadReservasPendientes(IdUsuarioBody id_usuario) {
         cantidadReservasPendientesInteractor.getCantidadReservasPendientes(id_usuario, this);
         if (cantidadReservasPendientesView != null) {
             cantidadReservasPendientesView.hideProgressCantidadReservasPendientes();

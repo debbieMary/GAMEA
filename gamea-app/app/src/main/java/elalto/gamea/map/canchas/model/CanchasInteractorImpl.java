@@ -4,8 +4,6 @@ package elalto.gamea.map.canchas.model;
 import android.os.StrictMode;
 import android.util.Log;
 
-import androidx.core.content.ContextCompat;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -22,15 +20,14 @@ import java.util.List;
 import elalto.gamea.map.canchas.entities.Event;
 import elalto.network.canchas.ApiServiceCanchas;
 import elalto.network.canchas.ApiUtilsCanchas;
-import elalto.network.canchas.entities.Cancha;
 import elalto.network.canchas.entities.CanchaCobroResponse;
 import elalto.network.canchas.entities.CanchaInfoBody;
 import elalto.network.canchas.entities.CanchaInfoResponse;
+import elalto.network.canchas.entities.CantidadReservasResponse;
 import elalto.network.canchas.entities.DeleteReservaBody;
 import elalto.network.canchas.entities.DeleteReservaResponse;
 import elalto.network.canchas.entities.ListadoCanchasResponse;
-import elalto.network.canchas.entities.MisReservas;
-import elalto.network.canchas.entities.MisReservasBody;
+import elalto.network.canchas.entities.IdUsuarioBody;
 import elalto.network.canchas.entities.MisReservasResponse;
 import elalto.network.canchas.entities.ReservaBody;
 import elalto.network.canchas.entities.ReservaResponse;
@@ -45,12 +42,14 @@ public class CanchasInteractorImpl implements CanchasInteractor, CanchaCobroInte
 
     List<Event> event =  new ArrayList<Event>();
 
-    public static final String URL_CANCHAS = "https://api-game-bo.herokuapp.com/canchas/";
-    public static final String URL_COBROS = "https://api-game-bo.herokuapp.com/cobros/listarCobros";
+
     public static final String URL_RESERVAS = "https://api-game-bo.herokuapp.com/reservas/";
-    public static final String get_mis_reservas = "misReservas";
     public static final String get_cantidad_mis_reservas_pendientes = "cantidadReservasPendientes";
     public static final String get_horarios_por_fecha = "listarReservasPorRangofecha";
+
+
+    ApiServiceCanchas apiService;
+    private final String TAG="[CANCHAS_SERVICE]";
     public static final String TOKEN= "R2FtZWE6Q2FuY2hhcw==";
 
 
@@ -153,9 +152,9 @@ public class CanchasInteractorImpl implements CanchasInteractor, CanchaCobroInte
 
 
     @Override
-    public void getMisReservas(MisReservasBody misReservasBody, onMisReservasFinishedListener listener) {
+    public void getMisReservas(IdUsuarioBody idUsuarioBody, onMisReservasFinishedListener listener) {
         apiService = ApiUtilsCanchas.getCanchasService();
-        Call<MisReservasResponse> call = apiService.getMisReservas(TOKEN, misReservasBody);
+        Call<MisReservasResponse> call = apiService.getMisReservas(TOKEN, idUsuarioBody);
         call.enqueue(new Callback<MisReservasResponse>() {
             @Override
             public void onResponse(Call<MisReservasResponse> call, Response<MisReservasResponse> response) {
@@ -172,98 +171,7 @@ public class CanchasInteractorImpl implements CanchasInteractor, CanchaCobroInte
             }
         });
     }
-    /*@Override
-    public void getMisReservas(String id_usuario, onMisReservasFinishedListener listener) {
-        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
-        StrictMode.setThreadPolicy(policy);
-        misReservas.clear();
-        try {
-            URL url = new URL(URL_RESERVAS + get_mis_reservas);
-            HttpURLConnection client = (HttpURLConnection) url.openConnection();
-            client.setDoOutput(true);
-            client.setDoInput(true);
-            client.setRequestProperty("Content-Type", "application/json; charset=UTF-8");
-            client.setRequestProperty("Authorization", TOKEN);
-            client.setRequestMethod("POST");
-            client.connect();
-            String json = setIdUsuario(id_usuario);
-            OutputStreamWriter writer = new OutputStreamWriter(client.getOutputStream());
-            String output = json;
-            writer.write(output);
-            writer.flush();
-            writer.close();
 
-            InputStream input;
-            int status = client.getResponseCode();
-
-            if (status != HttpURLConnection.HTTP_OK) {
-                input = client.getErrorStream();
-            } else {
-                input = client.getInputStream();
-            }
-            BufferedReader reader = new BufferedReader(new InputStreamReader(input));
-            StringBuilder result = new StringBuilder();
-            String line;
-            while ((line = reader.readLine()) != null) {
-                result.append(line);
-            }
-            Log.e("MisReservas", result.toString());
-            JSONObject resultMisReservas = new JSONObject(result.toString());
-            getMisReservas(resultMisReservas);
-            listener.onSuccess(misReservas);
-        } catch (NullPointerException e) {
-            listener.onFailed("Error");
-            e.printStackTrace();
-        } catch (JSONException e) {
-            listener.onFailed("Error");
-            e.printStackTrace();
-        } catch (Exception e) {
-            listener.onFailed("Error");
-            e.printStackTrace();
-        }
-    }
-
-    public String setIdUsuario(String id_usuario) {
-        JSONObject jsonObject = new JSONObject();
-        try {
-            jsonObject.put("id_usuario", id_usuario);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        return jsonObject.toString();
-    }
-
-
-    public void getMisReservas(JSONObject resultMisReservasObject) {
-        try {
-            JSONArray data = resultMisReservasObject.getJSONArray("data");
-            for (int i = 0; i < data.length(); i++) {
-                if(i < 10){
-                    JSONObject misReservasObject = data.getJSONObject(i);
-                    misReservas.add(new MisReservas(
-                            misReservasObject.getString("nombre"),
-                            misReservasObject.getString("distrito"),
-                            misReservasObject.getInt("id_reserva"),
-                            misReservasObject.getInt("id_cancha"),
-                            misReservasObject.getInt("id_usuario"),
-                            misReservasObject.getString("fecha"),
-                            misReservasObject.getString("hora_inicio"),
-                            misReservasObject.getString("hora_fin"),
-                            misReservasObject.getString("ci_quien_reserva"),
-                            misReservasObject.getString("nombre_reserva"),
-                            misReservasObject.getString("observaciones"),
-                            misReservasObject.getInt("modo_registro"),
-                            misReservasObject.getInt("estado"),
-                            misReservasObject.getString("fecha_alta"),
-                            misReservasObject.getString("fecha_update")
-                    ));
-                }
-            }
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-    }
-*/
     @Override
     public void getHorariosDisponibles(String id_cancha, String fecha_inicio, String fecha_fin, onHorariosDisponiblesFinishedListener listener) {
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
@@ -369,7 +277,7 @@ public class CanchasInteractorImpl implements CanchasInteractor, CanchaCobroInte
     }
 
 
-    @Override
+    /*@Override
     public void getCantidadReservasPendientes(String id_usuario, onCantidadReservasPendientesFinishedListener listener) {
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
@@ -417,25 +325,30 @@ public class CanchasInteractorImpl implements CanchasInteractor, CanchaCobroInte
             listener.onFailedCantidadReservasPendientes("Error");
             e.printStackTrace();
         }
-    }
+    }*/
 
-    public int getCantidadReservasPendientesInt(JSONObject jsonObjectCantidad){
-        int cantidadReserva= 0 ;
-        try {
-            JSONArray data = jsonObjectCantidad.getJSONArray("data");
-            for (int i = 0; i < data.length(); i++) {
-                JSONObject reservaObject = data.getJSONObject(i);
-                cantidadReserva= reservaObject.getInt("cantidad");
+
+    @Override
+    public void getCantidadReservasPendientes(IdUsuarioBody idUsuarioBody, onCantidadReservasPendientesFinishedListener listener) {
+        apiService = ApiUtilsCanchas.getCanchasService();
+        Call<CantidadReservasResponse> call = apiService.getCantidadPendientes(TOKEN, idUsuarioBody);
+        call.enqueue(new Callback<CantidadReservasResponse>() {
+            @Override
+            public void onResponse(Call<CantidadReservasResponse> call, Response<CantidadReservasResponse> response) {
+                if(response.isSuccessful()){
+                    Log.d(TAG,"SUCCESS!!!: "+  response.body().getData());
+                    listener.onSuccessCantidadReservasPendientes(response.body().getData().get(0).getCantidad());
+                }
             }
-
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        return cantidadReserva;
+            @Override
+            public void onFailure(Call<CantidadReservasResponse> call, Throwable t) {
+                Log.e(TAG,"ERROR!!! Services version: "+  t.getMessage());
+                listener.onFailedCantidadReservasPendientes(t.getMessage());
+            }
+        });
     }
 
-    ApiServiceCanchas apiService;
-    private final String TAG="[CANCHAS_SERVICE]";
+
 
     @Override
     public void deleteReservaCancha(DeleteReservaBody deleteReservaBody, final onDeleteReservaFinishedListener listener) {

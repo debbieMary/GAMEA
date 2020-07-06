@@ -12,6 +12,7 @@ import elalto.gamea.map.canchas.presenter.CantidadReservasPendientesPresenter;
 import elalto.gamea.map.canchas.presenter.CantidadReservasPendientesPresenterImpl;
 import elalto.gamea.map.canchas.presenter.CantidadReservasPendientesView;
 import elalto.gamea.map.canchas.utils.GeneralUtils;
+import elalto.network.canchas.entities.IdUsuarioBody;
 import elalto.network.canchas.entities.ReservaBody;
 
 import android.content.Intent;
@@ -58,6 +59,7 @@ public class ReservarCanchaActivity extends AppCompatActivity implements CanchaR
     int fin_global = 23;
     Integer precio_hora;
     HorariosDisponiblesActivity horariosDisponiblesActivity=  new HorariosDisponiblesActivity();
+    IdUsuarioBody idUsuarioBody= new IdUsuarioBody();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,7 +69,8 @@ public class ReservarCanchaActivity extends AppCompatActivity implements CanchaR
         setHorasArrayInit();
 
         cantidadReservasPendientesPresenter = new CantidadReservasPendientesPresenterImpl(this, new CanchasInteractorImpl());
-        cantidadReservasPendientesPresenter.getCantidadReservasPendientes("2");
+        idUsuarioBody.setIdUsuario("2");
+        cantidadReservasPendientesPresenter.getCantidadReservasPendientes(idUsuarioBody);
 
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setTitle("RESERVA DE CANCHA");
