@@ -6,12 +6,13 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import elalto.gamea.R;
-import elalto.gamea.map.canchas.entities.MisReservas;
 import elalto.gamea.map.canchas.model.CanchasInteractorImpl;
 import elalto.gamea.map.canchas.presenter.MisReservasPresenter;
 import elalto.gamea.map.canchas.presenter.MisReservasPresenterImpl;
 import elalto.gamea.map.canchas.view.Adapters.MisReservasAdapter;
 import elalto.gamea.map.canchas.view.Adapters.RecyclerItemClickListener;
+import elalto.network.canchas.entities.MisReservas;
+import elalto.network.canchas.entities.MisReservasBody;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -32,6 +33,7 @@ public class MisReservasActivity extends AppCompatActivity  implements MisReserv
     private RecyclerView.LayoutManager layoutManager;
     ArrayList<MisReservas> misReservasArray = new ArrayList<MisReservas>();
     public static Integer DELETE_CONTACT_REQUEST = 1;
+    MisReservasBody misReservasBody  = new MisReservasBody();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,7 +47,8 @@ public class MisReservasActivity extends AppCompatActivity  implements MisReserv
         recyclerView.setLayoutManager(layoutManager);
         adapter = new MisReservasAdapter(misReservasArray,getApplicationContext());
         misReservasPresenter = new MisReservasPresenterImpl(this, new CanchasInteractorImpl());
-        misReservasPresenter.getMisReservas("2");
+        misReservasBody.setIdUsuario("2");
+        misReservasPresenter.getMisReservas(misReservasBody);
         recyclerView.setAdapter(adapter);
         recyclerView.addOnItemTouchListener(
                 new RecyclerItemClickListener(MisReservasActivity.this, recyclerView ,new RecyclerItemClickListener.OnItemClickListener() {
@@ -64,13 +67,14 @@ public class MisReservasActivity extends AppCompatActivity  implements MisReserv
             Intent i = new Intent(MisReservasActivity.this, PopupCanchaTicket.class );
             i.putExtra("nombre",misReservasArray.get(arrayPosition).getNombre());
             i.putExtra("distrito", misReservasArray.get(arrayPosition).getDistrito()+"");
-            i.putExtra("id_reserva", misReservasArray.get(arrayPosition).getId_reserva()+"");
+            i.putExtra("id_reserva", misReservasArray.get(arrayPosition).getIdReserva()+"");
             i.putExtra("fecha",misReservasArray.get(arrayPosition).getFecha());
-            i.putExtra("hora_inicio", misReservasArray.get(arrayPosition).getHora_inicio());
-            i.putExtra("hora_fin", misReservasArray.get(arrayPosition).getHora_fin());
-            i.putExtra("ci_quien_reserva", misReservasArray.get(arrayPosition).getCi_quien_reserva());
-            i.putExtra("nombre_reserva", misReservasArray.get(arrayPosition).getNombre_reserva());
+            i.putExtra("hora_inicio", misReservasArray.get(arrayPosition).getHoraInicio());
+            i.putExtra("hora_fin", misReservasArray.get(arrayPosition).getHoraFin());
+            i.putExtra("ci_quien_reserva", misReservasArray.get(arrayPosition).getCiQuienReserva());
+            i.putExtra("nombre_reserva", misReservasArray.get(arrayPosition).getNombreReserva());
             i.putExtra("observaciones" , misReservasArray.get(arrayPosition).getObservaciones());
+            i.putExtra("total" , ""+ misReservasArray.get(arrayPosition).getTotal());
             startActivity(i);
         }
     }
@@ -79,7 +83,7 @@ public class MisReservasActivity extends AppCompatActivity  implements MisReserv
     public void goToDeleteReservaDialog(int arrayPosition){
         if(misReservasArray.get(arrayPosition).getEstado() == 1){
             Intent i=  new Intent(MisReservasActivity.this, DeleteReservaActivity.class);
-            i.putExtra("id_reserva", misReservasArray.get(arrayPosition).getId_reserva());
+            i.putExtra("id_reserva", misReservasArray.get(arrayPosition).getIdReserva());
             i.putExtra("nombre_cancha", misReservasArray.get(arrayPosition).getNombre());
             startActivityForResult(i, DELETE_CONTACT_REQUEST);
         }

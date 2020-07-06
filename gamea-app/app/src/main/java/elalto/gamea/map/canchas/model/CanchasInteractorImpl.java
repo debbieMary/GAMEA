@@ -20,7 +20,6 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 import elalto.gamea.map.canchas.entities.Event;
-import elalto.gamea.map.canchas.entities.MisReservas;
 import elalto.network.canchas.ApiServiceCanchas;
 import elalto.network.canchas.ApiUtilsCanchas;
 import elalto.network.canchas.entities.Cancha;
@@ -30,6 +29,9 @@ import elalto.network.canchas.entities.CanchaInfoResponse;
 import elalto.network.canchas.entities.DeleteReservaBody;
 import elalto.network.canchas.entities.DeleteReservaResponse;
 import elalto.network.canchas.entities.ListadoCanchasResponse;
+import elalto.network.canchas.entities.MisReservas;
+import elalto.network.canchas.entities.MisReservasBody;
+import elalto.network.canchas.entities.MisReservasResponse;
 import elalto.network.canchas.entities.ReservaBody;
 import elalto.network.canchas.entities.ReservaResponse;
 import elalto.network.entities.TokenManager;
@@ -41,7 +43,6 @@ public class CanchasInteractorImpl implements CanchasInteractor, CanchaCobroInte
         CanchasInfoInteractor, CanchaReservaInteractor, MisReservasInteractor,
         HorariosDisponiblesInteractor, CantidadReservasPendientesInteractor, DeleteReservaInteractor {
 
-    List<MisReservas> misReservas = new ArrayList<MisReservas>();
     List<Event> event =  new ArrayList<Event>();
 
     public static final String URL_CANCHAS = "https://api-game-bo.herokuapp.com/canchas/";
@@ -152,6 +153,26 @@ public class CanchasInteractorImpl implements CanchasInteractor, CanchaCobroInte
 
 
     @Override
+    public void getMisReservas(MisReservasBody misReservasBody, onMisReservasFinishedListener listener) {
+        apiService = ApiUtilsCanchas.getCanchasService();
+        Call<MisReservasResponse> call = apiService.getMisReservas(TOKEN, misReservasBody);
+        call.enqueue(new Callback<MisReservasResponse>() {
+            @Override
+            public void onResponse(Call<MisReservasResponse> call, Response<MisReservasResponse> response) {
+                if(response.isSuccessful()){
+                    Log.d(TAG,"SUCCESS!!!: "+  response.body().getMensaje());
+                    listener.onSuccess(response.body().getData());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<MisReservasResponse> call, Throwable t) {
+                Log.e(TAG,"ERROR!!! Services version: "+  t.getMessage());
+                listener.onFailed(t.getMessage());
+            }
+        });
+    }
+    /*@Override
     public void getMisReservas(String id_usuario, onMisReservasFinishedListener listener) {
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
@@ -242,7 +263,7 @@ public class CanchasInteractorImpl implements CanchasInteractor, CanchaCobroInte
             e.printStackTrace();
         }
     }
-
+*/
     @Override
     public void getHorariosDisponibles(String id_cancha, String fecha_inicio, String fecha_fin, onHorariosDisponiblesFinishedListener listener) {
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
@@ -352,7 +373,6 @@ public class CanchasInteractorImpl implements CanchasInteractor, CanchaCobroInte
     public void getCantidadReservasPendientes(String id_usuario, onCantidadReservasPendientesFinishedListener listener) {
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
-        misReservas.clear();
         try {
             URL url = new URL(URL_RESERVAS + get_cantidad_mis_reservas_pendientes);
             HttpURLConnection client = (HttpURLConnection) url.openConnection();
@@ -362,7 +382,7 @@ public class CanchasInteractorImpl implements CanchasInteractor, CanchaCobroInte
             client.setRequestProperty("Authorization", TOKEN);
             client.setRequestMethod("POST");
             client.connect();
-            String json = setIdUsuario(id_usuario);
+            String json = "";
             OutputStreamWriter writer = new OutputStreamWriter(client.getOutputStream());
             String output = json;
             writer.write(output);

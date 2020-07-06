@@ -2,11 +2,12 @@ package elalto.gamea.map.canchas.presenter;
 
 import java.util.List;
 
-import elalto.gamea.map.canchas.entities.MisReservas;
 import elalto.gamea.map.canchas.model.CanchaReservaInteractor;
 import elalto.gamea.map.canchas.model.MisReservasInteractor;
 import elalto.gamea.map.canchas.view.CanchaReservaView;
 import elalto.gamea.map.canchas.view.MisReservasView;
+import elalto.network.canchas.entities.MisReservas;
+import elalto.network.canchas.entities.MisReservasBody;
 
 public class MisReservasPresenterImpl implements MisReservasPresenter, MisReservasInteractor.onMisReservasFinishedListener {
     private MisReservasView misReservasView;
@@ -37,8 +38,8 @@ public class MisReservasPresenterImpl implements MisReservasPresenter, MisReserv
 
 
     @Override
-    public void getMisReservas(String id_usuario) {
-        misReservasInteractor.getMisReservas(id_usuario, this);
+    public void getMisReservas(MisReservasBody misReservasBody) {
+        misReservasInteractor.getMisReservas(misReservasBody, this);
         if (misReservasView != null) {
             misReservasView.hideProgress();
         }

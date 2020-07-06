@@ -14,9 +14,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 
 import elalto.gamea.R;
-import elalto.gamea.map.canchas.entities.MisReservas;
 import elalto.gamea.map.canchas.utils.GeneralUtils;
 import elalto.gamea.map.canchas.view.DeleteReservaActivity;
+import elalto.network.canchas.entities.MisReservas;
 
 import static elalto.gamea.map.canchas.view.MisReservasActivity.DELETE_CONTACT_REQUEST;
 
@@ -47,9 +47,9 @@ public class MisReservasAdapter extends RecyclerView.Adapter<MisReservasAdapter.
         final String nombre_cancha = misReservas.getNombre();
         final int estado = misReservas.getEstado();
         final String fecha = generalUtils.transformDate(misReservas.getFecha().split("T")[0]);
-        final String hora_inicio = misReservas.getHora_inicio();
-        final int id_reserva = misReservas.getId_reserva();
-        final String hora_fin = misReservas.getHora_fin();
+        final String hora_inicio = misReservas.getHoraInicio();
+        final int id_reserva = misReservas.getIdReserva();
+        final String hora_fin = misReservas.getHoraFin();
         holder.lbl_nombre_cancha.setText(nombre_cancha);
         holder.lbl_fecha.setText(fecha);
         holder.lbl_hora_inicio.setText(hora_inicio);

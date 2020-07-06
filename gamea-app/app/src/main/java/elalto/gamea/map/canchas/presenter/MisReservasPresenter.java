@@ -1,6 +1,8 @@
 package elalto.gamea.map.canchas.presenter;
 
+import elalto.network.canchas.entities.MisReservasBody;
+
 public interface MisReservasPresenter {
-    void getMisReservas(String id_usuario);
+    void getMisReservas(MisReservasBody misReservasBody);
     void onDestroy();
 }

@@ -8,6 +8,8 @@ import elalto.network.canchas.entities.CanchaInfoResponse;
 import elalto.network.canchas.entities.DeleteReservaBody;
 import elalto.network.canchas.entities.DeleteReservaResponse;
 import elalto.network.canchas.entities.ListadoCanchasResponse;
+import elalto.network.canchas.entities.MisReservasBody;
+import elalto.network.canchas.entities.MisReservasResponse;
 import elalto.network.canchas.entities.ReservaBody;
 import elalto.network.canchas.entities.ReservaResponse;
 import retrofit2.Call;
@@ -30,6 +32,9 @@ public interface ApiServiceCanchas {
 
     @POST("reservas/reservar")
     Call<ReservaResponse> saveReserva(@Header("Authorization") String authHeader, @Body ReservaBody reservaBody);
+
+    @POST("reservas/misReservas")
+    Call<MisReservasResponse> getMisReservas(@Header("Authorization") String authHeader, @Body MisReservasBody misReservaBody);
 
     @PUT("reservas/aprobar")
     Call<DeleteReservaResponse> deleteReserva(@Header("Authorization") String authHeader, @Body DeleteReservaBody deleteReservaBody);

@@ -2,7 +2,7 @@ package elalto.gamea.map.canchas.view;
 
 import java.util.List;
 
-import elalto.gamea.map.canchas.entities.MisReservas;
+import elalto.network.canchas.entities.MisReservas;
 
 public interface MisReservasView {
     void showProgress();
