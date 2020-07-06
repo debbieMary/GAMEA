@@ -12,6 +12,8 @@ import elalto.gamea.map.canchas.presenter.CantidadReservasPendientesPresenter;
 import elalto.gamea.map.canchas.presenter.CantidadReservasPendientesPresenterImpl;
 import elalto.gamea.map.canchas.presenter.CantidadReservasPendientesView;
 import elalto.gamea.map.canchas.utils.GeneralUtils;
+import elalto.network.canchas.entities.ReservaBody;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -166,7 +168,7 @@ public class ReservarCanchaActivity extends AppCompatActivity implements CanchaR
     public void reservarCancha(View v) {
         if(validarHoras()){
             if (verificarDisponibilidad()) {
-                canchaReservaPresenter.saveCanchasReserva(getStringJson());
+                canchaReservaPresenter.saveCanchasReserva(getReservaBody());
             } else {
                 Toast.makeText(this, "El horario que usted quiere reservar se encuentra ocupado", Toast.LENGTH_SHORT).show();
                 finish();
@@ -218,26 +220,20 @@ public class ReservarCanchaActivity extends AppCompatActivity implements CanchaR
 
 
 
-    public String getStringJson() {
-        JSONObject jsonReserva = new JSONObject();
-        try {
-            jsonReserva.put("id_cancha", id_cancha);
-            jsonReserva.put("id_usuario", "2");
-            jsonReserva.put("fecha_reserva", fecha_reserva);
-            jsonReserva.put("hora_inicio", selected_hora_inicio);
-            jsonReserva.put("hora_fin", selected_hora_fin);
-            jsonReserva.put("ci_quien_reserva", "8330965");
-            jsonReserva.put("observaciones", txt_observaciones.getText().toString());
-            jsonReserva.put("modo_registro", "1");
-            jsonReserva.put("nombre_reserva", "Debbie Zuleta");
-            jsonReserva.put("estado", "1");
-            jsonReserva.put("precio_hora", getPrecioTotal());
-
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        //Toast.makeText(this, jsonReserva.toString(), Toast.LENGTH_SHORT).show();
-        return jsonReserva.toString();
+    public ReservaBody getReservaBody() {
+        ReservaBody reservaBody =  new ReservaBody();
+        reservaBody.setIdCancha(id_cancha);
+        reservaBody.setIdUsuario("2");
+        reservaBody.setFechaReserva(fecha_reserva);
+        reservaBody.setHoraInicio(selected_hora_inicio);
+        reservaBody.setHoraFin(selected_hora_fin);
+        reservaBody.setCiQuienReserva("8330962");
+        reservaBody.setObservaciones(txt_observaciones.getText().toString());
+        reservaBody.setModoRegistro("1");
+        reservaBody.setNombreReserva("Debbie Zuleta");
+        reservaBody.setEstado("1");
+        reservaBody.setTotal(getPrecioTotal());
+        return reservaBody;
     }
 
     @Override

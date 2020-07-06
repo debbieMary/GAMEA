@@ -6,6 +6,7 @@ import elalto.gamea.map.canchas.model.CanchaReservaInteractor;
 import elalto.gamea.map.canchas.model.CanchasInfoInteractor;
 import elalto.gamea.map.canchas.view.CanchaReservaView;
 import elalto.gamea.map.canchas.view.CanchasInfoView;
+import elalto.network.canchas.entities.ReservaBody;
 
 public class CanchaReservaPresenterImpl implements CanchaReservaPresenter, CanchaReservaInteractor.onCanchasReservaFinishedListener {
     private CanchaReservaView canchaReservaView;
@@ -34,8 +35,8 @@ public class CanchaReservaPresenterImpl implements CanchaReservaPresenter, Canch
 
 
     @Override
-    public void saveCanchasReserva(String reserva) {
-        canchaReservaInteractor.saveCanchasReserva(reserva, this);
+    public void saveCanchasReserva(ReservaBody reservaBody) {
+        canchaReservaInteractor.saveCanchasReserva(reservaBody, this);
         if (canchaReservaView != null) {
             canchaReservaView.hideProgress();
         }

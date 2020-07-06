@@ -30,6 +30,8 @@ import elalto.network.canchas.entities.CanchaInfoResponse;
 import elalto.network.canchas.entities.DeleteReservaBody;
 import elalto.network.canchas.entities.DeleteReservaResponse;
 import elalto.network.canchas.entities.ListadoCanchasResponse;
+import elalto.network.canchas.entities.ReservaBody;
+import elalto.network.canchas.entities.ReservaResponse;
 import elalto.network.entities.TokenManager;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -45,8 +47,6 @@ public class CanchasInteractorImpl implements CanchasInteractor, CanchaCobroInte
     public static final String URL_CANCHAS = "https://api-game-bo.herokuapp.com/canchas/";
     public static final String URL_COBROS = "https://api-game-bo.herokuapp.com/cobros/listarCobros";
     public static final String URL_RESERVAS = "https://api-game-bo.herokuapp.com/reservas/";
-    public static final String listar_cobros = "";
-    public static final String reservar_cancha = "reservar";
     public static final String get_mis_reservas = "misReservas";
     public static final String get_cantidad_mis_reservas_pendientes = "cantidadReservasPendientes";
     public static final String get_horarios_por_fecha = "listarReservasPorRangofecha";
@@ -128,122 +128,28 @@ public class CanchasInteractorImpl implements CanchasInteractor, CanchaCobroInte
         });
     }
 
-    /*@Override
-    public void getCobros(TokenManager tokenManager, onCobroFinishedListener listener) {
-        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
-        StrictMode.setThreadPolicy(policy);
-        canchas.clear();
-        try {
-            URL url = new URL(URL_COBROS + listar_cobros);
-            HttpURLConnection client = (HttpURLConnection) url.openConnection();
-            client.setDoInput(true);
-            client.setRequestProperty("Content-Type", "application/json; charset=UTF-8");
-            client.setRequestProperty("Authorization", TOKEN);
-            client.setRequestMethod("GET");
-            client.connect();
-            InputStream input;
-            int status = client.getResponseCode();
-            if (status != HttpURLConnection.HTTP_OK) {
-                input = client.getErrorStream();
-            } else {
-                input = client.getInputStream();
-            }
-            BufferedReader reader = new BufferedReader(new InputStreamReader(input));
-            StringBuilder result = new StringBuilder();
-            String line;
-            while ((line = reader.readLine()) != null) {
-                result.append(line);
-            }
-            Log.d("Cobros", result.toString());
-            JSONObject resultadoCobros = new JSONObject(result.toString());
-            getCobrosObject(resultadoCobros);
-            listener.onSuccessCC(canchaCobro);
-        } catch (NullPointerException e) {
-            listener.onFailedCC("Error getting cancha cobros");
-            e.printStackTrace();
-        } catch (JSONException e) {
-            listener.onFailedCC("Error getting cancha cobros");
-            e.printStackTrace();
-        } catch (Exception e) {
-            listener.onFailedCC("Error getting cancha cobros");
-            e.printStackTrace();
-        }
-    }
-
-    public void getCobrosObject(JSONObject cobrosJsonObject) {
-        try {
-            JSONArray data = cobrosJsonObject.getJSONArray("data");
-            for (int i = 0; i < data.length(); i++) {
-                JSONObject canchaObject = data.getJSONObject(i);
-                Log.e("data", canchaObject.toString());
-                canchaCobro.add(new CanchaCobro(
-                                canchaObject.getInt("id_cobro"),
-                                canchaObject.getString("nombre_cobro"),
-                                canchaObject.getDouble("latitud"),
-                                canchaObject.getDouble("longitud"),
-                                canchaObject.getString("telefono"),
-                                canchaObject.getString("direccion")
-                        )
-
-                );
-            }
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-    }*/
 
     @Override
-    public void saveCanchasReserva(String reserva, onCanchasReservaFinishedListener listener) {
-        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
-        StrictMode.setThreadPolicy(policy);
-        try {
-            URL url = new URL(URL_RESERVAS + reservar_cancha);
-            HttpURLConnection client = (HttpURLConnection) url.openConnection();
-            client.setDoOutput(true);
-            client.setDoInput(true);
-            client.setRequestProperty("Content-Type", "application/json; charset=UTF-8");
-            client.setRequestProperty("Authorization", TOKEN);
-            client.setRequestMethod("POST");
-            client.connect();
-            String json = reserva;
-            OutputStreamWriter writer = new OutputStreamWriter(client.getOutputStream());
-            String output = json;
-            writer.write(output);
-            writer.flush();
-            writer.close();
+    public void saveCanchasReserva(ReservaBody reservaBody, onCanchasReservaFinishedListener listener) {
+        apiService = ApiUtilsCanchas.getCanchasService();
+        Call<ReservaResponse> call = apiService.saveReserva(TOKEN, reservaBody);
+        call.enqueue(new Callback<ReservaResponse>() {
+            @Override
+            public void onResponse(Call<ReservaResponse> call, Response<ReservaResponse> response) {
+                if(response.isSuccessful()){
+                    Log.d(TAG,"SUCCESS!!!: "+  response.body().getMensaje());
+                    listener.onSuccess(response.body().getMensaje());
+                }
+            }
 
-            InputStream input;
-            int status = client.getResponseCode();
-
-            if (status != HttpURLConnection.HTTP_OK) {
-                input = client.getErrorStream();
-            } else {
-                input = client.getInputStream();
+            @Override
+            public void onFailure(Call<ReservaResponse> call, Throwable t) {
+                Log.e(TAG,"ERROR!!! Services version: "+  t.getMessage());
+                listener.onFailed(t.getMessage());
             }
-            BufferedReader reader = new BufferedReader(new InputStreamReader(input));
-            StringBuilder result = new StringBuilder();
-            String line;
-            while ((line = reader.readLine()) != null) {
-                result.append(line);
-            }
-            Log.e("CanchaReserva", result.toString());
-            JSONObject jsonObject = new JSONObject(result.toString());
-            if (jsonObject.getBoolean("resultado")) {
-                listener.onSuccess("Reserva de cancha exitoso");
-            } else {
-                listener.onSuccess("Algo salió mal al reservar la cancha");
-            }
-        } catch (NullPointerException e) {
-            listener.onFailed("Error");
-            e.printStackTrace();
-        } catch (JSONException e) {
-            listener.onFailed("Error");
-            e.printStackTrace();
-        } catch (Exception e) {
-            listener.onFailed("Error");
-            e.printStackTrace();
-        }
+        });
     }
+
 
     @Override
     public void getMisReservas(String id_usuario, onMisReservasFinishedListener listener) {

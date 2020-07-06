@@ -2,6 +2,8 @@ package elalto.gamea.map.canchas.model;
 
 import java.util.List;
 
+import elalto.network.canchas.entities.ReservaBody;
+
 
 public interface CanchaReservaInteractor {
     interface onCanchasReservaFinishedListener {
@@ -10,5 +12,5 @@ public interface CanchaReservaInteractor {
         void onFailed(String message);
     }
 
-    void saveCanchasReserva(String reserva, onCanchasReservaFinishedListener listener);
+    void saveCanchasReserva(ReservaBody reservaBody, onCanchasReservaFinishedListener listener);
 }
