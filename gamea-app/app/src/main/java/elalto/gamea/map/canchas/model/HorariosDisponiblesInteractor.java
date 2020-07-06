@@ -3,6 +3,7 @@ package elalto.gamea.map.canchas.model;
 import java.util.List;
 
 import elalto.gamea.map.canchas.entities.Event;
+import elalto.network.canchas.entities.HorariosBody;
 
 
 public interface HorariosDisponiblesInteractor {
@@ -12,5 +13,5 @@ public interface HorariosDisponiblesInteractor {
     void onFailed(String message);
   }
 
-  void getHorariosDisponibles(String id_cancha, String fecha_inicio, String fecha_fin, HorariosDisponiblesInteractor.onHorariosDisponiblesFinishedListener listener);
+  void getHorariosDisponibles(HorariosBody horariosBody, HorariosDisponiblesInteractor.onHorariosDisponiblesFinishedListener listener);
 }

@@ -8,6 +8,8 @@ import elalto.network.canchas.entities.CanchaInfoResponse;
 import elalto.network.canchas.entities.CantidadReservasResponse;
 import elalto.network.canchas.entities.DeleteReservaBody;
 import elalto.network.canchas.entities.DeleteReservaResponse;
+import elalto.network.canchas.entities.HorariosBody;
+import elalto.network.canchas.entities.HorariosResponse;
 import elalto.network.canchas.entities.ListadoCanchasResponse;
 import elalto.network.canchas.entities.IdUsuarioBody;
 import elalto.network.canchas.entities.MisReservasResponse;
@@ -36,6 +38,9 @@ public interface ApiServiceCanchas {
 
     @POST("reservas/misReservas")
     Call<MisReservasResponse> getMisReservas(@Header("Authorization") String authHeader, @Body IdUsuarioBody misReservaBody);
+
+    @POST("reservas/listarReservasPorRangofecha")
+    Call<HorariosResponse> getHorarios(@Header("Authorization") String authHeader, @Body HorariosBody horariosBody);
 
 
     @POST("reservas/cantidadReservasPendientes")

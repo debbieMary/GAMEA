@@ -1,7 +1,9 @@
 package elalto.gamea.map.canchas.presenter;
 
 
+import elalto.network.canchas.entities.HorariosBody;
+
 public interface HorariosDisponiblesPresenter {
-  void getHorariosDisponibles(String id_cancha, String fecha_inicio, String fecha_fin);
+  void getHorariosDisponibles(HorariosBody horariosBody);
   void onDestroy();
 }

@@ -12,6 +12,7 @@ import elalto.gamea.map.canchas.presenter.HorariosDisponiblesPresenterImpl;
 import elalto.gamea.map.canchas.utils.GeneralUtils;
 import elalto.gamea.map.canchas.view.Adapters.PagerAdapter;
 import elalto.gamea.map.canchas.view.Calendar.data.IEvent;
+import elalto.network.canchas.entities.HorariosBody;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -51,6 +52,7 @@ public class HorariosDisponiblesActivity extends AppCompatActivity  implements H
     public static ArrayList<Event> events = new ArrayList<Event>();
     HorariosDisponiblesPresenter horariosDisponiblesPresenter;
     public static Activity activityStatic;
+    HorariosBody horariosBody = new HorariosBody();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,7 +80,12 @@ public class HorariosDisponiblesActivity extends AppCompatActivity  implements H
 
 
         horariosDisponiblesPresenter = new HorariosDisponiblesPresenterImpl(this, new CanchasInteractorImpl());
-        horariosDisponiblesPresenter.getHorariosDisponibles(id_cancha, fecha_actual, fecha_manhiana);
+
+        horariosBody.setIdCancha(id_cancha);
+        horariosBody.setFechaInicio(fecha_actual);
+        horariosBody.setFechaFin(fecha_manhiana);
+
+        horariosDisponiblesPresenter.getHorariosDisponibles(horariosBody);
 
     }
 
