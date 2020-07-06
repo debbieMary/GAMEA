@@ -14,17 +14,20 @@ import elalto.gamea.map.canchas.view.Adapters.RecyclerItemClickListener;
 import elalto.network.canchas.entities.MisReservas;
 import elalto.network.canchas.entities.IdUsuarioBody;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class MisReservasActivity extends AppCompatActivity  implements MisReservasView {
+public class MisReservasActivity extends AppCompatActivity implements MisReservasView {
 
     Toolbar toolbar;
+    ProgressDialog progressDialog;
     MisReservasPresenter misReservasPresenter;
     MisReservasAdapter adapter;
     RecyclerView recyclerView;
@@ -43,44 +46,52 @@ public class MisReservasActivity extends AppCompatActivity  implements MisReserv
         recyclerView = (RecyclerView) findViewById(R.id.rv_mis_reservas);
         layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
-        adapter = new MisReservasAdapter(misReservasArray,getApplicationContext());
+        adapter = new MisReservasAdapter(misReservasArray, getApplicationContext());
+
+        progressDialog = new ProgressDialog(this);
+        progressDialog.setMessage("Obteniendo información...");
+        progressDialog.setCancelable(false);
+
         misReservasPresenter = new MisReservasPresenterImpl(this, new CanchasInteractorImpl());
         idUsuarioBody.setIdUsuario("2");
         misReservasPresenter.getMisReservas(idUsuarioBody);
         recyclerView.setAdapter(adapter);
         recyclerView.addOnItemTouchListener(
-                new RecyclerItemClickListener(MisReservasActivity.this, recyclerView ,new RecyclerItemClickListener.OnItemClickListener() {
-                    @Override public void onItemClick(View view, int position) {
+                new RecyclerItemClickListener(MisReservasActivity.this, recyclerView, new RecyclerItemClickListener.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(View view, int position) {
                         goToPopup(position);
                     }
-                    @Override public void onLongItemClick(View view, int position) {
+
+                    @Override
+                    public void onLongItemClick(View view, int position) {
                         goToDeleteReservaDialog(position);
                     }
                 })
         );
     }
 
-    public void goToPopup(int arrayPosition){
-        if(misReservasArray.get(arrayPosition).getEstado() == 2){
-            Intent i = new Intent(MisReservasActivity.this, PopupCanchaTicket.class );
-            i.putExtra("nombre",misReservasArray.get(arrayPosition).getNombre());
-            i.putExtra("distrito", misReservasArray.get(arrayPosition).getDistrito()+"");
-            i.putExtra("id_reserva", misReservasArray.get(arrayPosition).getIdReserva()+"");
-            i.putExtra("fecha",misReservasArray.get(arrayPosition).getFecha());
+    public void goToPopup(int arrayPosition) {
+        if (misReservasArray.get(arrayPosition).getEstado() == 2) {
+            Intent i = new Intent(MisReservasActivity.this, PopupCanchaTicket.class);
+            i.putExtra("nombre", misReservasArray.get(arrayPosition).getNombre());
+            i.putExtra("distrito", misReservasArray.get(arrayPosition).getDistrito() + "");
+            i.putExtra("id_reserva", misReservasArray.get(arrayPosition).getIdReserva() + "");
+            i.putExtra("fecha", misReservasArray.get(arrayPosition).getFecha());
             i.putExtra("hora_inicio", misReservasArray.get(arrayPosition).getHoraInicio());
             i.putExtra("hora_fin", misReservasArray.get(arrayPosition).getHoraFin());
             i.putExtra("ci_quien_reserva", misReservasArray.get(arrayPosition).getCiQuienReserva());
             i.putExtra("nombre_reserva", misReservasArray.get(arrayPosition).getNombreReserva());
-            i.putExtra("observaciones" , misReservasArray.get(arrayPosition).getObservaciones());
-            i.putExtra("total" ,  misReservasArray.get(arrayPosition).getTotal());
+            i.putExtra("observaciones", misReservasArray.get(arrayPosition).getObservaciones());
+            i.putExtra("total", misReservasArray.get(arrayPosition).getTotal());
             startActivity(i);
         }
     }
 
 
-    public void goToDeleteReservaDialog(int arrayPosition){
-        if(misReservasArray.get(arrayPosition).getEstado() == 1){
-            Intent i=  new Intent(MisReservasActivity.this, DeleteReservaActivity.class);
+    public void goToDeleteReservaDialog(int arrayPosition) {
+        if (misReservasArray.get(arrayPosition).getEstado() == 1) {
+            Intent i = new Intent(MisReservasActivity.this, DeleteReservaActivity.class);
             i.putExtra("id_reserva", misReservasArray.get(arrayPosition).getIdReserva());
             i.putExtra("nombre_cancha", misReservasArray.get(arrayPosition).getNombre());
             startActivityForResult(i, DELETE_CONTACT_REQUEST);
@@ -90,12 +101,12 @@ public class MisReservasActivity extends AppCompatActivity  implements MisReserv
 
     @Override
     public void showProgress() {
-
+        progressDialog.show();
     }
 
     @Override
     public void hideProgress() {
-
+        progressDialog.hide();
     }
 
     @Override
@@ -107,7 +118,7 @@ public class MisReservasActivity extends AppCompatActivity  implements MisReserv
 
     @Override
     public void showErrorMessage(String message) {
-        Toast.makeText(this, message , Toast.LENGTH_LONG).show();
+        Toast.makeText(this, message, Toast.LENGTH_LONG).show();
     }
 
     @Override
@@ -122,7 +133,7 @@ public class MisReservasActivity extends AppCompatActivity  implements MisReserv
                                     Intent data) {
         if (requestCode == DELETE_CONTACT_REQUEST) {
             if (resultCode == RESULT_OK) {
-                Intent intent=  new Intent(MisReservasActivity.this, MisReservasActivity.class);
+                Intent intent = new Intent(MisReservasActivity.this, MisReservasActivity.class);
                 startActivity(intent);
                 finish();
             }

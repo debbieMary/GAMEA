@@ -62,6 +62,7 @@ public class DeleteReservaActivity extends Activity implements DeleteReservaView
 
         progressDialog = new ProgressDialog(this);
         progressDialog.setMessage("Cancelando Reserva...");
+        progressDialog.setCancelable(false);
 
         btn_delete_reserva = (Button) this.findViewById(R.id.btn_delete_reserva);
         btn_delete_reserva.setOnClickListener(new View.OnClickListener() {

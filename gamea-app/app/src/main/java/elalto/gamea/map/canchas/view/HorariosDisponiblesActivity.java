@@ -15,6 +15,7 @@ import elalto.gamea.map.canchas.view.Calendar.data.IEvent;
 import elalto.network.canchas.entities.HorariosBody;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -29,7 +30,7 @@ import java.util.Calendar;
 import java.util.List;
 
 
-public class HorariosDisponiblesActivity extends AppCompatActivity  implements HorariosDisponiblesView {
+public class HorariosDisponiblesActivity extends AppCompatActivity implements HorariosDisponiblesView {
     Toolbar toolbar;
     Bundle bundle;
     String id_cancha;
@@ -45,10 +46,10 @@ public class HorariosDisponiblesActivity extends AppCompatActivity  implements H
     public static int eventColor;
     String fecha_reserva;
 
-    int posicion_fecha= 0;
+    int posicion_fecha = 0;
 
-    GeneralUtils utils= new GeneralUtils();
-
+    GeneralUtils utils = new GeneralUtils();
+    ProgressDialog progressDialog;
     public static ArrayList<Event> events = new ArrayList<Event>();
     HorariosDisponiblesPresenter horariosDisponiblesPresenter;
     public static Activity activityStatic;
@@ -60,7 +61,7 @@ public class HorariosDisponiblesActivity extends AppCompatActivity  implements H
         setContentView(R.layout.activity_horarios_disponibles);
 
 
-        activityStatic= HorariosDisponiblesActivity.this;
+        activityStatic = HorariosDisponiblesActivity.this;
 
         bundle = getIntent().getExtras();
         toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -71,12 +72,17 @@ public class HorariosDisponiblesActivity extends AppCompatActivity  implements H
         id_cancha = bundle.getString("id_cancha");
         nombre_cancha = bundle.getString("nombre_cancha");
         distrito = bundle.getString("distrito");
-        precio_hora=  bundle.getInt("precio_hora");
+        precio_hora = bundle.getInt("precio_hora");
 
         fecha_actual = fecha.format(fechaYhora.getTime());
-        fecha_reserva= fecha_actual;
+        fecha_reserva = fecha_actual;
         fechaYhora.add(Calendar.DATE, 1);
         fecha_manhiana = fecha.format(fechaYhora.getTime());
+
+
+        progressDialog = new ProgressDialog(this);
+        progressDialog.setMessage("Obteniendo información...");
+        progressDialog.setCancelable(false);
 
 
         horariosDisponiblesPresenter = new HorariosDisponiblesPresenterImpl(this, new CanchasInteractorImpl());
@@ -94,13 +100,13 @@ public class HorariosDisponiblesActivity extends AppCompatActivity  implements H
         i.putExtra("id_cancha", id_cancha);
         i.putExtra("nombre_cancha", nombre_cancha);
         i.putExtra("distrito", distrito);
-        i.putExtra("fecha_reserva",fecha_reserva);
-        i.putExtra("precio_hora",  precio_hora);
+        i.putExtra("fecha_reserva", fecha_reserva);
+        i.putExtra("precio_hora", precio_hora);
         i.putExtra("event", getHorariosReservados(fecha_reserva));
         startActivity(i);
     }
 
-    public String getToday(){
+    public String getToday() {
         return fecha_actual;
     }
 
@@ -108,11 +114,11 @@ public class HorariosDisponiblesActivity extends AppCompatActivity  implements H
         return fecha_manhiana;
     }
 
-    public void setFragment(){
+    public void setFragment() {
 
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tab_layout);
-        tabLayout.addTab(tabLayout.newTab().setText(utils.transformDate(fecha_actual.replace("/","-"))));
-        tabLayout.addTab(tabLayout.newTab().setText(utils.transformDate(fecha_manhiana.replace("/","-"))));
+        tabLayout.addTab(tabLayout.newTab().setText(utils.transformDate(fecha_actual.replace("/", "-"))));
+        tabLayout.addTab(tabLayout.newTab().setText(utils.transformDate(fecha_manhiana.replace("/", "-"))));
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
         final ViewPager viewPager = (ViewPager) findViewById(R.id.pager);
         final PagerAdapter adapter = new PagerAdapter
@@ -123,11 +129,11 @@ public class HorariosDisponiblesActivity extends AppCompatActivity  implements H
         tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
-                posicion_fecha= tab.getPosition();
-                if(posicion_fecha==0){
-                    fecha_reserva=  fecha_actual;
-                }else{
-                    fecha_reserva=  fecha_manhiana;
+                posicion_fecha = tab.getPosition();
+                if (posicion_fecha == 0) {
+                    fecha_reserva = fecha_actual;
+                } else {
+                    fecha_reserva = fecha_manhiana;
                 }
                 viewPager.setCurrentItem(tab.getPosition());
             }
@@ -143,35 +149,34 @@ public class HorariosDisponiblesActivity extends AppCompatActivity  implements H
 
     }
 
-    public  ArrayList<Event> getHorariosReservados(String fecha_elegida){
-       ArrayList<Event> eventsByDate=  new ArrayList<Event>();
-      for(int i = 0 ; i < events.size() ;  i ++ )
-      {
-         if(fecha_elegida.equals(events.get(i).getDate().replace("-","/"))){
-              eventsByDate.add(
-                new Event(
-                        (int) events.get(i).getId(),
-                        events.get(i).getStartTime(),
-                        events.get(i).getEndTime(),
-                        events.get(i).getObs(),
-                        events.get(i).getDate(),
-                        eventColor)
-              );
-          }
-      }
+    public ArrayList<Event> getHorariosReservados(String fecha_elegida) {
+        ArrayList<Event> eventsByDate = new ArrayList<Event>();
+        for (int i = 0; i < events.size(); i++) {
+            if (fecha_elegida.equals(events.get(i).getDate().replace("-", "/"))) {
+                eventsByDate.add(
+                        new Event(
+                                (int) events.get(i).getId(),
+                                events.get(i).getStartTime(),
+                                events.get(i).getEndTime(),
+                                events.get(i).getObs(),
+                                events.get(i).getDate(),
+                                eventColor)
+                );
+            }
+        }
 
-        return  eventsByDate;
+        return eventsByDate;
     }
 
 
     @Override
     public void showProgress() {
-
+        progressDialog.show();
     }
 
     @Override
     public void hideProgress() {
-
+        progressDialog.hide();
     }
 
     @Override

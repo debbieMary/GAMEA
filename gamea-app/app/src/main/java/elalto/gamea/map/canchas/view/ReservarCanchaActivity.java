@@ -2,6 +2,7 @@ package elalto.gamea.map.canchas.view;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+
 import elalto.gamea.R;
 import elalto.gamea.map.canchas.entities.Event;
 import elalto.gamea.map.canchas.entities.Horas;
@@ -15,6 +16,7 @@ import elalto.gamea.map.canchas.utils.GeneralUtils;
 import elalto.network.canchas.entities.IdUsuarioBody;
 import elalto.network.canchas.entities.ReservaBody;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -25,13 +27,15 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import org.json.JSONException;
 import org.json.JSONObject;
+
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 
-public class ReservarCanchaActivity extends AppCompatActivity implements CanchaReservaView , CantidadReservasPendientesView {
+public class ReservarCanchaActivity extends AppCompatActivity implements CanchaReservaView, CantidadReservasPendientesView {
 
     Toolbar toolbar;
     Bundle bundle;
@@ -58,8 +62,9 @@ public class ReservarCanchaActivity extends AppCompatActivity implements CanchaR
     int inicio_global = 7;
     int fin_global = 23;
     Integer precio_hora;
-    HorariosDisponiblesActivity horariosDisponiblesActivity=  new HorariosDisponiblesActivity();
-    IdUsuarioBody idUsuarioBody= new IdUsuarioBody();
+    HorariosDisponiblesActivity horariosDisponiblesActivity = new HorariosDisponiblesActivity();
+    IdUsuarioBody idUsuarioBody = new IdUsuarioBody();
+    ProgressDialog progressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,6 +79,12 @@ public class ReservarCanchaActivity extends AppCompatActivity implements CanchaR
 
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setTitle("RESERVA DE CANCHA");
+
+
+        progressDialog = new ProgressDialog(this);
+        progressDialog.setMessage("Reservando Cancha");
+        progressDialog.setCancelable(false);
+
         canchaReservaPresenter = new CanchaReservaPresenterImpl(this, new CanchasInteractorImpl());
         sp_horario_inicio = (Spinner) this.findViewById(R.id.sp_horario_inicio);
         sp_horario_fin = (Spinner) this.findViewById(R.id.sp_horario_fin);
@@ -81,7 +92,7 @@ public class ReservarCanchaActivity extends AppCompatActivity implements CanchaR
         id_cancha = bundle.getString("id_cancha");
         nombre_cancha = bundle.getString("nombre_cancha");
         distrito = bundle.getString("distrito");
-        precio_hora= bundle.getInt("precio_hora");
+        precio_hora = bundle.getInt("precio_hora");
         fecha_reserva = bundle.getString("fecha_reserva");
         events = (ArrayList<Event>) bundle.getSerializable("event");
         if (events != null && events.size() > 0) {
@@ -169,28 +180,28 @@ public class ReservarCanchaActivity extends AppCompatActivity implements CanchaR
     }
 
     public void reservarCancha(View v) {
-        if(validarHoras()){
+        if (validarHoras()) {
             if (verificarDisponibilidad()) {
                 canchaReservaPresenter.saveCanchasReserva(getReservaBody());
             } else {
                 Toast.makeText(this, "El horario que usted quiere reservar se encuentra ocupado", Toast.LENGTH_SHORT).show();
                 finish();
             }
-        }else{
+        } else {
             Toast.makeText(this, "Horario inválido", Toast.LENGTH_SHORT).show();
             finish();
         }
     }
 
     private Integer getPrecioTotal() {
-        Integer precioTotal= 0 ;
-        precioTotal= precio_hora;
-        Integer index=0;
-        for(int i = Integer.parseInt(selected_hora_inicio.split(":")[0]);  i < Integer.parseInt(selected_hora_fin.split(":")[0]); i++){
-            if(index<1){
-                precioTotal=  precioTotal;
-            }else{
-                precioTotal= precioTotal+ precioTotal;
+        Integer precioTotal = 0;
+        precioTotal = precio_hora;
+        Integer index = 0;
+        for (int i = Integer.parseInt(selected_hora_inicio.split(":")[0]); i < Integer.parseInt(selected_hora_fin.split(":")[0]); i++) {
+            if (index < 1) {
+                precioTotal = precioTotal;
+            } else {
+                precioTotal = precioTotal + precioTotal;
             }
             index++;
         }
@@ -199,32 +210,30 @@ public class ReservarCanchaActivity extends AppCompatActivity implements CanchaR
 
     private boolean validarHoras() {
         boolean status = true;
-        Integer inicio= Integer.parseInt(selected_hora_inicio.split(":")[0]);
+        Integer inicio = Integer.parseInt(selected_hora_inicio.split(":")[0]);
         Integer fin = Integer.parseInt(selected_hora_fin.split(":")[0]);
-        if(inicio >= fin){
-         status= false;
+        if (inicio >= fin) {
+            status = false;
         }
         return status;
     }
 
     private boolean verificarDisponibilidad() {
-        boolean status= true;
+        boolean status = true;
         for (int i = 0; i < horas.size(); i++) {
             if (horas.get(i).getHora() >= Integer.parseInt(selected_hora_inicio.split(":")[0])
                     && horas.get(i).getHora() < Integer.parseInt(selected_hora_fin.split(":")[0])) {
-               if(horas.get(i).getEstadoHora()==1){
-                   status= false;
-               }
+                if (horas.get(i).getEstadoHora() == 1) {
+                    status = false;
+                }
             }
         }
         return status;
     }
 
 
-
-
     public ReservaBody getReservaBody() {
-        ReservaBody reservaBody =  new ReservaBody();
+        ReservaBody reservaBody = new ReservaBody();
         reservaBody.setIdCancha(id_cancha);
         reservaBody.setIdUsuario("2");
         reservaBody.setFechaReserva(fecha_reserva);
@@ -241,12 +250,12 @@ public class ReservarCanchaActivity extends AppCompatActivity implements CanchaR
 
     @Override
     public void showProgress() {
-
+        progressDialog.show();
     }
 
     @Override
     public void hideProgress() {
-
+        progressDialog.hide();
     }
 
     @Override
@@ -288,7 +297,7 @@ public class ReservarCanchaActivity extends AppCompatActivity implements CanchaR
 
     @Override
     public void populateCantidadReservasPendientes(int cantidad) {
-        if(cantidad >= 2){
+        if (cantidad >= 2) {
             Toast.makeText(this, "No puedes tener más de dos reservas pendientes", Toast.LENGTH_LONG).show();
             finish();
         }
@@ -296,7 +305,7 @@ public class ReservarCanchaActivity extends AppCompatActivity implements CanchaR
 
     @Override
     public void showErrorMessageCantidadReservasPendientes(String message) {
-       Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
-       finish();
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
+        finish();
     }
 }

@@ -64,6 +64,7 @@ public class CanchaInformacionActivity extends AppCompatActivity implements Canc
         progressDialog = new ProgressDialog(this);
         progressDialog.setMessage("Obteniendo informacion...");
         progressDialog.setCancelable(false);
+
         lbl_nombre_cancha= (TextView) this.findViewById(R.id.lbl_nombre_cancha);
         lbl_nombre_cancha.setText(nombre_cancha);
         canchasInfoPresenter = new CanchasInfoPresenterImpl(this, new CanchasInteractorImpl());
