@@ -15,11 +15,11 @@ import elalto.gamea.map.canchas.presenter.CantidadReservasPendientesView;
 import elalto.gamea.map.canchas.utils.GeneralUtils;
 import elalto.network.canchas.entities.IdUsuarioBody;
 import elalto.network.canchas.entities.ReservaBody;
+import elalto.network.entities.UserManager;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -65,6 +65,7 @@ public class ReservarCanchaActivity extends AppCompatActivity implements CanchaR
     HorariosDisponiblesActivity horariosDisponiblesActivity = new HorariosDisponiblesActivity();
     IdUsuarioBody idUsuarioBody = new IdUsuarioBody();
     ProgressDialog progressDialog;
+    UserManager userManager= new UserManager();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,7 +75,7 @@ public class ReservarCanchaActivity extends AppCompatActivity implements CanchaR
         setHorasArrayInit();
 
         cantidadReservasPendientesPresenter = new CantidadReservasPendientesPresenterImpl(this, new CanchasInteractorImpl());
-        idUsuarioBody.setIdUsuario("2");
+        idUsuarioBody.setIdUsuario(String.valueOf(userManager.getIdUser(this)));
         cantidadReservasPendientesPresenter.getCantidadReservasPendientes(idUsuarioBody);
 
         toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -235,14 +236,14 @@ public class ReservarCanchaActivity extends AppCompatActivity implements CanchaR
     public ReservaBody getReservaBody() {
         ReservaBody reservaBody = new ReservaBody();
         reservaBody.setIdCancha(id_cancha);
-        reservaBody.setIdUsuario("2");
+        reservaBody.setIdUsuario(String.valueOf(userManager.getIdUser(this)));
         reservaBody.setFechaReserva(fecha_reserva);
         reservaBody.setHoraInicio(selected_hora_inicio);
         reservaBody.setHoraFin(selected_hora_fin);
-        reservaBody.setCiQuienReserva("8330962");
+        reservaBody.setCiQuienReserva(userManager.getCi(this));
         reservaBody.setObservaciones(txt_observaciones.getText().toString());
         reservaBody.setModoRegistro("1");
-        reservaBody.setNombreReserva("Debbie Zuleta");
+        reservaBody.setNombreReserva(userManager.getUserName(this));
         reservaBody.setEstado("1");
         reservaBody.setTotal(getPrecioTotal());
         return reservaBody;

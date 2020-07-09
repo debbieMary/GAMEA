@@ -19,6 +19,7 @@ import elalto.gamea.auth.registerme.presenter.RegistermePresenter;
 import elalto.gamea.auth.registerme.presenter.RegistermePresenterImpl;
 import elalto.gamea.home.view.HomeActivity;
 import elalto.network.entities.AccessToken;
+import elalto.network.entities.UserManager;
 import elalto.network.entities.RegisterError;
 import elalto.network.entities.TokenManager;
 
@@ -47,6 +48,7 @@ public class RegisterMeActivity extends AppCompatActivity implements RegisterVie
     TextInputLayout tilPasswordConfirm;
     private RegistermePresenter presenter;
     TokenManager tokenManager;
+    UserManager userManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,6 +57,7 @@ public class RegisterMeActivity extends AppCompatActivity implements RegisterVie
         ButterKnife.bind(this);
         presenter = new RegistermePresenterImpl(this, new RegistermeInteractorImpl());
         tokenManager = TokenManager.getInstance(getSharedPreferences("prefs", MODE_PRIVATE));
+        userManager = new UserManager();
         if (tokenManager.getToken().getAccess_token() != null) {
             Intent intent = new Intent(this, HomeActivity.class);
             startActivity(intent);
@@ -121,6 +124,7 @@ public class RegisterMeActivity extends AppCompatActivity implements RegisterVie
     @Override
     public void navigateToHome(AccessToken accessToken) {
         tokenManager.saveToken(accessToken);
+        userManager.saveCi(this,tilCi.getEditText().getText().toString());
         Intent intent = new Intent(this, HomeActivity.class);
         startActivity(intent);
         finish();

@@ -25,6 +25,7 @@ import elalto.gamea.auth.login.presenter.LoginPresenterImpl;
 import elalto.gamea.auth.registerme.view.RegisterMeActivity;
 import elalto.gamea.home.view.HomeActivity;
 import elalto.network.entities.AccessToken;
+import elalto.network.entities.UserManager;
 import elalto.network.entities.LoginError;
 import elalto.network.entities.TokenManager;
 
@@ -40,7 +41,7 @@ public class LoginActivity extends AppCompatActivity implements LoginView {
     @BindView(R.id.progressBar)
     ProgressBar progressBar;
     private LoginPresenter presenter;
-
+    UserManager userManager;
     TokenManager tokenManager;
 
     @Override
@@ -50,6 +51,7 @@ public class LoginActivity extends AppCompatActivity implements LoginView {
         ButterKnife.bind(this);
         presenter = new LoginPresenterImpl(this, new LoginInteractorImpl());
         tokenManager = TokenManager.getInstance(getSharedPreferences("prefs", MODE_PRIVATE));
+        userManager = new UserManager();
         if (tokenManager.getToken().getAccess_token() != null) {
             Intent intent = new Intent(this, HomeActivity.class);
             startActivity(intent);
@@ -108,6 +110,7 @@ public class LoginActivity extends AppCompatActivity implements LoginView {
 
     @Override
     public void navigateToHome(AccessToken accessToken) {
+        userManager.saveCi(this,til_ci.getEditText().getText().toString());
         tokenManager.saveToken(accessToken);
         Intent intent = new Intent(this, HomeActivity.class);
         startActivity(intent);

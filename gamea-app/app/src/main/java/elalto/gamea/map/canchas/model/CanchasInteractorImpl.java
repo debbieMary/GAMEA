@@ -21,6 +21,8 @@ import elalto.network.canchas.entities.HorariosBody;
 import elalto.network.canchas.entities.HorariosResponse;
 import elalto.network.canchas.entities.ListadoCanchasResponse;
 import elalto.network.canchas.entities.IdUsuarioBody;
+import elalto.network.canchas.entities.ListarUserBody;
+import elalto.network.canchas.entities.ListarUserResponse;
 import elalto.network.canchas.entities.MisReservasResponse;
 import elalto.network.canchas.entities.ReservaBody;
 import elalto.network.canchas.entities.ReservaResponse;
@@ -31,11 +33,7 @@ import retrofit2.Response;
 
 public class CanchasInteractorImpl implements CanchasInteractor, CanchaCobroInteractor,
         CanchasInfoInteractor, CanchaReservaInteractor, MisReservasInteractor,
-        HorariosDisponiblesInteractor, CantidadReservasPendientesInteractor, DeleteReservaInteractor {
-
-
-    public static final String URL_RESERVAS = "https://api-game-bo.herokuapp.com/reservas/";
-    public static final String get_horarios_por_fecha = "listarReservasPorRangofecha";
+        HorariosDisponiblesInteractor, CantidadReservasPendientesInteractor, DeleteReservaInteractor,  UserCanchasInteractor {
 
 
     ApiServiceCanchas apiService;
@@ -203,75 +201,6 @@ public class CanchasInteractorImpl implements CanchasInteractor, CanchaCobroInte
         return event;
     }
 
-   /* @Override
-    public void getHorariosDisponibles(String id_cancha, String fecha_inicio, String fecha_fin, onHorariosDisponiblesFinishedListener listener) {
-        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
-        StrictMode.setThreadPolicy(policy);
-        event.clear();
-        try {
-            URL url = new URL(URL_RESERVAS + get_horarios_por_fecha);
-            HttpURLConnection client = (HttpURLConnection) url.openConnection();
-            client.setDoOutput(true);
-            client.setDoInput(true);
-            client.setRequestProperty("Content-Type", "application/json; charset=UTF-8");
-            client.setRequestProperty("Authorization", TOKEN);
-            client.setRequestMethod("POST");
-            client.connect();
-            String json = setBodyHorarios(id_cancha, fecha_inicio, fecha_fin);
-            OutputStreamWriter writer = new OutputStreamWriter(client.getOutputStream());
-            String output = json;
-            writer.write(output);
-            writer.flush();
-            writer.close();
-
-            InputStream input;
-            int status = client.getResponseCode();
-
-            if (status != HttpURLConnection.HTTP_OK) {
-                input = client.getErrorStream();
-            } else {
-                input = client.getInputStream();
-            }
-            BufferedReader reader = new BufferedReader(new InputStreamReader(input));
-            StringBuilder result = new StringBuilder();
-            String line;
-            while ((line = reader.readLine()) != null) {
-                result.append(line);
-            }
-            Log.e("HORARIOS DISPONIBLES", result.toString());
-            JSONObject horariosJson = new JSONObject(result.toString());
-            getHorariosList(horariosJson);
-            listener.onSuccess(event);
-
-        } catch (NullPointerException e) {
-            listener.onFailed(e.getMessage());
-            e.printStackTrace();
-        } catch (JSONException e) {
-            listener.onFailed( e.getMessage());
-            e.printStackTrace();
-        } catch (Exception e) {
-            listener.onFailed( e.getMessage());
-            e.printStackTrace();
-        }
-    }
-
-
-    private void getHorariosList(JSONObject horariosJson) {
-        try {
-            JSONArray data = horariosJson.getJSONArray("data");
-            Log.e("HORARIOS DATA", data.toString());
-            setHorariosArrayList(data);
-
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-    }
-
-
-
-    }*/
-
-
     @Override
     public void getCantidadReservasPendientes(IdUsuarioBody idUsuarioBody, onCantidadReservasPendientesFinishedListener listener) {
         apiService = ApiUtilsCanchas.getCanchasService();
@@ -315,4 +244,24 @@ public class CanchasInteractorImpl implements CanchasInteractor, CanchaCobroInte
         });
     }
 
+    @Override
+    public void getUserCanchas(ListarUserBody listarUserBody, onFinishedListener listener) {
+        apiService = ApiUtilsCanchas.getCanchasService();
+        Call<ListarUserResponse> call = apiService.getUser(TOKEN, listarUserBody);
+        call.enqueue(new Callback<ListarUserResponse>() {
+            @Override
+            public void onResponse(Call<ListarUserResponse> call, Response<ListarUserResponse> response) {
+                if (response.isSuccessful()) {
+                    Log.d(TAG, "SUCCESS!!!: " + response.body().getMensaje());
+                    listener.onSuccess(response.body().getData());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ListarUserResponse> call, Throwable t) {
+                Log.e(TAG, "ERROR!!! Services version: " + t.getMessage());
+                listener.onFailed(t.getMessage());
+            }
+        });
+    }
 }

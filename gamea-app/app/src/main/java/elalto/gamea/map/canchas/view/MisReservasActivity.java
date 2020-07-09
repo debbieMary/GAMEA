@@ -13,6 +13,7 @@ import elalto.gamea.map.canchas.view.Adapters.MisReservasAdapter;
 import elalto.gamea.map.canchas.view.Adapters.RecyclerItemClickListener;
 import elalto.network.canchas.entities.MisReservas;
 import elalto.network.canchas.entities.IdUsuarioBody;
+import elalto.network.entities.UserManager;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -35,6 +36,7 @@ public class MisReservasActivity extends AppCompatActivity implements MisReserva
     ArrayList<MisReservas> misReservasArray = new ArrayList<MisReservas>();
     public static Integer DELETE_CONTACT_REQUEST = 1;
     IdUsuarioBody idUsuarioBody = new IdUsuarioBody();
+    UserManager userManager = new UserManager();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,7 +55,7 @@ public class MisReservasActivity extends AppCompatActivity implements MisReserva
         progressDialog.setCancelable(false);
 
         misReservasPresenter = new MisReservasPresenterImpl(this, new CanchasInteractorImpl());
-        idUsuarioBody.setIdUsuario("2");
+        idUsuarioBody.setIdUsuario(String.valueOf(userManager.getIdUser(this)));
         misReservasPresenter.getMisReservas(idUsuarioBody);
         recyclerView.setAdapter(adapter);
         recyclerView.addOnItemTouchListener(
