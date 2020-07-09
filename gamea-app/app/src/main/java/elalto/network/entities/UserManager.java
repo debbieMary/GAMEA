@@ -55,10 +55,9 @@ public class UserManager {
 
     public void saveUserName(Context context, String userName)
     {
-
         prefs=context.getSharedPreferences("UserData", Context.MODE_PRIVATE);
         editor= prefs.edit();
-        editor.putString("id_user", userName);
+        editor.putString("userName", userName);
         editor.commit();
 
     }

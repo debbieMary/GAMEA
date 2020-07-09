@@ -43,6 +43,7 @@ import elalto.gamea.testviolencia.TestViolenciaActivity;
 import elalto.gamea.vocero.VoceroActivity;
 import elalto.gamea.yayo.YayoActivity;
 import elalto.network.entities.TokenManager;
+import elalto.network.entities.UserManager;
 import es.dmoral.toasty.Toasty;
 
 import static android.Manifest.permission.ACCESS_FINE_LOCATION;
@@ -55,6 +56,7 @@ public class HomeActivity extends AppCompatActivity implements HomeView {
     private static final int REQUEST_PERMISSION = 101;
     Toolbar toolbar;
     TokenManager tokenManager;
+    UserManager userManager =  new UserManager();
     private HomePresenter presenter;
     @BindView(R.id.img_institucional)
     ImageView imgInstitucional;
@@ -279,6 +281,7 @@ public class HomeActivity extends AppCompatActivity implements HomeView {
 
     @Override
     public void logout() {
+        userManager.deleteUserData(this);
         Toast.makeText(this, "HASTA PRONTO", Toast.LENGTH_SHORT).show();
         Intent intent = new Intent(this, LoginActivity.class);
         startActivity(intent);
@@ -298,6 +301,7 @@ public class HomeActivity extends AppCompatActivity implements HomeView {
     @Override
     protected void onResume() {
         if (tokenManager.getToken().getAccess_token() == null) {
+            userManager.deleteUserData(this);
             Toasty.error(this, "Su sesion a caducado \nVuelva a iniciar sesion", Toast.LENGTH_LONG).show();
             Intent intent = new Intent(this, LoginActivity.class);
             startActivity(intent);

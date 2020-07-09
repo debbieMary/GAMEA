@@ -55,7 +55,7 @@ public class MisReservas {
     private Object idUsuarioUpdate;
     @SerializedName("total")
     @Expose
-    private Integer total;
+    private Double total;
 
     /**
      * No args constructor for use in serialization
@@ -84,7 +84,7 @@ public class MisReservas {
      * @param idReserva
      * @param modoRegistro
      */
-    public MisReservas(String nombre, String distrito, Integer idReserva, Integer idCancha, Integer idUsuario, String fecha, String horaInicio, String horaFin, String ciQuienReserva, String observaciones, Integer modoRegistro, Integer estado, String fechaAlta, String fechaUpdate, String nombreReserva, Object idUsuarioUpdate, Integer total) {
+    public MisReservas(String nombre, String distrito, Integer idReserva, Integer idCancha, Integer idUsuario, String fecha, String horaInicio, String horaFin, String ciQuienReserva, String observaciones, Integer modoRegistro, Integer estado, String fechaAlta, String fechaUpdate, String nombreReserva, Object idUsuarioUpdate, Double total) {
         super();
         this.nombre = nombre;
         this.distrito = distrito;
@@ -313,15 +313,15 @@ public class MisReservas {
         return this;
     }
 
-    public Integer getTotal() {
+    public Double getTotal() {
         return total;
     }
 
-    public void setTotal(Integer total) {
+    public void setTotal(Double total) {
         this.total = total;
     }
 
-    public MisReservas withTotal(Integer total) {
+    public MisReservas withTotal(Double total) {
         this.total = total;
         return this;
     }
