@@ -154,7 +154,7 @@ public class CanchasInteractorImpl implements CanchasInteractor, CanchaCobroInte
             @Override
             public void onFailure(Call<MisReservasResponse> call, Throwable t) {
                 Log.e(TAG, "ERROR!!! Services version: " + t.getMessage());
-                listener.onFailed(t.getMessage());
+                listener.onFailed("Hubo un error, o no hiciste reservas");
             }
         });
     }
@@ -175,7 +175,8 @@ public class CanchasInteractorImpl implements CanchasInteractor, CanchaCobroInte
             @Override
             public void onFailure(Call<HorariosResponse> call, Throwable t) {
                 Log.e(TAG, "ERROR!!! Services version: " + t.getMessage());
-                listener.onFailed(t.getMessage());
+                //listener.onFailed(t.getMessage());
+                listener.onFailed("Hubo un error, o no existen horarios disponibles");
             }
         });
     }

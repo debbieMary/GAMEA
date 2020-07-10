@@ -194,19 +194,9 @@ public class ReservarCanchaActivity extends AppCompatActivity implements CanchaR
         }
     }
 
-    private Integer getPrecioTotal() {
-        Integer precioTotal = 0;
-        precioTotal = precio_hora;
-        Integer index = 0;
-        for (int i = Integer.parseInt(selected_hora_inicio.split(":")[0]); i < Integer.parseInt(selected_hora_fin.split(":")[0]); i++) {
-            if (index < 1) {
-                precioTotal = precioTotal;
-            } else {
-                precioTotal = precioTotal + precioTotal;
-            }
-            index++;
-        }
-        return precioTotal;
+    private Double getPrecioTotal() {
+        Integer hoursDifference=  Integer.parseInt(selected_hora_fin.split(":")[0]) - Integer.parseInt(selected_hora_inicio.split(":")[0]);
+        return  Double.valueOf(hoursDifference) * precio_hora;
     }
 
     private boolean validarHoras() {

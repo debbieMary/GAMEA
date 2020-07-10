@@ -38,7 +38,7 @@ public class ReservaBody {
     private String estado;
     @SerializedName("total")
     @Expose
-    private Integer total;
+    private Double total;
 
     /**
      * No args constructor for use in serialization
@@ -61,7 +61,7 @@ public class ReservaBody {
      * @param fechaReserva
      * @param modoRegistro
      */
-    public ReservaBody(String idCancha, String idUsuario, String fechaReserva, String horaInicio, String horaFin, String ciQuienReserva, String observaciones, String modoRegistro, String nombreReserva, String estado, Integer total) {
+    public ReservaBody(String idCancha, String idUsuario, String fechaReserva, String horaInicio, String horaFin, String ciQuienReserva, String observaciones, String modoRegistro, String nombreReserva, String estado, Double total) {
         super();
         this.idCancha = idCancha;
         this.idUsuario = idUsuario;
@@ -206,15 +206,15 @@ public class ReservaBody {
         return this;
     }
 
-    public Integer getTotal() {
+    public Double getTotal() {
         return total;
     }
 
-    public void setTotal(Integer total) {
+    public void setTotal(Double total) {
         this.total = total;
     }
 
-    public ReservaBody withTotal(Integer total) {
+    public ReservaBody withTotal(Double total) {
         this.total = total;
         return this;
     }

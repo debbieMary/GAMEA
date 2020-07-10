@@ -110,7 +110,6 @@ public class CanchaInformacionActivity extends AppCompatActivity implements Canc
     public void populateUser(List<UserCanchas> userCanchas) {
         userManager.saveIdUser(this, userCanchas.get(0).getIdUser());
         userManager.saveUserName(this, userCanchas.get(0).getNombres()+ " " + userCanchas.get(0).getApellidos());
-        Toast.makeText(this, userManager.getUserName(this), Toast.LENGTH_LONG).show();
     }
 
     @Override
