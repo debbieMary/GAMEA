@@ -27,6 +27,7 @@ import com.google.android.material.tabs.TabLayout;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 
@@ -90,10 +91,10 @@ public class HorariosDisponiblesActivity extends AppCompatActivity implements Ho
         horariosBody.setIdCancha(id_cancha);
         horariosBody.setFechaInicio(fecha_actual);
         horariosBody.setFechaFin(fecha_manhiana);
-
         horariosDisponiblesPresenter.getHorariosDisponibles(horariosBody);
 
     }
+
 
     public void reservarCancha(View v) {
         Intent i = new Intent(this, ReservarCanchaActivity.class);
@@ -187,6 +188,7 @@ public class HorariosDisponiblesActivity extends AppCompatActivity implements Ho
 
     @Override
     public void showErrorMessage(String message) {
+        setFragment();
         Toast.makeText(this, message, Toast.LENGTH_LONG).show();
     }
 

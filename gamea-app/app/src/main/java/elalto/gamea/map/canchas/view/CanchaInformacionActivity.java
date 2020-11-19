@@ -96,7 +96,6 @@ public class CanchaInformacionActivity extends AppCompatActivity implements Canc
         startActivity(i);
     }
 
-    @Override
     public void showProgress() {
         progressDialog.show();
     }
@@ -115,24 +114,108 @@ public class CanchaInformacionActivity extends AppCompatActivity implements Canc
     @Override
     public void populateInfo(List<CanchaInfo> canchaInfoObject) {
         initLabelInformation();
-        lbl_tipo_escenario.setText(canchaInfoObject.get(0).getTipoEscenarioDeportivo());
-        lbl_muro_perimetral.setText(canchaInfoObject.get(0).getTienePerimetral());
-        lbl_techo.setText(canchaInfoObject.get(0).getTieneTingladoTecho());
-        lbl_se_encuentra.setText(canchaInfoObject.get(0).getSeEncuentra());
-        lbl_administrado_por.setText(canchaInfoObject.get(0).getAdministradoPor());
-        lbl_graderias.setText(canchaInfoObject.get(0).getGraderias());
-        lbl_banhio.setText(canchaInfoObject.get(0).getBanos());
-        lbl_camerinos.setText(canchaInfoObject.get(0).getCamerinos());
-        lbl_horarios_acceso_libre.setText(canchaInfoObject.get(0).getAccesoLibre());
-        lbl_realizado_por.setText(canchaInfoObject.get(0).getQuienRealizo() + "");
-        lbl_estado.setText(canchaInfoObject.get(0).getEstado());
+
+        if (canchaInfoObject.get(0).getTipoEscenarioDeportivo() != null) {
+            lbl_tipo_escenario.setText(canchaInfoObject.get(0).getTipoEscenarioDeportivo());
+        } else {
+            lbl_tipo_escenario.setText("");
+        }
+
+        if (canchaInfoObject.get(0).getTienePerimetral() != null) {
+            lbl_muro_perimetral.setText(canchaInfoObject.get(0).getTienePerimetral());
+        }else{
+            lbl_muro_perimetral.setText("");
+        }
+
+        if(canchaInfoObject.get(0).getTieneTingladoTecho() != null){
+            lbl_techo.setText(canchaInfoObject.get(0).getTieneTingladoTecho());
+        }else{
+            lbl_techo.setText("");
+        }
+
+        if(canchaInfoObject.get(0).getSeEncuentra() != null){
+            lbl_se_encuentra.setText(canchaInfoObject.get(0).getSeEncuentra());
+        }else{
+            lbl_se_encuentra.setText("");
+        }
+
+        if(canchaInfoObject.get(0).getSeEncuentra() != null){
+            lbl_se_encuentra.setText(canchaInfoObject.get(0).getSeEncuentra());
+        }else{
+            lbl_se_encuentra.setText("");
+        }
+
+        if(canchaInfoObject.get(0).getAdministradoPor() != null){
+            lbl_administrado_por.setText(canchaInfoObject.get(0).getAdministradoPor());
+        }else{
+            lbl_administrado_por.setText("");
+        }
+
+        if(canchaInfoObject.get(0).getGraderias() != null){
+            lbl_graderias.setText(canchaInfoObject.get(0).getGraderias());
+        }else{
+            lbl_graderias.setText("");
+        }
+
+        if(canchaInfoObject.get(0).getBanos() != null){
+            lbl_banhio.setText(canchaInfoObject.get(0).getBanos());
+        }else{
+          lbl_banhio.setText("");
+        }
+
+        if(canchaInfoObject.get(0).getCamerinos() != null){
+            lbl_camerinos.setText(canchaInfoObject.get(0).getCamerinos());
+        }else{
+            lbl_camerinos.setText("");
+        }
+
+        if(canchaInfoObject.get(0).getAccesoLibre() != null){
+            lbl_horarios_acceso_libre.setText(canchaInfoObject.get(0).getAccesoLibre());
+        }else{
+            lbl_horarios_acceso_libre.setText("");
+        }
+
+        if(canchaInfoObject.get(0).getQuienRealizo() != null){
+            lbl_realizado_por.setText(canchaInfoObject.get(0).getQuienRealizo() + "");
+        }else{
+            lbl_realizado_por.setText("");
+        }
+
+        if(canchaInfoObject.get(0).getEstado() != null){
+            lbl_estado.setText(canchaInfoObject.get(0).getEstado());
+        }else{
+            lbl_estado.setText("");
+        }
+
         distrito = canchaInfoObject.get(0).getDistrito();
-        lbl_distrito.setText(distrito);
-        lbl_direccion.setText(canchaInfoObject.get(0).getDireccion());
-        lbl_telefono.setText(canchaInfoObject.get(0).getTelefono());
-        canchaInfoObject.get(0).getPrecioHora();
+
+        if(distrito != null){
+            lbl_distrito.setText(distrito);
+        }else{
+            lbl_distrito.setText("");
+        }
+
+        if(canchaInfoObject.get(0).getDireccion() != null){
+            lbl_direccion.setText(canchaInfoObject.get(0).getDireccion());
+        }else{
+            lbl_direccion.setText("");
+        }
+
+        if(canchaInfoObject.get(0).getTelefono() != null){
+            lbl_telefono.setText(canchaInfoObject.get(0).getTelefono());
+        }else{
+            lbl_telefono.setText("");
+        }
+
+         canchaInfoObject.get(0).getPrecioHora();
         precio_hora = canchaInfoObject.get(0).getPrecioHora();
         lbl_precio_hora.setText("Bs. " + precio_hora);
+        if(precio_hora == null){
+            lbl_precio_hora.setText("");
+        }else{
+            lbl_precio_hora.setText("Bs. " + precio_hora);
+        }
+
         images.add(canchaInfoObject.get(0).getFoto1());
         images.add(canchaInfoObject.get(0).getFoto2());
         images.add(canchaInfoObject.get(0).getFoto3());
