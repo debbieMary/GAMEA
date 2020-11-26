@@ -263,5 +263,8 @@ public class CanchaInformacionActivity extends AppCompatActivity implements Canc
     @Override
     public void showErrorMessage(String message) {
         Toast.makeText(this, message, Toast.LENGTH_LONG).show();
+        if(message.contains("Para reservar canchas")){
+            finish();
+        }
     }
 }
