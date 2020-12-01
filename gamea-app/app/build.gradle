@@ -68,4 +68,6 @@ dependencies {
     //COMRESOR
     implementation 'id.zelory:compressor:2.1.0'
     implementation 'androidx.viewpager:viewpager:1.0.0'
+
+    implementation 'com.auth0.android:jwtdecode:2.0.0'
 }

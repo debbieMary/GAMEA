@@ -3,6 +3,8 @@ package elalto.network.entities;
 import android.content.Context;
 import android.content.SharedPreferences;
 
+import com.auth0.android.jwt.JWT;
+
 
 public class UserManager {
 
@@ -43,12 +45,20 @@ public class UserManager {
         editor.commit();
 
     }
-    public Integer getIdUser(Context context)
+    /*public Integer getIdUser(Context context)
     {
         prefs =context.getSharedPreferences("UserData", Context.MODE_PRIVATE);
         editor = prefs.edit();
         Integer id_user=  prefs.getInt("id_user",0);
         return (id_user != 0) ? id_user : 0;
+    }*/
+
+
+    public Integer getIdUser(AccessToken accessToken)
+    {
+        JWT jwt = new JWT(accessToken.getAccess_token());
+
+        return jwt.getClaim("id_user").asInt();
     }
 
 

@@ -15,9 +15,11 @@ import elalto.gamea.map.canchas.presenter.CantidadReservasPendientesView;
 import elalto.gamea.map.canchas.utils.GeneralUtils;
 import elalto.network.canchas.entities.IdUsuarioBody;
 import elalto.network.canchas.entities.ReservaBody;
+import elalto.network.entities.TokenManager;
 import elalto.network.entities.UserManager;
 
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -66,16 +68,18 @@ public class ReservarCanchaActivity extends AppCompatActivity implements CanchaR
     IdUsuarioBody idUsuarioBody = new IdUsuarioBody();
     ProgressDialog progressDialog;
     UserManager userManager= new UserManager();
-
+    TokenManager tokenManager;
+    String id_usuario;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_reservar_cancha);
         setHorariosSpinner();
         setHorasArrayInit();
-
+        tokenManager = TokenManager.getInstance(this.getSharedPreferences("prefs", Context.MODE_PRIVATE));
         cantidadReservasPendientesPresenter = new CantidadReservasPendientesPresenterImpl(this, new CanchasInteractorImpl());
-        idUsuarioBody.setIdUsuario(String.valueOf(userManager.getIdUser(this)));
+        id_usuario= String.valueOf(userManager.getIdUser(tokenManager.getToken()));
+        idUsuarioBody.setIdUsuario(id_usuario);
         cantidadReservasPendientesPresenter.getCantidadReservasPendientes(idUsuarioBody);
 
         toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -226,7 +230,7 @@ public class ReservarCanchaActivity extends AppCompatActivity implements CanchaR
     public ReservaBody getReservaBody() {
         ReservaBody reservaBody = new ReservaBody();
         reservaBody.setIdCancha(id_cancha);
-        reservaBody.setIdUsuario(String.valueOf(userManager.getIdUser(this)));
+        reservaBody.setIdUsuario(id_usuario);
         reservaBody.setFechaReserva(fecha_reserva);
         reservaBody.setHoraInicio(selected_hora_inicio);
         reservaBody.setHoraFin(selected_hora_fin);

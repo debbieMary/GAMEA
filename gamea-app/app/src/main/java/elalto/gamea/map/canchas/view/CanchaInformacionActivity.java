@@ -26,10 +26,9 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CanchaInformacionActivity extends AppCompatActivity implements CanchasInfoView, UserCanchasView {
+public class CanchaInformacionActivity extends AppCompatActivity implements CanchasInfoView {
 
     CanchasInfoPresenter canchasInfoPresenter;
-    UserCanchasPresenter userCanchasPresenter;
     Toolbar toolbar;
     Bundle bundle;
     String nombre_cancha;
@@ -55,7 +54,6 @@ public class CanchaInformacionActivity extends AppCompatActivity implements Canc
     TextView lbl_telefono;
     TextView lbl_precio_hora;
     Integer precio_hora;
-    UserManager userManager = new UserManager();
 
     ArrayList<String> images = new ArrayList<String>();
 
@@ -78,7 +76,6 @@ public class CanchaInformacionActivity extends AppCompatActivity implements Canc
         lbl_nombre_cancha.setText(nombre_cancha);
         canchasInfoPresenter = new CanchasInfoPresenterImpl(this, new CanchasInteractorImpl());
         canchasInfoPresenter.getCanchasInfo(id_cancha);
-        userCanchasPresenter = new UserCanchasPresenterImpl(this, new CanchasInteractorImpl());
     }
 
     public void verHorariosDisponibles(View v) {
@@ -103,12 +100,6 @@ public class CanchaInformacionActivity extends AppCompatActivity implements Canc
     @Override
     public void hideProgress() {
         progressDialog.hide();
-    }
-
-    @Override
-    public void populateUser(List<UserCanchas> userCanchas) {
-        userManager.saveIdUser(this, userCanchas.get(0).getIdUser());
-        userManager.saveUserName(this, userCanchas.get(0).getNombres()+ " " + userCanchas.get(0).getApellidos());
     }
 
     @Override
@@ -220,20 +211,8 @@ public class CanchaInformacionActivity extends AppCompatActivity implements Canc
         images.add(canchaInfoObject.get(0).getFoto2());
         images.add(canchaInfoObject.get(0).getFoto3());
         setViewPagerImages();
-        getUserInformation();
     }
 
-
-    public void getUserInformation() {
-        String userCi = userManager.getCi(this);
-        if (!userCi.equals("")) {
-            ListarUserBody listarUserBody = new ListarUserBody();
-            listarUserBody.setCi(userCi);
-            userCanchasPresenter.getUser(listarUserBody);
-        } else {
-            Toast.makeText(this, "No se pudo obtener datos de usuario", Toast.LENGTH_LONG).show();
-        }
-    }
 
     public void setViewPagerImages() {
         mCustomPagerAdapter = new CustomPagerAdapter(this, images);
@@ -263,8 +242,5 @@ public class CanchaInformacionActivity extends AppCompatActivity implements Canc
     @Override
     public void showErrorMessage(String message) {
         Toast.makeText(this, message, Toast.LENGTH_LONG).show();
-        if(message.contains("Para reservar canchas")){
-            finish();
-        }
     }
 }
